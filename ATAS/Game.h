@@ -97,8 +97,10 @@ public:
 	float y;
 	float angle;
 	float width = 0.5;
+	float c_angle = 0.0;
 	int height = 1;
 	float RateOfShoot;
+	bool isUnder = false;
 	vector<Bullet*> bullets;
 
 	~Gun()
@@ -115,7 +117,10 @@ public:
 		
 		glPushMatrix();
 		glTranslatef(x + 0.125, y - 0.5, 0);
-		glRotatef(angle - 90, 0, 0, 1);
+		if(isUnder)
+			glRotatef(-(angle - 90 + c_angle * 180 / 3.14159), 0, 0, 1);
+		else
+			glRotatef(angle - 90 + c_angle * 180 / 3.14159, 0, 0, 1);
 		glTranslatef(-(x + 0.125), -(y - 0.5), 0);
 		glRectd(x, y, x + width, y + height);
 		glEnd();
@@ -128,8 +133,16 @@ public:
 		newBullet->x = x + 0.125;
 		newBullet->y = y;
 
-		newBullet->forwardVec[0] = cos(angle  * 3.14159 / 180);
-		newBullet->forwardVec[1] = sin(angle  * 3.14159 / 180);
+		if (!isUnder)
+		{
+			newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
+			newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
+		}
+		else
+		{
+			newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
+			newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
+		}
 		bullets.push_back(newBullet);
 	}
 
@@ -154,11 +167,6 @@ public:
 			}
 		}
 		//메모리 삭제도 이루어져야함.
-	}
-
-	void GunRotate()
-	{
-
 	}
 };
 
@@ -195,6 +203,7 @@ public:
 		gun->x = x - 0.125;
 		gun->y = y + 0.5;
 		gun->angle = angle;
+		gun->c_angle = c_angle;
 	}
 
 	void drawUser()
@@ -207,8 +216,13 @@ public:
 			double py = sin(angle) * RADIUS;
 			glVertex2d(px + x, py + y);
 		}*/
+		
+		glPushMatrix();
+		glTranslatef(x, y, 0);
+		glRotatef(c_angle * 180 / 3.14159, 0, 0, 1);
+		glTranslatef(-x , -y, 0);
 		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
-		glEnd();
+		
 		//body
 
 		glColor3f(0, 0, 1);
@@ -220,7 +234,7 @@ public:
 			double py = sin(angle) / 1.5 * RADIUS;
 			glVertex2d(px + x - 1.75f, py + y);
 		}
-		glEnd(); //left tire
+		//glEnd(); //left tire
 
 		glColor3f(0, 0, 1);
 		glBegin(GL_POLYGON);
@@ -231,9 +245,10 @@ public:
 			double py = sin(angle) / 1.5 * RADIUS;
 			glVertex2d(px + x + 1.75f, py + y);
 		}
-		glEnd(); //right tire
+		//glEnd(); //right tire
 
-		
+		glEnd();
+		glPopMatrix();
 	}
 
 	void MoveUser(float left, float right)
@@ -242,17 +257,17 @@ public:
 		c_angle += sum;
 		if (c_angle < 0)
 		{
-			this->x -= cosf(c_angle) * 2;
-			this->y -= sinf(c_angle) * 2;
+			this->x -= cosf(c_angle - 90);
+			this->y -= sinf(c_angle - 90);
 		}
 		else
 		{
-			this->x += cosf(c_angle) * 2;
-			this->y += sinf(c_angle) * 2;
+			this->x += cosf(c_angle + 90);
+			this->y += sinf(c_angle + 90);
 		}
 	}
 
-	void RotateUser(int value)
+	void RotateCannon(int value)
 	{
 		angle += value;
 	}
@@ -281,29 +296,76 @@ public:
 
 	void UpdateGunPos()
 	{
-		gun->x = x - 0.125;
+		gun->x = x;
 		gun->y = y + 0.5;
 		gun->angle = angle;
+		gun->c_angle = c_angle;
+		gun->isUnder = true;
 	}
 
-	void drawEnemy()
+	void drawUser()
 	{
 		glColor3f(1, 0, 1);
-		glBegin(GL_POLYGON);
-		for (int i = 0; i <= 300; i++) {
+		//glBegin(GL_POLYGON);
+		/*for (int i = 0; i <= 300; i++) {
 			double angle = 2 * 3.14159 * i / 300;
 			double px = cos(angle) * RADIUS;
 			double py = sin(angle) * RADIUS;
 			glVertex2d(px + x, py + y);
-		}
+		}*/
+
 		glPushMatrix();
-		glRotatef(1, x, y, 1);
-		glPopMatrix();
-		glFlush();
+		glTranslatef(x, y, 0);
+		glRotatef(-c_angle * 180 / 3.14159, 0, 0, 1);
+		glTranslatef(-x, -y, 0);
+		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
 		glEnd();
+
+		//body
+
+		glColor3f(0, 1, 1);
+		glBegin(GL_POLYGON);
+		for (int i = 0; i <= 300; i++)
+		{
+			double angle = 2 * 3.14159 * i / 300;
+			double px = cos(angle) / 1.5 * RADIUS;
+			double py = sin(angle) / 1.5 * RADIUS;
+			glVertex2d(px + x - 1.75f, py + y);
+		}
+		glEnd(); //left tire
+
+		glColor3f(0, 1, 1);
+		glBegin(GL_POLYGON);
+		for (int i = 0; i <= 300; i++)
+		{
+			double angle = 2 * 3.14159 * i / 300;
+			double px = cos(angle) / 1.5 * RADIUS;
+			double py = sin(angle) / 1.5 * RADIUS;
+			glVertex2d(px + x + 1.75f, py + y);
+		}
+		//glEnd(); //right tire
+
+		glEnd();
+		glPopMatrix();
 	}
 
-	void RotateEnemy(int value)
+	void MoveUser(float left, float right)
+	{
+		float sum = right - left;
+		c_angle += sum;
+		if (c_angle < 0)
+		{
+			this->x -= cosf(c_angle - 90);
+			this->y += sinf(c_angle - 90);
+		}
+		else
+		{
+			this->x += cosf(c_angle + 90);
+			this->y -= sinf(c_angle + 90);
+		}
+	}
+
+	void RotateCannon(int value)
 	{
 		angle += value;
 	}

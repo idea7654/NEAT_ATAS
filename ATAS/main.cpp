@@ -8,8 +8,8 @@
 
 using namespace std;
 
-#define COLUMNS 60
-#define ROWS 60
+#define COLUMNS 100
+#define ROWS 100
 
 #define FPS 60
 
@@ -20,33 +20,44 @@ void keyboard_callback(int, int, int);
 
 vector<Wall*> walls;
 vector<Enemy*> enemies;
-User *user;
+vector<User*> users;
+//User *user;
 
 int main(int argc, char **argv)
 {
 	Init_WELL_RAND();
-	Wall *wall_1 = new Wall(0, 0, 60, 5); //bottom
-	Wall *wall_2 = new Wall(0, 55, 60, 5); // top
-	Wall *wall_3 = new Wall(0, 0, 5, 60); // left
-	Wall *wall_4 = new Wall(55, 0, 5, 60); // right
+	Wall *wall_1 = new Wall(0, 0, COLUMNS, 5); //bottom
+	Wall *wall_2 = new Wall(0, COLUMNS - 5, COLUMNS, 5); // top
+	Wall *wall_3 = new Wall(0, 0, 5, COLUMNS); // left
+	Wall *wall_4 = new Wall(COLUMNS - 5, 0, 5, COLUMNS); // right
 	walls.push_back(wall_1);
 	walls.push_back(wall_2);
 	walls.push_back(wall_3);
 	walls.push_back(wall_4);
 
-	user = new User(10, 10);
+	//user = new User(10, 10);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		int x = randbtn(5, 55);
-		int y = randbtn(30, 55);
+		int x = randbtn(15, COLUMNS - 15);
+		int y = randbtn(60, COLUMNS - 15);
+
 		Enemy *enemy = new Enemy(x, y);
 		enemies.push_back(enemy);
+	} //Enemy Spawn
+
+	for (int i = 0; i < 3; i++)
+	{
+		int x = randbtn(15, COLUMNS - 15);
+		int y = randbtn(15, COLUMNS / 2 - 10);
+		
+		User *user = new User(x, y);
+		users.push_back(user);
 	}
     
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(600, 600);
+	glutInitWindowSize(1000, 1000);
 	glutInitWindowPosition(350, 40);
 
 	glutCreateWindow("ATAS");
@@ -59,7 +70,12 @@ int main(int argc, char **argv)
 
 	for (auto &i : walls)
 		delete i;
-	delete user;
+	//delete user;
+	for (auto &i : users)
+		delete i;
+
+	for (auto &i : enemies)
+		delete i;
 
 	return 0;
 }
@@ -75,26 +91,34 @@ void display_callback()
 		//i->Collision(user);
 	}
 
-	user->drawUser();
+	/*user->drawUser();
 	user->UpdateGunPos();
-	user->gun->DrawGun();
+	user->gun->DrawGun();*/
+
+	for (auto &i : users)
+	{
+		i->drawUser();
+		i->UpdateGunPos();
+		i->gun->DrawGun();
+
+		if (i->gun->bullets.size() > 0)
+		{
+			for (auto &j : i->gun->bullets)
+			{
+				j->MoveBullet();
+				j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+				j->drawBullet();
+			}
+			i->gun->DestoryBullet();
+		}
+	}
 
 	for (auto &i : enemies)
 	{
-		i->drawEnemy();
+		//i->drawEnemy();
+		i->drawUser();
 		i->UpdateGunPos();
 		i->gun->DrawGun();
-	}
-
-	if (user->gun->bullets.size() > 0)
-	{
-		for (auto &i : user->gun->bullets)
-		{
-			i->MoveBullet();
-			i->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-			i->drawBullet();
-		}
-		user->gun->DestoryBullet();
 	}
 
 	for (auto &i : enemies)
@@ -134,16 +158,28 @@ void keyboard_callback(int key, int, int)
 {
 	if (key == GLUT_KEY_UP)
 	{
-		user->gun->Shoot();
+		//user->gun->Shoot();
+		enemies[0]->gun->Shoot();
 	}
 
 	if (key == GLUT_KEY_RIGHT)
 	{
-		user->RotateUser(1);
+		//user->RotateUser(1);
+		//user->MoveUser(2.1f, 2.0f);
+		///user->RotateUser(COLUMNS / 10000);
+		enemies[0]->MoveUser(2.0f, 2.1f);
 	}
 
 	if (key == GLUT_KEY_LEFT)
 	{
-		user->MoveUser(2.0f, 2.5f);
+		//user->MoveUser(2.0f, 2.1f);
+		//user->RotateUser(COLUMNS / 10000);
+		enemies[0]->MoveUser(2.1f, 2.0f);
+	}
+
+	if (key == GLUT_KEY_DOWN)
+	{
+		//user->RotateCannon(1);
+		enemies[0]->RotateCannon(1);
 	}
 }
