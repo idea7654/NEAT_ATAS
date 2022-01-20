@@ -3,8 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <future>
 #include "Game.h"
 #include "RandWell.h"
+#include "neat.h"
+#include "population.h"
+#include "experiments.h"
 
 using namespace std;
 
@@ -19,8 +23,8 @@ void reshape_callback(int, int);
 void keyboard_callback(int, int, int);
 
 vector<Wall*> walls;
-vector<Enemy*> enemies;
-vector<User*> users;
+//vector<Enemy*> enemies;
+//vector<User*> users;
 //User *user;
 
 int main(int argc, char **argv)
@@ -35,7 +39,11 @@ int main(int argc, char **argv)
 	walls.push_back(wall_3);
 	walls.push_back(wall_4);
 
-	//user = new User(10, 10);
+	NEAT::Population *p = 0;
+
+	/*future<void> future = async(launch::async, []() {
+		tank_game(100);
+		});*/
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -43,6 +51,7 @@ int main(int argc, char **argv)
 		int y = randbtn(60, COLUMNS - 15);
 
 		Enemy *enemy = new Enemy(x, y);
+		enemy->gun->Whohas = enemy;
 		enemies.push_back(enemy);
 	} //Enemy Spawn
 
@@ -52,6 +61,8 @@ int main(int argc, char **argv)
 		int y = randbtn(15, COLUMNS / 2 - 10);
 		
 		User *user = new User(x, y);
+		user->gun->Whohas = user;
+		user->isUnder = true;
 		users.push_back(user);
 	}
     
@@ -77,6 +88,9 @@ int main(int argc, char **argv)
 	for (auto &i : enemies)
 		delete i;
 
+	if (p)
+		delete p;
+
 	return 0;
 }
 
@@ -97,41 +111,81 @@ void display_callback()
 
 	for (auto &i : users)
 	{
-		i->drawUser();
-		i->UpdateGunPos();
-		i->gun->DrawGun();
-
-		if (i->gun->bullets.size() > 0)
+		if (!i->isDie)
 		{
-			for (auto &j : i->gun->bullets)
+			i->drawUser();
+			i->UpdateGunPos();
+			i->gun->DrawGun();
+
+			if (i->gun->bullets.size() > 0)
 			{
-				j->MoveBullet();
-				j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-				j->drawBullet();
+				for (auto &j : i->gun->bullets)
+				{
+					j->MoveBullet();
+					j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+					j->drawBullet();
+				}
+				i->gun->DestoryBullet();
 			}
-			i->gun->DestoryBullet();
 		}
 	}
 
 	for (auto &i : enemies)
 	{
 		//i->drawEnemy();
-		i->drawUser();
-		i->UpdateGunPos();
-		i->gun->DrawGun();
+		if (!i->isDie)
+		{
+			i->drawUser();
+			i->UpdateGunPos();
+			i->gun->DrawGun();
+		}
 	}
 
 	for (auto &i : enemies)
 	{
-		if (i->gun->bullets.size() > 0)
+		if (!i->isDie)
 		{
-			for (auto &j : i->gun->bullets)
+			if (i->gun->bullets.size() > 0)
 			{
-				j->MoveBullet();
-				j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-				j->drawBullet();
+				for (auto &j : i->gun->bullets)
+				{
+					j->MoveBullet();
+					j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+					j->drawBullet();
+				}
+				i->gun->DestoryBullet();
 			}
-			i->gun->DestoryBullet();
+		}
+	}
+
+	for (auto &i : Gbullets)
+	{
+		if (i->WhoShoot->isUnder)
+		{
+			for (auto &j : enemies)
+			{
+				//적들과의 충돌처리!
+				if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+				{
+					j->hp -= 20;
+					i->isDestroy = true;
+					if (j->hp <= 0)
+						j->isDie = true;
+				}
+			}
+		}
+		else
+		{
+			for (auto &j : users)
+			{
+				if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+				{
+					j->hp -= 20;
+					i->isDestroy = true;
+					if (j->hp <= 0)
+						j->isDie = true;
+				}
+			}
 		}
 	}
 

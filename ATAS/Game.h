@@ -61,6 +61,8 @@ public:
 	float y;
 	float forwardVec[2];
 	bool isDestroy = false;
+	Character *WhoShoot;
+	Character *WhoDamaged;
 
 	void CheckRemoveBullet(Wall *left, Wall *right, Wall *bottom, Wall *top)
 	{
@@ -90,6 +92,8 @@ public:
 	}
 };
 
+static vector<Bullet*> Gbullets;
+
 class Gun
 {
 public:
@@ -101,6 +105,7 @@ public:
 	int height = 1;
 	float RateOfShoot;
 	bool isUnder = false;
+	Character *Whohas;
 	vector<Bullet*> bullets;
 
 	~Gun()
@@ -143,7 +148,9 @@ public:
 			newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
 			newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
 		}
+		newBullet->WhoShoot = Whohas;
 		bullets.push_back(newBullet);
+		Gbullets.push_back(newBullet);
 	}
 
 	void DestoryBullet()
@@ -158,6 +165,10 @@ public:
 		bullets.erase(remove_if(begin(bullets), end(bullets), [&](Bullet *bullet) {
 			return bullet->isDestroy == true;
 			}), bullets.end());
+
+		Gbullets.erase(remove_if(begin(Gbullets), end(Gbullets), [&](Bullet *bullet) {
+			return bullet->isDestroy == true;
+			}), Gbullets.end());
 
 		if (removeList.size() > 0)
 		{
@@ -180,6 +191,9 @@ public:
 	float left_angle = 0.0f;
 	float right_angle = 0.0f;
 	float c_angle = 0.0f;
+	bool isDie = false;
+	bool isUnder = false;
+	int hp = 100;
 };
 
 class User : public Character
