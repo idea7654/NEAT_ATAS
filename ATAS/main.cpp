@@ -116,6 +116,11 @@ void display_callback()
 			i->drawUser();
 			i->UpdateGunPos();
 			i->gun->DrawGun();
+			i->UserCollider();
+			for (auto &j : walls)
+			{
+				i->Collision(j);
+			}
 
 			if (i->gun->bullets.size() > 0)
 			{
@@ -135,6 +140,11 @@ void display_callback()
 		//i->drawEnemy();
 		if (!i->isDie)
 		{
+			for (auto &j : walls)
+			{
+				i->Collision(j);
+			}
+			i->EnemyCollider();
 			i->drawUser();
 			i->UpdateGunPos();
 			i->gun->DrawGun();

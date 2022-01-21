@@ -194,6 +194,31 @@ public:
 	bool isDie = false;
 	bool isUnder = false;
 	int hp = 100;
+
+	void Collision(Wall *wall)
+	{
+		//if (this->x - 2.5 + 5 >= wall->x && this->x - 2.5 <= wall->x + wall->width && this->y - 2.5 + 5 >= wall->y && this->y - 2.5 <= wall->y + wall->height)
+		//{
+		//	//cout << "Ãæµ¹!!" << endl;
+		//	this->isDie = true;
+		//}
+		if (x < 7)
+		{
+			x = 7;
+		}
+		if (x > 93)
+		{
+			x = 93;
+		}
+		if (y > 93)
+		{
+			y = 93;
+		}
+		if (y < 7)
+		{
+			y = 7;
+		}
+	}
 };
 
 class User : public Character
@@ -218,6 +243,12 @@ public:
 		gun->y = y + 0.5;
 		gun->angle = angle;
 		gun->c_angle = c_angle;
+	}
+
+	void UserCollider()
+	{
+		if (this->y > 40)
+			this->y = 40;
 	}
 
 	void drawUser()
@@ -315,6 +346,12 @@ public:
 		gun->angle = angle;
 		gun->c_angle = c_angle;
 		gun->isUnder = true;
+	}
+
+	void EnemyCollider()
+	{
+		if (this->y <= 60)
+			this->y = 60;
 	}
 
 	void drawUser()
