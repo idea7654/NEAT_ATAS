@@ -43,6 +43,6 @@ void cart_pole(int action, float *x, float *x_dot, float *theta, float *theta_do
 //void GetMaxOrg(Organism* &org);
 
 Population *tank_game(int gens);
-bool tank_evaluate(Organism *org);
+bool tank_evaluate(Organism *org, bool &isWin);
 int measure_fitness_tank(Population *pop, int generation, char *filename);
 int try_tank(Network *net, int max_steps, int thresh);

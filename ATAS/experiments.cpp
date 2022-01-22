@@ -301,343 +301,6 @@ void cart_pole(int action, float *x, float *x_dot, float *theta, float *theta_do
 	*theta_dot += TAU * thetaacc;
 }
 
-//Population * flappy_bird(int gens, Bird *bird)
-//{
-//	Population *pop = 0;
-//	Genome *start_genome;
-//	char curword[20];
-//	int id = 0;
-//
-//	newBird = bird;
-//
-//	ostringstream *fnamebuf;
-//	int gen = 0;
-//
-//	int status = 0;
-//	int runs[1];
-//	int totalevals = 0;
-//	int samples = 0;  //For averaging
-//
-//	memset(runs, 0, NEAT::num_runs * sizeof(int));
-//
-//	ifstream iFile("flappybird", ios::in);
-//
-//	cout << "START Flappy Bird Evolution!" << endl;
-//
-//	cout << "Reading in the start genome" << endl;
-//	//Read in the start Genome
-//	iFile >> curword;
-//	iFile >> id;
-//	cout << "Reading in Genome id " << id << endl;
-//	start_genome = new Genome(id, iFile);
-//	iFile.close();
-//
-//	//Run multiple experiments
-//
-//	cout << "Start Genome: " << start_genome << endl;
-//
-//		//Spawn the Population
-//	cout << "Spawning Population off Genome" << endl;
-//
-//	pop = new Population(start_genome, NEAT::pop_size);
-//
-//	cout << "Verifying Spawned Pop" << endl;
-//	pop->verify();
-//
-//	for (gen = 1; gen <= gens; gen++) {
-//		cout << "Generation " << gen << endl;
-//
-//		fnamebuf = new ostringstream();
-//		(*fnamebuf) << "gen_" << gen << ends;  //needs end marker
-//
-//
-//		char temp[50];
-//		sprintf(temp, "gen_%d", gen);
-//
-//		//status = pole1_epoch(pop, gen, temp);
-//		//status=(pole1_epoch(pop,gen,fnamebuf->str()));
-//		status = measure_fitness_flappybird(pop, gen, temp);
-//
-//		if (status) {
-//			runs[0] = status;
-//			gen = gens + 1;
-//		}
-//		fnamebuf->clear();
-//		delete fnamebuf;
-//
-//		//if (0 < NEAT::num_runs - 1) delete pop;
-//	}
-//
-//	totalevals = 0;
-//	samples = 0;
-//	//cout << runs[expcount] << endl;
-//	if (runs[0] > 0)
-//	{
-//		totalevals += runs[0];
-//		samples++;
-//	}
-//
-//	cout << "Failures: " << (NEAT::num_runs - samples) << " out of " << NEAT::num_runs << " runs" << endl;
-//	cout << "Average evals: " << (samples > 0 ? (double)totalevals / samples : 0) << endl;
-//
-//
-//	return pop;
-//}
-//
-//int measure_fitness_flappybird(Population * pop, int generation, char * filename)
-//{
-	//vector<Organism*>::iterator curorg;
-	//vector<Species*>::iterator curspecies;
-
-	//ofstream cfilename(filename.c_str());
-
-	//bool win = false;
-	//int winnernum = 0;
-
-	//Evaluate each organism on a test
-	///*for (curorg = (pop->organisms).begin(); curorg != (pop->organisms).end(); ++curorg) {
-	//	if (flappybird_evaluate(*curorg)) win = true;
-	//}*/
-	//vector<thread> thread_pool;
-	//for (auto &i : pop->organisms)
-	//{
-	//	newBird->posY = 30;
-	//	newBird->gameOver = false;
-	//	newBird->score = 0;
-	//	
-	//	if (!maxOrganism)
-	//	{
-	//		maxOrganism = i;
-	//	}
-	//	else {
-	//		if (i->fitness > maxOrganism->fitness)
-	//			maxOrganism = i;
-	//	}
-
-	//	if (flappybird_evaluate(i))
-	//		win = true;
-	//	thread_pool.emplace_back(thread(&flappybird_evaluate, i));
-	//}
-
-	//for (auto &thread : thread_pool)
-	//	thread.join();
-
-	//Average and max their fitnesses for dumping to file and snapshot
-	//for (curspecies = (pop->species).begin(); curspecies != (pop->species).end(); ++curspecies) {
-	//	This experiment control routine issues commands to collect ave
-	//	and max fitness, as opposed to having the snapshot do it, 
-	//	because this allows flexibility in terms of what time
-	//	to observe fitnesses at
-
-	//	(*curspecies)->compute_average_fitness();
-	//	(*curspecies)->compute_max_fitness();
-	//}
-
-	//Only print to file every print_every generations
-	//if (win || ((generation % (NEAT::print_every)) == 0))
-	//	pop->print_to_file_by_species(filename);
-
-	//if (win) {
-	//	for (curorg = (pop->organisms).begin(); curorg != (pop->organisms).end(); ++curorg) {
-	//		if ((*curorg)->winner) {
-	//			winnernum = ((*curorg)->gnome)->genome_id;
-	//			cout << "WINNER IS #" << ((*curorg)->gnome)->genome_id << endl;
-	//		}
-	//	}
-	//}
-	//Create the next generation
-	//pop->epoch(generation);
-
-	///*for (auto &i : birds)
-	//{
-	//	i->posY = 30;
-	//	i->gameOver = false;
-	//	i->score = 0;
-	//}
-	//Initialize();*/
-	//
-
-	//if (win) return ((generation - 1)*NEAT::pop_size + winnernum);
-	//else return 0;
-//}
-//
-//bool flappybird_evaluate(Organism * org)
-//{
-//	Network *net;
-//
-//	int numnodes;  /* Used to figure out how many nodes
-//			  should be visited during activation */
-//	int thresh;  /* How many visits will be allowed before giving up
-//			(for loop detection) */
-//
-//			//  int MAX_STEPS=120000;
-//	int MAX_STEPS = 100000;
-//
-//	if (org)
-//		net = org->net;
-//	else
-//		return false;
-//	
-//	numnodes = ((org->gnome)->nodes).size();
-//	thresh = numnodes * 2;  //Max number of visits allowed per activation
-//
-//	//Try to balance a pole now
-//	
-//	if (net->net_id > 0)
-//	{
-//		org->fitness = try_flappybird(net, MAX_STEPS, thresh);
-//		//cout << org->fitness << endl;
-//	}
-//	else
-//		return false;
-//
-//	//Decide if its a winner
-//	if (org->fitness >= MAX_STEPS) {
-//		org->winner = true;
-//		return true;
-//	}
-//	else {
-//		org->winner = false;
-//		return false;
-//	}
-//} 
-//
-//int try_flappybird(Network * net, int max_steps, int thresh)
-//{
-//	//Measure Fitness
-//	float steps = 0;
-//
-//	double in[4];
-//
-//	double out_Up;
-//	double out_Down;
-//
-//	vector<NNode*>::iterator out_iter;
-//	float fitness = 0;
-//
-//	int before_pos = newBird->posY;
-//	while (newBird->gameOver)
-//	{
-//
-//	}
-//
-//	while (!newBird->gameOver && newBird->posY > 0 && newBird->posY < 80 && (fitness) / 100 * (newBird->score + 0.5) * (newBird->score + 0.5) + (newBird->score * 50) <= 1000001)
-//	{
-//		newBird->CalculateAngle();
-//		in[0] = 1.0;
-//		//in[1] = birds[net->net_id - 1]->posY; //Y벡터
-//		//in[2] = birds[net->net_id - 1]->angle_up; //위와의 각도
-//		//in[3] = birds[net->net_id - 1]->angle_down; //아래와의 각도
-//		in[1] = newBird->posY;
-//		in[2] = newBird->angle_up;
-//		in[3] = newBird->angle_down;
-//		//in[2] = posBarY[0] + 12 - newBird->posY;
-//		//in[3] = newBird->posY - posBarY[0];
-//
-//		net->load_sensors(in);
-//
-//		bool closeisUp = false;
-//		bool isIn = false;
-//		if (newBird->posY < newBird->posBarY[0])
-//			closeisUp = false;
-//		else if (newBird->posY > newBird->posBarY[0] + 12)
-//			closeisUp = true;
-//		else
-//		{
-//			isIn = true;
-//		}
-//		int previousValue = newBird->posY;
-//
-//		if (!(net->activate())) 
-//			return 1;
-//
-//		/*-- decide which way to push via which output unit is greater --*/
-//		out_iter = net->outputs.begin();
-//		out_Up = (*out_iter)->activation;
-//		++out_iter;
-//		out_Down = (*out_iter)->activation;
-//
-//		/*if (out_Up > out_Down)
-//			birds[net->net_id - 1]->posY++;
-//		else if (out_Up < out_Down)
-//			birds[net->net_id - 1]->posY--;
-//		else
-//			birds[net->net_id - 1]->posY = birds[net->net_id - 1]->posY;
-//
-//		birds[net->net_id - 1]->CalculateAngle();
-//		const int upAngle = (int)(birds[net->net_id - 1]->angle_up * 180 / 3.14159265358);
-//		const int downAngle = (int)(birds[net->net_id - 1]->angle_down * 180 / 3.14159265358);*/
-//		if (out_Up > out_Down)
-//		{
-//			newBird->posY++;
-//			//if (isIn && maxCheck > 10000)
-//			//	fitness += 0.1;
-//			//steps++;
-//		}
-//		else if (out_Up < out_Down)
-//		{
-//			newBird->posY--;
-//			//if (isIn && maxCheck > 10000)
-//			//	fitness += 0.1;
-//			//steps++;
-//		}
-//		else
-//			newBird->posY = newBird->posY;
-//		
-//		newBird->CalculateAngle();
-//		//const int upAngle = (int)(newBird->angle_up * 18 / 3.14159265358);
-//		//const int downAngle = (int)(newBird->angle_down * 18 / 3.14159265358);
-//		//fitness += (newBird->angle_up + newBird->angle_down) / 100 * (steps + 0.1) / 100000;
-//		//if (newBird->isProcess)
-//		//{
-//		///	fitness += (newBird->angle_up + newBird->angle_down);
-//		//	newBird->isProcess = false;
-//		//}
-//		if (isIn)
-//		{
-//
-//		}
-//		else
-//		{
-//			if (closeisUp)
-//			{
-//				if (newBird->posY < previousValue)
-//					fitness += 0.1;
-//				//else
-//				//	fitness -= 0.1;
-//			}
-//			else
-//			{
-//				if (newBird->posY > previousValue)
-//					fitness += 0.1;
-//				//else
-//				//	fitness -= 0.1;
-//			}
-//		}
-//		isIn = false;
-//		closeisUp = false;
-//		//steps += 0.00001;
-//	}
-//	//return (int)steps;
-//	//return (newBird->score + 0.5) * (newBird->score + 0.5);
-//	//return fitness * (steps + 0.1) / 10 * (newBird->score + 0.5) * (newBird->score + 0.5) / 10000;
-//	//return birds[net->net_id - 1]->score * birds[net->net_id - 1]->score;
-//	//통과할 때마다 100점
-//	//움직일때마다 0.1점
-//	//맞게 움직일때마다 0.2점?
-//	//if (steps == 0)
-//	//	return 0;
-//	if (fitness == 0)
-//		return 0;
-//	return (fitness) / 100 * (newBird->score + 0.5) * (newBird->score + 0.5) + (newBird->score * 40);
-//}
-//
-//extern void GetMaxOrg(Organism *& org)
-//{
-//	if (maxOrganism)
-//		org = maxOrganism;
-//}
-
 Population *tank_game(int gens)
 {
 	Population *pop = 0;
@@ -698,11 +361,12 @@ Population *tank_game(int gens)
 
 			//status = pole1_epoch(pop, gen, temp);
 			//status=(pole1_epoch(pop,gen,fnamebuf->str()));
+			status = measure_fitness_tank(pop, gen, temp);
 
-			/*if (status) {
+			if (status) {
 				runs[expcount] = status;
 				gen = gens + 1;
-			}*/
+			}
 			fnamebuf->clear();
 			delete fnamebuf;
 		}
@@ -727,7 +391,7 @@ Population *tank_game(int gens)
 	return pop;
 }
 
-bool tank_evaluate(Organism * org)
+bool tank_evaluate(Organism * org, bool &isWin)
 {
 	Network *net;
 
@@ -755,15 +419,20 @@ bool tank_evaluate(Organism * org)
 		//cout << org->fitness << endl;
 	}
 	else
+	{
+		isWin = false;
 		return false;
+	}
 
 	//Decide if its a winner
 	if (org->fitness >= MAX_STEPS) {
 		org->winner = true;
+		isWin = true;
 		return true;
 	}
 	else {
 		org->winner = false;
+		isWin = false;
 		return false;
 	}
 }
@@ -782,12 +451,28 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 	/*for (curorg = (pop->organisms).begin(); curorg != (pop->organisms).end(); ++curorg) {
 		if (flappybird_evaluate(*curorg)) win = true;
 	}*/
-	//vector<thread> thread_pool;
-	for (auto &i : pop->organisms)
+	vector<thread> thread_pool;
+
+	int count = 0;
+	while (count < pop->organisms.size())
 	{
-		if (tank_evaluate(i))
-			win = true;
-		//thread_pool.emplace_back(thread(&flappybird_evaluate, i));
+		for (auto &i : users)
+		{
+			thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win)));
+		}
+		count++;
+		for (auto &i : enemies)
+		{
+			thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win)));
+		}
+		count++;
+
+		for (auto &i : thread_pool)
+		{
+			i.join();
+		}
+
+		thread_pool.clear();
 	}
 
 	//for (auto &thread : thread_pool)
@@ -826,5 +511,27 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 int try_tank(Network * net, int max_steps, int thresh)
 {
 	//Measure Fitness
+	//Input Value
+	//1. 자신의 x 위치
+	//2. 자신의 y 위치
+	//3. 팀원1의 x 위치
+	//4. 팀원1의 y 위치
+	//5. 팀원2의 x 위치
+	//6. 팀원2의 y 위치
+	//7. 적1의 x 위치
+	//8. 적1의 y 위치
+	//9. 적2의 x 위치
+	//10. 적2의 y 위치
+	//11. 적3의 x 위치
+	//12. 적3의 y 위치
+	//13. 자신의 포의 각도
+	
+	//Output Value
+	//1. 왼쪽 바퀴 가속도
+	//2. 오른쪽 바퀴 가속도
+	//3. 쏠지 안쏠지
+	//4. 포 움직일 각도
+	double in[13];
+
 	return 0;
 }
