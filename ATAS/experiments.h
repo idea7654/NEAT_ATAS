@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cmath>
 #include <string>
+#include <atomic>
 #include "neat.h"
 #include "network.h"
 #include "population.h"
@@ -26,8 +27,12 @@ using namespace NEAT;
 //static Organism *maxOrganism;
 //
 
-static vector<User*> users;
-static vector<Enemy*> enemies;
+extern vector<User*> users;
+extern vector<Enemy*> enemies;
+extern atomic<bool> GameOver;
+extern atomic<bool> startNextGame;
+extern bool joinFinish;
+static mutex mutex_2;
 
 Population *pole1_test(int gens);
 bool pole1_evaluate(Organism *org);
@@ -43,6 +48,6 @@ void cart_pole(int action, float *x, float *x_dot, float *theta, float *theta_do
 //void GetMaxOrg(Organism* &org);
 
 Population *tank_game(int gens);
-bool tank_evaluate(Organism *org, bool &isWin);
+bool tank_evaluate(Organism *org, bool &isWin, int num);
 int measure_fitness_tank(Population *pop, int generation, char *filename);
-int try_tank(Network *net, int max_steps, int thresh);
+int try_tank(Network *net, int max_steps, int thresh, int num);

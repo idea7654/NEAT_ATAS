@@ -391,7 +391,7 @@ Population *tank_game(int gens)
 	return pop;
 }
 
-bool tank_evaluate(Organism * org, bool &isWin)
+bool tank_evaluate(Organism * org, bool &isWin, int num)
 {
 	Network *net;
 
@@ -415,7 +415,7 @@ bool tank_evaluate(Organism * org, bool &isWin)
 
 	if (net->net_id > 0)
 	{
-		org->fitness = try_tank(net, MAX_STEPS, thresh);
+		org->fitness = try_tank(net, MAX_STEPS, thresh, num);
 		//cout << org->fitness << endl;
 	}
 	else
@@ -456,23 +456,35 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 	int count = 0;
 	while (count < pop->organisms.size())
 	{
-		for (auto &i : users)
+		if (startNextGame)
 		{
-			thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win)));
-		}
-		count++;
-		for (auto &i : enemies)
-		{
-			thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win)));
-		}
-		count++;
+			startNextGame = false;
+			int num = 0;
+			for (auto &i : users)
+			{
+				thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win), num));
+				num++;
+			}
+			count++;
 
-		for (auto &i : thread_pool)
-		{
-			i.join();
-		}
+			for (auto &i : enemies)
+			{
+				thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win), num));
+				num++;
+			}
+			count++;
 
-		thread_pool.clear();
+			for (auto &i : thread_pool)
+			{
+				cout << "here" << endl;
+				i.join();
+			}
+
+			joinFinish = true;
+			cout << "join!" << endl;
+
+			thread_pool.clear();
+		}
 	}
 
 	//for (auto &thread : thread_pool)
@@ -508,7 +520,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 	else return 0;
 }
 
-int try_tank(Network * net, int max_steps, int thresh)
+int try_tank(Network * net, int max_steps, int thresh, int num)
 {
 	//Measure Fitness
 	//Input Value
@@ -531,7 +543,123 @@ int try_tank(Network * net, int max_steps, int thresh)
 	//2. 오른쪽 바퀴 가속도
 	//3. 쏠지 안쏠지
 	//4. 포 움직일 각도
-	double in[13];
 
-	return 0;
+	vector<NNode*>::iterator out_iter;
+	float fitness = 0;
+
+	cout << "Called!" << endl;
+	int random;
+	while (!GameOver) //다음으로 넘어갈 조건..->게임오버
+	{
+		//Measure만 넣으면 됨!!!
+		//mutex_2.lock();
+		//double out_Left;
+		//double out_Right;
+		//double out_isShoot;
+		//double out_angle;
+		//double in[13];
+
+		//if (num < 3)
+		//{
+		//	//User(아래쪽)
+		//	in[0] = users[num]->x;
+		//	in[1] = users[num]->y;
+		//	if (num == 0)
+		//	{
+		//		in[2] = users[num + 1]->x;
+		//		in[3] = users[num + 1]->y;
+		//		in[4] = users[num + 2]->x;
+		//		in[5] = users[num + 2]->y;
+		//	}
+		//	else if (num == 1)
+		//	{
+		//		in[2] = users[num - 1]->x;
+		//		in[3] = users[num - 1]->y;
+		//		in[4] = users[num + 1]->x;
+		//		in[5] = users[num + 1]->y;
+		//	}
+		//	else
+		//	{
+		//		in[2] = users[num - 2]->x;
+		//		in[3] = users[num - 2]->y;
+		//		in[4] = users[num - 1]->x;
+		//		in[5] = users[num - 1]->y;
+		//	}
+
+		//	in[6] = enemies[0]->x;
+		//	in[7] = enemies[0]->y;
+		//	in[8] = enemies[1]->x;
+		//	in[9] = enemies[1]->y;
+		//	in[10] = enemies[2]->x;
+		//	in[11] = enemies[2]->y;
+		//	in[12] = -(users[num]->angle - 90 + users[num]->c_angle * 180 / 3.14159);
+		//}
+		//else
+		//{
+		//	in[0] = enemies[num - 3]->x;
+		//	in[1] = enemies[num - 3]->y;
+		//	if (num == 3)
+		//	{
+		//		in[2] = enemies[num - 2]->x;
+		//		in[3] = enemies[num - 2]->y;
+		//		in[4] = enemies[num - 1]->x;
+		//		in[5] = enemies[num - 1]->y;
+		//	}
+		//	else if (num == 4)
+		//	{
+		//		in[2] = enemies[num - 4]->x;
+		//		in[3] = enemies[num - 4]->y;
+		//		in[4] = enemies[num - 2]->x;
+		//		in[5] = enemies[num - 2]->y;
+		//	}
+		//	else
+		//	{
+		//		in[2] = enemies[num - 5]->x;
+		//		in[3] = enemies[num - 5]->y;
+		//		in[4] = enemies[num - 4]->x;
+		//		in[5] = enemies[num - 4]->y;
+		//	}
+		//	in[6] = users[0]->x;
+		//	in[7] = users[0]->y;
+		//	in[8] = users[1]->x;
+		//	in[9] = users[1]->y;
+		//	in[10] = users[2]->x;
+		//	in[11] = users[2]->y;
+		//	in[12] = -(enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
+		//}
+
+		//net->load_sensors(in);
+
+		//if (!(net->activate()))
+		//	return 1;
+
+		//out_iter = net->outputs.begin();
+		//out_Left = (*out_iter)->activation;
+		//++out_iter;
+		//out_Right = (*out_iter)->activation;
+		//++out_iter;
+		//out_isShoot = (*out_iter)->activation;
+		//++out_iter;
+		//out_angle = (*out_iter)->activation / 1000000;
+
+		//if (num < 3)
+		//{
+		//	users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+		//	users[num]->RotateCannon(out_angle / 1000000);
+		//	if (out_isShoot > 0)
+		//		users[num]->gun->Shoot();
+		//}
+		//else
+		//{
+		//	enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+		//	enemies[num - 3]->RotateCannon(out_angle / 1000000);
+		//	if (out_isShoot > 0)
+		//		enemies[num - 3]->gun->Shoot();
+		//}
+		//mutex_2.unlock();
+		//Sleep(50);
+		random = randbtn(1, 10000);
+	}
+
+	return random;
 }

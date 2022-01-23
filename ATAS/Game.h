@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <mutex>
 
 using namespace std;
 
@@ -93,6 +94,7 @@ public:
 };
 
 static vector<Bullet*> Gbullets;
+static mutex m;
 
 class Gun
 {
@@ -105,6 +107,7 @@ public:
 	int height = 1;
 	float RateOfShoot;
 	bool isUnder = false;
+	double inputRotate;
 	Character *Whohas;
 	vector<Bullet*> bullets;
 
@@ -122,9 +125,11 @@ public:
 		
 		glPushMatrix();
 		glTranslatef(x + 0.125, y - 0.5, 0);
-		if(isUnder)
+		if (isUnder)
+			//glRotatef(inputRotate, 0, 0, 1);
 			glRotatef(-(angle - 90 + c_angle * 180 / 3.14159), 0, 0, 1);
 		else
+			//glRotatef(inputRotate, 0, 0, 1);
 			glRotatef(angle - 90 + c_angle * 180 / 3.14159, 0, 0, 1);
 		glTranslatef(-(x + 0.125), -(y - 0.5), 0);
 		glRectd(x, y, x + width, y + height);
@@ -134,10 +139,11 @@ public:
 
 	void Shoot()
 	{
+		m.lock();
 		Bullet *newBullet = new Bullet();
 		newBullet->x = x + 0.125;
 		newBullet->y = y;
-
+		newBullet->WhoShoot = Whohas;
 		if (!isUnder)
 		{
 			newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
@@ -148,13 +154,15 @@ public:
 			newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
 			newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
 		}
-		newBullet->WhoShoot = Whohas;
-		bullets.push_back(newBullet);
-		Gbullets.push_back(newBullet);
+		
+		bullets.emplace_back(newBullet);
+		Gbullets.emplace_back(newBullet);
+		m.unlock();
 	}
 
 	void DestoryBullet()
 	{
+		m.lock();
 		vector<Bullet *> removeList;
 		for (auto &i : bullets)
 		{
@@ -167,7 +175,7 @@ public:
 			}), bullets.end());
 
 		Gbullets.erase(remove_if(begin(Gbullets), end(Gbullets), [&](Bullet *bullet) {
-			return bullet->isDestroy == true;
+			return bullet->isDestroy == true && bullet->WhoShoot == this->Whohas;
 			}), Gbullets.end());
 
 		if (removeList.size() > 0)
@@ -177,6 +185,7 @@ public:
 				delete i;
 			}
 		}
+		m.unlock();
 		//메모리 삭제도 이루어져야함.
 	}
 };
@@ -312,7 +321,7 @@ public:
 		}
 	}
 
-	void RotateCannon(int value)
+	void RotateCannon(double value)
 	{
 		angle += value;
 	}

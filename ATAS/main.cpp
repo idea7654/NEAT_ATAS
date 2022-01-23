@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <future>
+#include <mutex>
 #include "Game.h"
 #include "RandWell.h"
 #include "neat.h"
@@ -27,6 +28,13 @@ vector<Wall*> walls;
 //vector<User*> users;
 //User *user;
 
+vector<User*> users;
+vector<Enemy*> enemies;
+atomic<bool> GameOver;
+atomic<bool> startNextGame = false;
+bool isFirst = true;
+bool joinFinish = false;
+
 int main(int argc, char **argv)
 {
 	Init_WELL_RAND();
@@ -40,10 +48,6 @@ int main(int argc, char **argv)
 	walls.push_back(wall_4);
 
 	NEAT::Population *p = 0;
-
-	/*future<void> future = async(launch::async, []() {
-		tank_game(100);
-		});*/
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -65,6 +69,49 @@ int main(int argc, char **argv)
 		user->isUnder = true;
 		users.push_back(user);
 	}
+
+	future<void> future = async(launch::async, []() {
+		tank_game(100);
+		});
+
+	GameOver = false;
+	startNextGame = true;
+
+	auto gameManager =  async(launch::async, [&]() {
+		while (true)
+		{
+			if (GameOver || isFirst && joinFinish)
+			{
+				joinFinish = false;
+				isFirst = false;
+				GameOver = false;
+				Sleep(5000);
+				//게임 재시작 로직
+				for (auto &i : users)
+				{
+					int x = randbtn(15, COLUMNS - 15);
+					int y = randbtn(60, COLUMNS - 15);
+					i->x = x;
+					i->y = y;
+					i->gun->bullets.clear();
+					i->isDie = false;
+					i->hp = 100;
+				}
+				for (auto &i : enemies)
+				{
+					int x = randbtn(15, COLUMNS - 15);
+					int y = randbtn(60, COLUMNS - 15);
+					i->x = x;
+					i->y = y;
+					i->gun->bullets.clear();
+					i->isDie = false;
+					i->hp = 100;
+				}
+				GameOver = true;
+				startNextGame = true;
+			}
+		}
+		});
     
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -78,6 +125,9 @@ int main(int argc, char **argv)
 	glutSpecialFunc(keyboard_callback);
 
 	glutMainLoop();
+
+	future.get();
+	gameManager.get();
 
 	for (auto &i : walls)
 		delete i;
@@ -180,7 +230,10 @@ void display_callback()
 					j->hp -= 20;
 					i->isDestroy = true;
 					if (j->hp <= 0)
+					{
+						cout << "Die!" << endl;
 						j->isDie = true;
+					}
 				}
 			}
 		}
@@ -192,13 +245,16 @@ void display_callback()
 				{
 					j->hp -= 20;
 					i->isDestroy = true;
+
 					if (j->hp <= 0)
+					{
+						cout << "Die!" << endl;
 						j->isDie = true;
+					}
 				}
 			}
 		}
 	}
-
 	glutPostRedisplay();
 	glutSwapBuffers();
 }
