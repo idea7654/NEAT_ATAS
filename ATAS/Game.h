@@ -55,6 +55,8 @@ enum Gun_Type
 	NORMAL = 0,
 };
 
+static mutex m;
+
 class Bullet
 {
 public:
@@ -75,8 +77,13 @@ public:
 
 	void MoveBullet()
 	{
-		x += forwardVec[0];
-		y += forwardVec[1];
+		//m.lock();
+		if (this != nullptr)
+		{
+			x += forwardVec[0];
+			y += forwardVec[1];
+		}
+		//m.unlock();
 	}
 
 	void drawBullet()
@@ -93,8 +100,8 @@ public:
 	}
 };
 
-static vector<Bullet*> Gbullets;
-static mutex m;
+extern vector<Bullet*> Gbullets;
+extern vector<Bullet*> Gbullets_ThreadSafe;
 
 class Gun
 {
@@ -110,6 +117,7 @@ public:
 	double inputRotate;
 	Character *Whohas;
 	vector<Bullet*> bullets;
+	vector<Bullet*> bullet_for_threadsafe;
 
 	~Gun()
 	{
@@ -170,19 +178,71 @@ public:
 				removeList.push_back(i);
 		}
 
-		bullets.erase(remove_if(begin(bullets), end(bullets), [&](Bullet *bullet) {
+		/*bullets.erase(remove_if(begin(bullets), end(bullets), [&](Bullet *bullet) {
 			return bullet->isDestroy == true;
 			}), bullets.end());
 
 		Gbullets.erase(remove_if(begin(Gbullets), end(Gbullets), [&](Bullet *bullet) {
-			return bullet->isDestroy == true && bullet->WhoShoot == this->Whohas;
-			}), Gbullets.end());
+			if (bullet->isDestroy == true && bullet->WhoShoot == this->Whohas)
+				return true;
+			else
+				return false;
+			}), Gbullets.end());*/
 
+		for (vector<Bullet*>::size_type i = 0; i < bullets.size();)
+		{
+			if (bullets[i]->isDestroy)
+			{
+				bullets.erase(bullets.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
+		{
+			if (Gbullets[i]->isDestroy)
+			{
+				Gbullets.erase(Gbullets.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		for (vector<Bullet*>::size_type i = 0; i < bullet_for_threadsafe.size();)
+		{
+			if (bullet_for_threadsafe[i]->isDestroy)
+			{
+				bullet_for_threadsafe.erase(bullet_for_threadsafe.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
+		{
+			if (Gbullets_ThreadSafe[i]->isDestroy)
+			{
+				Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+		
 		if (removeList.size() > 0)
 		{
 			for (auto &i : removeList)
 			{
-				delete i;
+				if(i->WhoShoot != nullptr)
+					delete i;
 			}
 		}
 		m.unlock();
@@ -213,19 +273,19 @@ public:
 		//}
 		if (x < 7)
 		{
-			x = 7;
+			x = 93;
 		}
 		if (x > 93)
 		{
-			x = 93;
+			x = 7;
 		}
 		if (y > 93)
 		{
-			y = 93;
+			y = 7;
 		}
 		if (y < 7)
 		{
-			y = 7;
+			y = 93;
 		}
 	}
 };

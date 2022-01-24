@@ -2,6 +2,7 @@
 #include <vector>
 #include "gene.h"
 #include "innovation.h"
+#include "experiments.h"
 #include <mutex>
 
 namespace NEAT {

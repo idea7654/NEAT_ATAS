@@ -23,7 +23,7 @@ namespace NEAT {
 		// A Population can be spawned off of a single Genome 
 		// There will be size Genomes added to the Population 
 		// The Population does not have to be empty to add Genomes 
-		bool spawn(Genome *g, int size);
+		bool spawn(Genome *g, int size, bool isFinished);
 
 	public:
 
@@ -77,7 +77,7 @@ namespace NEAT {
 		bool rank_within_species();
 
 		// Construct off of a single spawning Genome 
-		Population(Genome *g, int size);
+		Population(Genome *g, int size, bool isFinished);
 
 		// Construct off of a single spawning Genome without mutation
 		Population(Genome *g, int size, float power);

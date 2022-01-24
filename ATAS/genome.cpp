@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <sstream>
+#include <string>
 
 using namespace NEAT;
 
@@ -163,6 +164,72 @@ Genome::Genome(int id, std::ifstream &iFile) {
 
 			//Add trait to vector of traits
 			traits.push_back(newtrait);
+		}
+		else if (strcmp(curword, "#1") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			users[0]->x = x;
+			users[0]->y = y;
+		}
+		else if (strcmp(curword, "#2") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			users[1]->x = x;
+			users[1]->y = y;
+		}
+		else if (strcmp(curword, "#3") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			users[2]->x = x;
+			users[2]->y = y;
+		}
+		else if (strcmp(curword, "#4") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			enemies[0]->x = x;
+			enemies[0]->y = y;
+		}
+		else if (strcmp(curword, "#5") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			enemies[1]->x = x;
+			enemies[1]->y = y;
+		}
+		else if (strcmp(curword, "#6") == 0)
+		{
+			char argline[1024];
+			curwordnum = wordcount + 1;
+			ss.getline(argline, 1024);
+			string str(argline);
+			int x = (int)(str[4] - '0') * 10 + (int)(str[5] - '0');
+			int y = (int)(str[10] - '0') * 10 + (int)(str[11] - '0');
+			enemies[2]->x = x;
+			enemies[2]->y = y;
 		}
 
 		//Read in a node

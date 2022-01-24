@@ -29,6 +29,7 @@ using namespace NEAT;
 
 extern vector<User*> users;
 extern vector<Enemy*> enemies;
+extern vector<int> initial_pos;
 extern atomic<bool> GameOver;
 extern atomic<bool> startNextGame;
 extern bool joinFinish;

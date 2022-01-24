@@ -7,11 +7,11 @@
 #include <fstream>
 using namespace NEAT;
 
-Population::Population(Genome *g,int size) {
+Population::Population(Genome *g,int size, bool isFinished) {
 	winnergen=0;
 	highest_fitness=0.0;
 	highest_last_changed=0;
-	spawn(g,size);
+	spawn(g,size, isFinished);
 }
 
 Population::Population(Genome *g,int size, float power) {
@@ -253,7 +253,7 @@ bool Population::clone(Genome *g,int size, float power) {
 	return true;
 }
 
-bool Population::spawn(Genome *g,int size) {
+bool Population::spawn(Genome *g,int size, bool isFinished) {
 	int count;
 	Genome *new_genome = nullptr;
 	Organism *new_organism;
@@ -263,10 +263,14 @@ bool Population::spawn(Genome *g,int size) {
 	for(count=1;count<=size;count++) {
 		//cout<<"CREATING ORGANISM "<<count<<endl;
 
-		new_genome=g->duplicate(count); 
-		//new_genome->mutate_link_weights(1.0,1.0,GAUSSIAN);
-		new_genome->mutate_link_weights(1.0,1.0,COLDGAUSSIAN);
-		new_genome->randomize_traits();
+		new_genome = g->duplicate(count);
+		if (!isFinished)
+		{
+			//new_genome->mutate_link_weights(1.0,1.0,GAUSSIAN);
+			new_genome->mutate_link_weights(1.0, 1.0, COLDGAUSSIAN);
+			new_genome->randomize_traits();
+		}
+		
 		new_organism=new Organism(0.0,new_genome,1);
 		organisms.push_back(new_organism);
 	}
@@ -275,8 +279,9 @@ bool Population::spawn(Genome *g,int size) {
 	cur_node_id=new_genome->get_last_node_id();
 	cur_innov_num=new_genome->get_last_gene_innovnum();
 
-	//Separate the new Population into species
-	speciate();
+	if(!isFinished)
+		//Separate the new Population into species
+		speciate();
 
 	return true;
 }

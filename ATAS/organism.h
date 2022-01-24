@@ -32,6 +32,8 @@ namespace NEAT {
 		bool pop_champ_child; //Marks the duplicate child of a champion (for tracking purposes)
 		double high_fit; //DEBUG variable- high fitness of champ
 		int time_alive; //When playing in real-time allows knowing the maturity of an individual
+		std::vector<int> Users;
+		std::vector<int> Enemies;
 
 		// Track its origin- for debugging or analysis- we can tell how the organism was born
 		bool mut_struct_baby;
@@ -47,12 +49,6 @@ namespace NEAT {
 		// Print the Organism's genome to a file preceded by a comment detailing the organism's species, number, and fitness 
 		bool print_to_file(char *filename);
 		bool write_to_file(std::ostream &outFile);
-
-		std::mutex m;
-		std::mutex &GetMutex()
-		{
-			return m;
-		};
 
 		Organism(){}
 		Organism(double fit, Genome *g, int gen, const char* md = 0);

@@ -47,7 +47,7 @@ Population *pole1_test(int gens) {
 		//Spawn the Population
 		cout << "Spawning Population off Genome" << endl;
 
-		pop = new Population(start_genome, NEAT::pop_size);
+		pop = new Population(start_genome, NEAT::pop_size, false);
 
 		cout << "Verifying Spawned Pop" << endl;
 		pop->verify();
@@ -305,6 +305,7 @@ Population *tank_game(int gens)
 {
 	Population *pop = 0;
 	Genome *start_genome;
+	Genome *second_genome;
 	char curword[20];
 	int id;
 
@@ -316,62 +317,129 @@ Population *tank_game(int gens)
 	int runs[1];
 	int totalevals;
 	int samples;  //For averaging
+	bool isFinished;
 
 	memset(runs, 0, NEAT::num_runs * sizeof(int));
 
 	ifstream iFile("tankgenes", ios::in);
+	ifstream inputFile("tankGen", ios::in);
+	ifstream secondFile("tank2Gen", ios::in);
 
 	cout << "START SINGLE POLE BALANCING EVOLUTION" << endl;
+	
+	if (!inputFile)
+	{
+		cout << "there is not file" << endl;
 
-	cout << "Reading in the start genome" << endl;
-	//Read in the start Genome
-	iFile >> curword;
-	iFile >> id;
-	cout << "Reading in Genome id " << id << endl;
-	start_genome = new Genome(id, iFile);
-	iFile.close();
+		cout << "Reading in the start genome" << endl;
+		//Read in the start Genome
+		iFile >> curword;
+		iFile >> id;
+		cout << "Reading in Genome id " << id << endl;
+		start_genome = new Genome(id, iFile);
+		iFile.close();
+		isFinished = false;
 
-	//Run multiple experiments
-	for (expcount = 0; expcount < NEAT::num_runs; expcount++) {
+		//Run multiple experiments
+		for (expcount = 0; expcount < NEAT::num_runs; expcount++) {
 
-		cout << "EXPERIMENT #" << expcount << endl;
+			cout << "EXPERIMENT #" << expcount << endl;
 
-		cout << "Start Genome: " << start_genome << endl;
+			cout << "Start Genome: " << start_genome << endl;
 
-		//Spawn the Population
-		cout << "Spawning Population off Genome" << endl;
+			//Spawn the Population
+			cout << "Spawning Population off Genome" << endl;
 
-		pop = new Population(start_genome, NEAT::pop_size);
+			pop = new Population(start_genome, NEAT::pop_size, isFinished);
 
-		cout << "Verifying Spawned Pop" << endl;
-		pop->verify();
+			cout << "Verifying Spawned Pop" << endl;
+			pop->verify();
 
-		for (gen = 1; gen <= gens; gen++) {
-			cout << "Generation " << gen << endl;
+			for (gen = 1; gen <= gens; gen++) {
+				cout << "Generation " << gen << endl;
 
-			fnamebuf = new ostringstream();
-			(*fnamebuf) << "gen_" << gen << ends;  //needs end marker
+				fnamebuf = new ostringstream();
+				(*fnamebuf) << "gen_" << gen << ends;  //needs end marker
 
-#ifndef NO_SCREEN_OUT
-			cout << "name of fname: " << fnamebuf->str() << endl;
-#endif	
+				char temp[50];
+				sprintf(temp, "gen_%d", gen);
 
-			char temp[50];
-			sprintf(temp, "gen_%d", gen);
+				//status = pole1_epoch(pop, gen, temp);
+				//status=(pole1_epoch(pop,gen,fnamebuf->str()));
+				status = measure_fitness_tank(pop, gen, temp);
 
-			//status = pole1_epoch(pop, gen, temp);
-			//status=(pole1_epoch(pop,gen,fnamebuf->str()));
-			status = measure_fitness_tank(pop, gen, temp);
-
-			if (status) {
-				runs[expcount] = status;
-				gen = gens + 1;
+				if (status) {
+					runs[expcount] = status;
+					gen = gens + 1;
+				}
+				fnamebuf->clear();
+				delete fnamebuf;
 			}
-			fnamebuf->clear();
-			delete fnamebuf;
-		}
 
-		if (expcount < NEAT::num_runs - 1) delete pop;
+			if (expcount < NEAT::num_runs - 1) delete pop;
+		}
+	}
+	else
+	{
+		inputFile >> curword;
+		inputFile >> id;
+		start_genome = new Genome(id, inputFile);
+		inputFile.close();
+
+		secondFile >> curword;
+		secondFile >> id;
+		second_genome = new Genome(id, secondFile);
+		secondFile.close();
+		isFinished = true;
+
+		for (expcount = 0; expcount < NEAT::num_runs; expcount++) {
+
+			cout << "EXPERIMENT #" << expcount << endl;
+
+			cout << "Start Genome: " << start_genome << endl;
+
+			//Spawn the Population
+			cout << "Spawning Population off Genome" << endl;
+
+			pop = new Population(start_genome, NEAT::pop_size, isFinished);
+			Organism *new_organism;
+			for (int i = 0; i < pop->organisms.size(); i++)
+			{
+				if (i % 2 == 1)
+				{
+					Genome *new_genome = nullptr;
+					new_genome = second_genome->duplicate(i);
+					new_organism = new Organism(0.0, new_genome, 1);
+					pop->organisms[i] = new_organism;
+				}
+			}
+
+			cout << "Verifying Spawned Pop" << endl;
+			pop->verify();
+
+			for (gen = 1; gen <= gens; gen++) {
+				cout << "Generation " << gen << endl;
+
+				fnamebuf = new ostringstream();
+				(*fnamebuf) << "gen_" << gen << ends;  //needs end marker
+
+				char temp[50];
+				sprintf(temp, "gen_%d", gen);
+
+				//status = pole1_epoch(pop, gen, temp);
+				//status=(pole1_epoch(pop,gen,fnamebuf->str()));
+				status = measure_fitness_tank(pop, gen, temp);
+
+				if (status) {
+					runs[expcount] = status;
+					gen = gens + 1;
+				}
+				fnamebuf->clear();
+				delete fnamebuf;
+			}
+
+			if (expcount < NEAT::num_runs - 1) delete pop;
+		}
 	}
 
 	totalevals = 0;
@@ -416,6 +484,7 @@ bool tank_evaluate(Organism * org, bool &isWin, int num)
 	if (net->net_id > 0)
 	{
 		org->fitness = try_tank(net, MAX_STEPS, thresh, num);
+		//
 		//cout << org->fitness << endl;
 	}
 	else
@@ -460,12 +529,39 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		{
 			startNextGame = false;
 			int num = 0;
+
+			pop->organisms[count]->Users.push_back(initial_pos[0]);
+			pop->organisms[count]->Users.push_back(initial_pos[1]);
+			pop->organisms[count]->Users.push_back(initial_pos[2]);
+			pop->organisms[count]->Users.push_back(initial_pos[3]);
+			pop->organisms[count]->Users.push_back(initial_pos[4]);
+			pop->organisms[count]->Users.push_back(initial_pos[5]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[6]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[7]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[8]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[9]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[10]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[11]);
+
 			for (auto &i : users)
 			{
 				thread_pool.emplace_back(thread(&tank_evaluate, pop->organisms[count], ref(win), num));
 				num++;
 			}
 			count++;
+
+			pop->organisms[count]->Users.push_back(initial_pos[0]);
+			pop->organisms[count]->Users.push_back(initial_pos[1]);
+			pop->organisms[count]->Users.push_back(initial_pos[2]);
+			pop->organisms[count]->Users.push_back(initial_pos[3]);
+			pop->organisms[count]->Users.push_back(initial_pos[4]);
+			pop->organisms[count]->Users.push_back(initial_pos[5]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[6]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[7]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[8]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[9]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[10]);
+			pop->organisms[count]->Enemies.push_back(initial_pos[11]);
 
 			for (auto &i : enemies)
 			{
@@ -476,12 +572,12 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 
 			for (auto &i : thread_pool)
 			{
-				cout << "here" << endl;
+				//cout << "here" << endl;
 				i.join();
 			}
 
 			joinFinish = true;
-			cout << "join!" << endl;
+			//cout << "join!" << endl;
 
 			thread_pool.clear();
 		}
@@ -547,117 +643,122 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 	vector<NNode*>::iterator out_iter;
 	float fitness = 0;
 
-	cout << "Called!" << endl;
-	int random;
+	int random = 0;
+
+	while (GameOver)
+	{
+
+	}
+
 	while (!GameOver) //다음으로 넘어갈 조건..->게임오버
 	{
 		//Measure만 넣으면 됨!!!
-		//mutex_2.lock();
-		//double out_Left;
-		//double out_Right;
-		//double out_isShoot;
-		//double out_angle;
-		//double in[13];
+		mutex_2.lock();
+		double out_Left;
+		double out_Right;
+		double out_isShoot;
+		double out_angle;
+		double in[13];
 
-		//if (num < 3)
-		//{
-		//	//User(아래쪽)
-		//	in[0] = users[num]->x;
-		//	in[1] = users[num]->y;
-		//	if (num == 0)
-		//	{
-		//		in[2] = users[num + 1]->x;
-		//		in[3] = users[num + 1]->y;
-		//		in[4] = users[num + 2]->x;
-		//		in[5] = users[num + 2]->y;
-		//	}
-		//	else if (num == 1)
-		//	{
-		//		in[2] = users[num - 1]->x;
-		//		in[3] = users[num - 1]->y;
-		//		in[4] = users[num + 1]->x;
-		//		in[5] = users[num + 1]->y;
-		//	}
-		//	else
-		//	{
-		//		in[2] = users[num - 2]->x;
-		//		in[3] = users[num - 2]->y;
-		//		in[4] = users[num - 1]->x;
-		//		in[5] = users[num - 1]->y;
-		//	}
+		if (num < 3)
+		{
+			//User(아래쪽)
+			in[0] = users[num]->x;
+			in[1] = users[num]->y;
+			if (num == 0)
+			{
+				in[2] = users[num + 1]->x;
+				in[3] = users[num + 1]->y;
+				in[4] = users[num + 2]->x;
+				in[5] = users[num + 2]->y;
+			}
+			else if (num == 1)
+			{
+				in[2] = users[num - 1]->x;
+				in[3] = users[num - 1]->y;
+				in[4] = users[num + 1]->x;
+				in[5] = users[num + 1]->y;
+			}
+			else
+			{
+				in[2] = users[num - 2]->x;
+				in[3] = users[num - 2]->y;
+				in[4] = users[num - 1]->x;
+				in[5] = users[num - 1]->y;
+			}
 
-		//	in[6] = enemies[0]->x;
-		//	in[7] = enemies[0]->y;
-		//	in[8] = enemies[1]->x;
-		//	in[9] = enemies[1]->y;
-		//	in[10] = enemies[2]->x;
-		//	in[11] = enemies[2]->y;
-		//	in[12] = -(users[num]->angle - 90 + users[num]->c_angle * 180 / 3.14159);
-		//}
-		//else
-		//{
-		//	in[0] = enemies[num - 3]->x;
-		//	in[1] = enemies[num - 3]->y;
-		//	if (num == 3)
-		//	{
-		//		in[2] = enemies[num - 2]->x;
-		//		in[3] = enemies[num - 2]->y;
-		//		in[4] = enemies[num - 1]->x;
-		//		in[5] = enemies[num - 1]->y;
-		//	}
-		//	else if (num == 4)
-		//	{
-		//		in[2] = enemies[num - 4]->x;
-		//		in[3] = enemies[num - 4]->y;
-		//		in[4] = enemies[num - 2]->x;
-		//		in[5] = enemies[num - 2]->y;
-		//	}
-		//	else
-		//	{
-		//		in[2] = enemies[num - 5]->x;
-		//		in[3] = enemies[num - 5]->y;
-		//		in[4] = enemies[num - 4]->x;
-		//		in[5] = enemies[num - 4]->y;
-		//	}
-		//	in[6] = users[0]->x;
-		//	in[7] = users[0]->y;
-		//	in[8] = users[1]->x;
-		//	in[9] = users[1]->y;
-		//	in[10] = users[2]->x;
-		//	in[11] = users[2]->y;
-		//	in[12] = -(enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
-		//}
+			in[6] = enemies[0]->x;
+			in[7] = enemies[0]->y;
+			in[8] = enemies[1]->x;
+			in[9] = enemies[1]->y;
+			in[10] = enemies[2]->x;
+			in[11] = enemies[2]->y;
+			in[12] = -(users[num]->angle - 90 + users[num]->c_angle * 180 / 3.14159);
+		}
+		else
+		{
+			in[0] = enemies[num - 3]->x;
+			in[1] = enemies[num - 3]->y;
+			if (num == 3)
+			{
+				in[2] = enemies[num - 2]->x;
+				in[3] = enemies[num - 2]->y;
+				in[4] = enemies[num - 1]->x;
+				in[5] = enemies[num - 1]->y;
+			}
+			else if (num == 4)
+			{
+				in[2] = enemies[num - 4]->x;
+				in[3] = enemies[num - 4]->y;
+				in[4] = enemies[num - 2]->x;
+				in[5] = enemies[num - 2]->y;
+			}
+			else
+			{
+				in[2] = enemies[num - 5]->x;
+				in[3] = enemies[num - 5]->y;
+				in[4] = enemies[num - 4]->x;
+				in[5] = enemies[num - 4]->y;
+			}
+			in[6] = users[0]->x;
+			in[7] = users[0]->y;
+			in[8] = users[1]->x;
+			in[9] = users[1]->y;
+			in[10] = users[2]->x;
+			in[11] = users[2]->y;
+			in[12] = -(enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
+		}
 
-		//net->load_sensors(in);
+		net->load_sensors(in);
 
-		//if (!(net->activate()))
-		//	return 1;
+		if (!(net->activate()))
+			return 1;
 
-		//out_iter = net->outputs.begin();
-		//out_Left = (*out_iter)->activation;
-		//++out_iter;
-		//out_Right = (*out_iter)->activation;
-		//++out_iter;
-		//out_isShoot = (*out_iter)->activation;
-		//++out_iter;
-		//out_angle = (*out_iter)->activation / 1000000;
+		out_iter = net->outputs.begin();
+		out_Left = (*out_iter)->activation;
+		++out_iter;
+		out_Right = (*out_iter)->activation;
+		++out_iter;
+		out_isShoot = (*out_iter)->activation;
+		++out_iter;
+		out_angle = (*out_iter)->activation / 1000000;
 
-		//if (num < 3)
-		//{
-		//	users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-		//	users[num]->RotateCannon(out_angle / 1000000);
-		//	if (out_isShoot > 0)
-		//		users[num]->gun->Shoot();
-		//}
-		//else
-		//{
-		//	enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-		//	enemies[num - 3]->RotateCannon(out_angle / 1000000);
-		//	if (out_isShoot > 0)
-		//		enemies[num - 3]->gun->Shoot();
-		//}
-		//mutex_2.unlock();
-		//Sleep(50);
+		if (num < 3)
+		{
+			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+			users[num]->RotateCannon(out_angle / 1000000);
+			if (out_isShoot > 0)
+				users[num]->gun->Shoot();
+		}
+		else
+		{
+			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+			enemies[num - 3]->RotateCannon(out_angle / 1000000);
+			if (out_isShoot > 0)
+				enemies[num - 3]->gun->Shoot();
+		}
+		mutex_2.unlock();
+		Sleep(50);
 		random = randbtn(1, 10000);
 	}
 

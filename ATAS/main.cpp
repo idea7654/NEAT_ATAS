@@ -30,6 +30,9 @@ vector<Wall*> walls;
 
 vector<User*> users;
 vector<Enemy*> enemies;
+vector<int> initial_pos;
+vector<Bullet*> Gbullets;
+vector<Bullet*> Gbullets_ThreadSafe;
 atomic<bool> GameOver;
 atomic<bool> startNextGame = false;
 bool isFirst = true;
@@ -52,45 +55,52 @@ int main(int argc, char **argv)
 	for (int i = 0; i < 3; i++)
 	{
 		int x = randbtn(15, COLUMNS - 15);
+		int y = randbtn(15, COLUMNS / 2 - 10);
+
+		User *user = new User(x, y);
+		user->gun->Whohas = user;
+		user->isUnder = true;
+		users.push_back(user);
+		initial_pos.push_back(x);
+		initial_pos.push_back(y);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		int x = randbtn(15, COLUMNS - 15);
 		int y = randbtn(60, COLUMNS - 15);
 
 		Enemy *enemy = new Enemy(x, y);
 		enemy->gun->Whohas = enemy;
 		enemies.push_back(enemy);
+		initial_pos.push_back(x);
+		initial_pos.push_back(y);
 	} //Enemy Spawn
 
-	for (int i = 0; i < 3; i++)
-	{
-		int x = randbtn(15, COLUMNS - 15);
-		int y = randbtn(15, COLUMNS / 2 - 10);
-		
-		User *user = new User(x, y);
-		user->gun->Whohas = user;
-		user->isUnder = true;
-		users.push_back(user);
-	}
+	GameOver = false;
+	startNextGame = true;
 
 	future<void> future = async(launch::async, []() {
 		tank_game(100);
 		});
 
-	GameOver = false;
-	startNextGame = true;
-
 	auto gameManager =  async(launch::async, [&]() {
 		while (true)
 		{
-			if (GameOver || isFirst && joinFinish)
+			if (GameOver || isFirst)
 			{
 				joinFinish = false;
 				isFirst = false;
 				GameOver = false;
 				Sleep(5000);
+				initial_pos.clear();
 				//게임 재시작 로직
 				for (auto &i : users)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS / 2 - 10);
+					initial_pos.push_back(x);
+					initial_pos.push_back(y);
 					i->x = x;
 					i->y = y;
 					i->gun->bullets.clear();
@@ -101,6 +111,8 @@ int main(int argc, char **argv)
 				{
 					int x = randbtn(15, COLUMNS - 15);
 					int y = randbtn(60, COLUMNS - 15);
+					initial_pos.push_back(x);
+					initial_pos.push_back(y);
 					i->x = x;
 					i->y = y;
 					i->gun->bullets.clear();
@@ -109,6 +121,7 @@ int main(int argc, char **argv)
 				}
 				GameOver = true;
 				startNextGame = true;
+				Sleep(50); //Wait for all tank thread join
 			}
 		}
 		});
@@ -158,6 +171,7 @@ void display_callback()
 	/*user->drawUser();
 	user->UpdateGunPos();
 	user->gun->DrawGun();*/
+	Gbullets_ThreadSafe = Gbullets;
 
 	for (auto &i : users)
 	{
@@ -167,19 +181,23 @@ void display_callback()
 			i->UpdateGunPos();
 			i->gun->DrawGun();
 			i->UserCollider();
+			i->gun->bullet_for_threadsafe = i->gun->bullets;
+			
 			for (auto &j : walls)
 			{
 				i->Collision(j);
 			}
 
-			if (i->gun->bullets.size() > 0)
+			if (i->gun->bullet_for_threadsafe.size() > 0)
 			{
-				for (auto &j : i->gun->bullets)
+				m.lock();
+				for (auto &j : i->gun->bullet_for_threadsafe)
 				{
-					j->MoveBullet();
 					j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+					j->MoveBullet();
 					j->drawBullet();
 				}
+				m.unlock();
 				i->gun->DestoryBullet();
 			}
 		}
@@ -198,6 +216,8 @@ void display_callback()
 			i->drawUser();
 			i->UpdateGunPos();
 			i->gun->DrawGun();
+			i->gun->bullet_for_threadsafe = i->gun->bullets;
+			Gbullets_ThreadSafe = Gbullets;
 		}
 	}
 
@@ -205,9 +225,9 @@ void display_callback()
 	{
 		if (!i->isDie)
 		{
-			if (i->gun->bullets.size() > 0)
+			if (i->gun->bullet_for_threadsafe.size() > 0)
 			{
-				for (auto &j : i->gun->bullets)
+				for (auto &j : i->gun->bullet_for_threadsafe)
 				{
 					j->MoveBullet();
 					j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
@@ -218,7 +238,7 @@ void display_callback()
 		}
 	}
 
-	for (auto &i : Gbullets)
+	for (auto &i : Gbullets_ThreadSafe)
 	{
 		if (i->WhoShoot->isUnder)
 		{
@@ -231,7 +251,6 @@ void display_callback()
 					i->isDestroy = true;
 					if (j->hp <= 0)
 					{
-						cout << "Die!" << endl;
 						j->isDie = true;
 					}
 				}
@@ -248,7 +267,7 @@ void display_callback()
 
 					if (j->hp <= 0)
 					{
-						cout << "Die!" << endl;
+						//cout << "Die!" << endl;
 						j->isDie = true;
 					}
 				}

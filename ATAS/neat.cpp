@@ -29,10 +29,10 @@ double NEAT::mate_multipoint_avg_prob = 0.4;
 double NEAT::mate_singlepoint_prob = 0.0;
 double NEAT::mate_only_prob = 0.2; // Prob. of mating without mutation 
 double NEAT::recur_only_prob = 0.2;  // Probability of forcing selection of ONLY links that are naturally recurrent 
-int NEAT::pop_size = 100;  // Size of population 
+int NEAT::pop_size = 10;  // Size of population 
 int NEAT::dropoff_age = 1000;  // Age where Species starts to be penalized 
 int NEAT::newlink_tries = 20;  // Number of tries mutate_add_link will attempt to find an open link 
-int NEAT::print_every = 2; // Tells to print population to file every n generations 
+int NEAT::print_every = 1; // Tells to print population to file every n generations 
 int NEAT::babies_stolen = 1; // The number of babies to siphen off to the champions 
 int NEAT::num_runs = 1;
 
