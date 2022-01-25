@@ -104,8 +104,11 @@ int main(int argc, char **argv)
 					i->x = x;
 					i->y = y;
 					i->gun->bullets.clear();
+					i->gun->bullet_for_threadsafe.clear();
 					i->isDie = false;
 					i->hp = 100;
+					i->angle = 90;
+					i->c_angle = 0.0f;
 				}
 				for (auto &i : enemies)
 				{
@@ -116,12 +119,17 @@ int main(int argc, char **argv)
 					i->x = x;
 					i->y = y;
 					i->gun->bullets.clear();
+					i->gun->bullet_for_threadsafe.clear();
 					i->isDie = false;
 					i->hp = 100;
+					i->angle = 270;
+					i->c_angle = 0.0f;
 				}
 				GameOver = true;
 				startNextGame = true;
-				Sleep(50); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
+				Gbullets_ThreadSafe.clear();
+				Gbullets.clear();
 			}
 		}
 		});
@@ -197,8 +205,9 @@ void display_callback()
 					j->MoveBullet();
 					j->drawBullet();
 				}
-				m.unlock();
+				
 				i->gun->DestoryBullet();
+				m.unlock();
 			}
 		}
 	}
@@ -227,6 +236,7 @@ void display_callback()
 		{
 			if (i->gun->bullet_for_threadsafe.size() > 0)
 			{
+				m.lock();
 				for (auto &j : i->gun->bullet_for_threadsafe)
 				{
 					j->MoveBullet();
@@ -234,6 +244,7 @@ void display_callback()
 					j->drawBullet();
 				}
 				i->gun->DestoryBullet();
+				m.unlock();
 			}
 		}
 	}
@@ -245,13 +256,16 @@ void display_callback()
 			for (auto &j : enemies)
 			{
 				//적들과의 충돌처리!
-				if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+				if (!j->isDie)
 				{
-					j->hp -= 20;
-					i->isDestroy = true;
-					if (j->hp <= 0)
+					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->isDie = true;
+						j->hp -= 20;
+						i->isDestroy = true;
+						if (j->hp <= 0)
+						{
+							j->isDie = true;
+						}
 					}
 				}
 			}
@@ -260,15 +274,18 @@ void display_callback()
 		{
 			for (auto &j : users)
 			{
-				if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+				if (!j->isDie)
 				{
-					j->hp -= 20;
-					i->isDestroy = true;
-
-					if (j->hp <= 0)
+					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						//cout << "Die!" << endl;
-						j->isDie = true;
+						j->hp -= 20;
+						i->isDestroy = true;
+
+						if (j->hp <= 0)
+						{
+							//cout << "Die!" << endl;
+							j->isDie = true;
+						}
 					}
 				}
 			}

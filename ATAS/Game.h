@@ -165,14 +165,14 @@ public:
 		
 		bullets.emplace_back(newBullet);
 		Gbullets.emplace_back(newBullet);
+
 		m.unlock();
 	}
 
 	void DestoryBullet()
 	{
-		m.lock();
 		vector<Bullet *> removeList;
-		for (auto &i : bullets)
+		for (auto &i : bullet_for_threadsafe)
 		{
 			if (i->isDestroy)
 				removeList.push_back(i);
@@ -188,30 +188,6 @@ public:
 			else
 				return false;
 			}), Gbullets.end());*/
-
-		for (vector<Bullet*>::size_type i = 0; i < bullets.size();)
-		{
-			if (bullets[i]->isDestroy)
-			{
-				bullets.erase(bullets.begin() + i);
-			}
-			else
-			{
-				i++;
-			}
-		}
-
-		for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
-		{
-			if (Gbullets[i]->isDestroy)
-			{
-				Gbullets.erase(Gbullets.begin() + i);
-			}
-			else
-			{
-				i++;
-			}
-		}
 
 		for (vector<Bullet*>::size_type i = 0; i < bullet_for_threadsafe.size();)
 		{
@@ -236,16 +212,39 @@ public:
 				i++;
 			}
 		}
+
+		for (vector<Bullet*>::size_type i = 0; i < bullets.size();)
+		{
+			if (bullets[i]->isDestroy || bullets[i] == nullptr)
+			{
+				bullets.erase(bullets.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
+		{
+			if (Gbullets[i]->isDestroy || Gbullets[i] == nullptr)
+			{
+				Gbullets.erase(Gbullets.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
 		
 		if (removeList.size() > 0)
 		{
 			for (auto &i : removeList)
 			{
-				if(i->WhoShoot != nullptr)
-					delete i;
+				if(i)
+					delete(i);
 			}
 		}
-		m.unlock();
 		//메모리 삭제도 이루어져야함.
 	}
 };

@@ -483,8 +483,11 @@ bool tank_evaluate(Organism * org, bool &isWin, int num)
 
 	if (net->net_id > 0)
 	{
-		org->fitness = try_tank(net, MAX_STEPS, thresh, num);
-		//
+		//org->fitness = try_tank(net, MAX_STEPS, thresh, num);
+		if (num < 3)
+			user_fitness_sum += try_tank(net, MAX_STEPS, thresh, num);
+		else
+			enemy_fitness_sum += try_tank(net, MAX_STEPS, thresh, num);
 		//cout << org->fitness << endl;
 	}
 	else
@@ -578,6 +581,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 
 			joinFinish = true;
 			//cout << "join!" << endl;
+			pop->organisms[count - 2]->fitness = user_fitness_sum;
+			pop->organisms[count - 1]->fitness = enemy_fitness_sum;
+
+			//각 게임에 대한 fitness를 측정하고 여기서 더함. fitness측정은 어떻게?
+			//우선..게임 끝났을 때의 상태를 저장하고 해당 정보를 바탕으로
+			//탱크 몇 마리가 데미지를 얼만큼 데미지를 입었는지..
+
+			user_fitness_sum = 0;
+			enemy_fitness_sum = 0;
 
 			thread_pool.clear();
 		}
@@ -648,6 +660,21 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 	while (GameOver)
 	{
 
+	}
+
+	if (num < 3)
+	{
+		users[num]->isDie = false;
+		users[num]->hp = 100;
+		users[num]->angle = 90;
+		users[num]->c_angle = 0.0f;
+	}
+	else
+	{
+		enemies[num - 3]->isDie = false;
+		enemies[num - 3]->hp = 100;
+		enemies[num - 3]->angle = 270;
+		enemies[num - 3]->c_angle = 0.0f;
 	}
 
 	while (!GameOver) //다음으로 넘어갈 조건..->게임오버
@@ -741,19 +768,19 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		++out_iter;
 		out_isShoot = (*out_iter)->activation;
 		++out_iter;
-		out_angle = (*out_iter)->activation / 1000000;
+		out_angle = (*out_iter)->activation;
 
 		if (num < 3)
 		{
 			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-			users[num]->RotateCannon(out_angle / 1000000);
+			users[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				users[num]->gun->Shoot();
 		}
 		else
 		{
 			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-			enemies[num - 3]->RotateCannon(out_angle / 1000000);
+			enemies[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				enemies[num - 3]->gun->Shoot();
 		}

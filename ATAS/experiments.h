@@ -35,6 +35,9 @@ extern atomic<bool> startNextGame;
 extern bool joinFinish;
 static mutex mutex_2;
 
+static atomic<int> user_fitness_sum = 0;
+static atomic<int> enemy_fitness_sum = 0;
+
 Population *pole1_test(int gens);
 bool pole1_evaluate(Organism *org);
 int pole1_epoch(Population *pop, int generation, char *filename);
