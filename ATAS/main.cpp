@@ -35,6 +35,9 @@ vector<Bullet*> Gbullets;
 vector<Bullet*> Gbullets_ThreadSafe;
 atomic<bool> GameOver;
 atomic<bool> startNextGame = false;
+atomic<int> user_hp_sum = 0;
+atomic<int> enemy_hp_sum = 0;
+
 bool isFirst = true;
 bool joinFinish = false;
 
@@ -106,6 +109,7 @@ int main(int argc, char **argv)
 					i->gun->bullets.clear();
 					i->gun->bullet_for_threadsafe.clear();
 					i->isDie = false;
+					user_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -121,6 +125,7 @@ int main(int argc, char **argv)
 					i->gun->bullets.clear();
 					i->gun->bullet_for_threadsafe.clear();
 					i->isDie = false;
+					enemy_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -190,7 +195,7 @@ void display_callback()
 			i->gun->DrawGun();
 			i->UserCollider();
 			i->gun->bullet_for_threadsafe = i->gun->bullets;
-			
+			i->gun->Shoot();
 			for (auto &j : walls)
 			{
 				i->Collision(j);
@@ -225,6 +230,7 @@ void display_callback()
 			i->drawUser();
 			i->UpdateGunPos();
 			i->gun->DrawGun();
+			i->gun->Shoot();
 			i->gun->bullet_for_threadsafe = i->gun->bullets;
 			Gbullets_ThreadSafe = Gbullets;
 		}

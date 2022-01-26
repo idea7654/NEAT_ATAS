@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <mutex>
+#include <chrono>
 
 using namespace std;
 
@@ -64,6 +65,7 @@ public:
 	float y;
 	float forwardVec[2];
 	bool isDestroy = false;
+	bool isUnder;
 	Character *WhoShoot;
 	Character *WhoDamaged;
 
@@ -88,7 +90,10 @@ public:
 
 	void drawBullet()
 	{
-		glColor3f(0, 0, 1);
+		if (isUnder)
+			glColor3f(0, 0, 1);
+		else
+			glColor3f(1, 2, 1);
 		glBegin(GL_POLYGON);
 		for (int i = 0; i <= 300; i++) {
 			double angle = 2 * 3.14159 * i / 300;
@@ -112,7 +117,8 @@ public:
 	float width = 0.5;
 	float c_angle = 0.0;
 	int height = 1;
-	float RateOfShoot;
+	double RateOfShoot = 1.0;
+	chrono::system_clock::time_point last_shoot;
 	bool isUnder = false;
 	double inputRotate;
 	Character *Whohas;
@@ -148,24 +154,29 @@ public:
 	void Shoot()
 	{
 		m.lock();
-		Bullet *newBullet = new Bullet();
-		newBullet->x = x + 0.125;
-		newBullet->y = y;
-		newBullet->WhoShoot = Whohas;
-		if (!isUnder)
+		chrono::duration<double> sec = chrono::system_clock::now() - last_shoot;
+		if (sec.count() > RateOfShoot)
 		{
-			newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
-			newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
-		}
-		else
-		{
-			newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
-			newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
-		}
-		
-		bullets.emplace_back(newBullet);
-		Gbullets.emplace_back(newBullet);
+			Bullet *newBullet = new Bullet();
+			newBullet->x = x + 0.125;
+			newBullet->y = y;
+			newBullet->WhoShoot = Whohas;
+			newBullet->isUnder = isUnder;
+			if (!isUnder)
+			{
+				newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
+				newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
+			}
+			else
+			{
+				newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
+				newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
+			}
 
+			bullets.emplace_back(newBullet);
+			Gbullets.emplace_back(newBullet);
+			last_shoot = chrono::system_clock::now();
+		}
 		m.unlock();
 	}
 
@@ -297,6 +308,7 @@ public:
 		x = px;
 		y = py;
 		gun = new Gun();
+		gun->last_shoot = chrono::system_clock::now();
 		angle = 90;
 	}
 

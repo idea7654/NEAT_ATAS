@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <iostream>
 #include "neat.h"
 #include "nnode.h"
 
@@ -34,6 +35,8 @@ namespace NEAT {
 		char *name; // Every Network or subNetwork can have a name
 		std::vector<NNode*> inputs;  // NNodes that input into the network
 		std::vector<NNode*> outputs; // Values output by the network
+
+
 
 		int net_id; // Allow for a network id
 

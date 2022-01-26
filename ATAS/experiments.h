@@ -33,6 +33,8 @@ extern vector<int> initial_pos;
 extern atomic<bool> GameOver;
 extern atomic<bool> startNextGame;
 extern bool joinFinish;
+extern atomic<int> user_hp_sum;
+extern atomic<int> enemy_hp_sum;
 static mutex mutex_2;
 
 static atomic<int> user_fitness_sum = 0;

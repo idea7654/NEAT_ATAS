@@ -276,6 +276,7 @@ bool NEAT::Network::activate()
 						i->activesum += add_amount;
 					}
 				}
+				//std::cout << i->activesum << std::endl;
 			}
 		}
 
@@ -327,9 +328,13 @@ bool NEAT::Network::activate()
 					else
 					{
 						if (i->ftype == SIGMOID)
-							i->activation = fsigmoid(i->activesum, 4.924273, 2.4621365);
+						{
+							i->activesum = (int)i->activesum / 10000000;
+							i->activation = fsigmoid(i->activesum / 1000, 4.924273, 2.4621365);
+						}					
 					}
 					i->activation_count++;
+					//std::cout << i->activation << std::endl;
 				}
 			}
 		}

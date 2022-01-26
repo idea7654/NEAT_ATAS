@@ -581,8 +581,12 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 
 			joinFinish = true;
 			//cout << "join!" << endl;
-			pop->organisms[count - 2]->fitness = user_fitness_sum;
-			pop->organisms[count - 1]->fitness = enemy_fitness_sum;
+			//if (user_hp_sum == 0)
+			//	enemy_fitness_sum += 200; //적이 이겼을 경우 fitness 200넣어줌
+			//if (enemy_hp_sum == 0)
+			//	user_fitness_sum += 200; //user가 이겼을 경우 fitness 200넣어줌
+			pop->organisms[count - 2]->fitness = user_fitness_sum + user_hp_sum;
+			pop->organisms[count - 1]->fitness = enemy_fitness_sum + enemy_hp_sum;
 
 			//각 게임에 대한 fitness를 측정하고 여기서 더함. fitness측정은 어떻게?
 			//우선..게임 끝났을 때의 상태를 저장하고 해당 정보를 바탕으로
@@ -590,6 +594,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 
 			user_fitness_sum = 0;
 			enemy_fitness_sum = 0;
+			user_hp_sum = 0;
+			enemy_hp_sum = 0;
 
 			thread_pool.clear();
 		}
@@ -761,7 +767,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		if (!(net->activate()))
 			return 1;
 
-		out_iter = net->outputs.begin();
+		out_iter = net->outputs.begin(); 
 		out_Left = (*out_iter)->activation;
 		++out_iter;
 		out_Right = (*out_iter)->activation;
@@ -773,21 +779,23 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		if (num < 3)
 		{
 			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-			users[num]->RotateCannon(out_angle);
+			users[num]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				users[num]->gun->Shoot();
+				users[num]->gun->RateOfShoot = out_isShoot;
+				//users[num]->gun->Shoot();
 		}
 		else
 		{
 			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
-			enemies[num - 3]->RotateCannon(out_angle);
+			enemies[num - 3]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				enemies[num - 3]->gun->Shoot();
+				enemies[num - 3]->gun->RateOfShoot = out_isShoot;
+				//enemies[num - 3]->gun->Shoot();
 		}
 		mutex_2.unlock();
 		Sleep(50);
 		random = randbtn(1, 10000);
 	}
 
-	return random;
+	return 0;
 }
