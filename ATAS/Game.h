@@ -266,10 +266,10 @@ public:
 	float x;
 	float y;
 	Gun *gun;
-	float angle = 0.0f;
+	double angle = 0.0;
 	float left_angle = 0.0f;
 	float right_angle = 0.0f;
-	float c_angle = 0.0f;
+	double c_angle = 0.0;
 	bool isDie = false;
 	bool isUnder = false;
 	int hp = 100;
@@ -498,6 +498,9 @@ public:
 
 	void RotateCannon(int value)
 	{
-		angle += value;
+		if (isUnder)
+			angle += value;
+		else
+			angle -= value;
 	}
 };

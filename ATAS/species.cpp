@@ -154,13 +154,13 @@ bool Species::print_to_file(std::ofstream &outFile) {
 		//Put the fitness for each organism in a comment
 		outFile << std::endl << "/* Organism #" << ((*curorg)->gnome)->genome_id << " Fitness: " << (*curorg)->fitness << " Error: " << (*curorg)->error << " */" << std::endl;
 
-		outFile << std::endl << "/* Position #" << ((*curorg)->gnome)->genome_id << std::endl;
-		outFile << "#1" << std::endl << "x: " << (*curorg)->Users[0] << " y: " << (*curorg)->Users[1] << std::endl;
-		outFile << "#2" << std::endl << "x: " << (*curorg)->Users[2] << " y: " << (*curorg)->Users[3] << std::endl;
-		outFile << "#3" << std::endl << "x: " << (*curorg)->Users[4] << " y: " << (*curorg)->Users[5] << std::endl;
-		outFile << "#4" << std::endl << "x: " << (*curorg)->Enemies[0] << " y: " << (*curorg)->Enemies[1] << std::endl;
-		outFile << "#5" << std::endl << "x: " << (*curorg)->Enemies[2] << " y: " << (*curorg)->Enemies[3] << std::endl;
-		outFile << "#6" << std::endl << "x: " << (*curorg)->Enemies[4] << " y: " << (*curorg)->Enemies[5] << std::endl;
+		outFile << std::endl << "/* Position #" << ((*curorg)->gnome)->genome_id << "*/" << std::endl;
+		outFile << "#1" << " x: " << (*curorg)->Users[0] << " y: " << (*curorg)->Users[1] << std::endl;
+		outFile << "#2" << " x: " << (*curorg)->Users[2] << " y: " << (*curorg)->Users[3] << std::endl;
+		outFile << "#3" << " x: " << (*curorg)->Users[4] << " y: " << (*curorg)->Users[5] << std::endl;
+		outFile << "#4" << " x: " << (*curorg)->Enemies[0] << " y: " << (*curorg)->Enemies[1] << std::endl;
+		outFile << "#5" << " x: " << (*curorg)->Enemies[2] << " y: " << (*curorg)->Enemies[3] << std::endl;
+		outFile << "#6" << " x: " << (*curorg)->Enemies[4] << " y: " << (*curorg)->Enemies[5] << std::endl;
 		//If it is a winner, mark it in a comment
 		if ((*curorg)->winner) outFile << "/* ##------$ WINNER " << ((*curorg)->gnome)->genome_id << " SPECIES #" << id << " $------## */" << std::endl;
 

@@ -100,6 +100,15 @@ bool Organism::write_to_file(std::ostream &outFile) {
 		sprintf(tempbuf2, "/* %s */\n", metadata);
 	}
 	outFile << tempbuf2;
+
+	outFile << "/* Position #" << gnome->genome_id << "*/" << std::endl;
+	outFile << "#1" << " x: " << Users[0] << " y: " << Users[1] << std::endl;
+	outFile << "#2" << " x: " << Users[2] << " y: " << Users[3] << std::endl;
+	outFile << "#3" << " x: " << Users[4] << " y: " << Users[5] << std::endl;
+	outFile << "#4" << " x: " << Enemies[0] << " y: " << Enemies[1] << std::endl;
+	outFile << "#5" << " x: " << Enemies[2] << " y: " << Enemies[3] << std::endl;
+	outFile << "#6" << " x: " << Enemies[4] << " y: " << Enemies[5] << std::endl;
+
 	gnome->print_to_file(outFile);
 	return 1;
 }

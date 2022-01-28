@@ -200,7 +200,7 @@ bool NEAT::Network::activate()
 {
 	std::vector<NNode*>::iterator curnode;
 	std::vector<Link*>::iterator curlink;
-	double add_amount;  //For adding to the activesum
+	double add_amount = 0;  //For adding to the activesum
 	bool onetime; //Make sure we at least activate once
 	int abortcount = 0;  //Used in case the output is somehow truncated from the network
 
@@ -265,7 +265,11 @@ bool NEAT::Network::activate()
 				{
 					if (!j->time_delay)
 					{
-						add_amount = j->weight * j->in_node->get_active_out();
+						j->weight = j->weight / 10000;
+						j->weight = round(j->weight * 1000) / 1000;
+						double a = round(j->in_node->get_active_out());
+						add_amount = j->weight * a;
+						add_amount = add_amount;
 						if ((j->in_node)->active_flag || (j->in_node)->type == SENSOR)
 							i->active_flag = true;
 						i->activesum += add_amount;
@@ -273,10 +277,10 @@ bool NEAT::Network::activate()
 					else
 					{
 						add_amount = j->weight * (j->in_node)->get_active_out_td();
+						add_amount = add_amount / 1000.0;
 						i->activesum += add_amount;
 					}
 				}
-				//std::cout << i->activesum << std::endl;
 			}
 		}
 
@@ -329,8 +333,8 @@ bool NEAT::Network::activate()
 					{
 						if (i->ftype == SIGMOID)
 						{
-							i->activesum = (int)i->activesum / 10000000;
-							i->activation = fsigmoid(i->activesum / 1000, 4.924273, 2.4621365);
+							//i->activesum = (int)i->activesum;
+							i->activation = fsigmoid(i->activesum / 10000, 4.924273, 2.4621365);
 						}					
 					}
 					i->activation_count++;

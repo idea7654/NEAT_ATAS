@@ -526,6 +526,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 	vector<thread> thread_pool;
 
 	int count = 0;
+
 	while (count < pop->organisms.size())
 	{
 		if (startNextGame)
@@ -585,9 +586,29 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			//	enemy_fitness_sum += 200; //적이 이겼을 경우 fitness 200넣어줌
 			//if (enemy_hp_sum == 0)
 			//	user_fitness_sum += 200; //user가 이겼을 경우 fitness 200넣어줌
-			pop->organisms[count - 2]->fitness = user_fitness_sum + user_hp_sum;
-			pop->organisms[count - 1]->fitness = enemy_fitness_sum + enemy_hp_sum;
+			pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum;
+			pop->organisms[count - 1]->fitness = 300 - user_hp_sum;
 
+			if (fitness_rank.size() < 10)
+			{
+				fitness_rank.push_back(pop->organisms[count - 2]->fitness);
+			}
+			if (fitness_rank.size() < 10)
+			{
+				fitness_rank.push_back(pop->organisms[count - 1]->fitness);
+			}
+			else
+			{
+				sort(fitness_rank.rbegin(), fitness_rank.rend());
+				if (fitness_rank[9] < pop->organisms[count - 2]->fitness)
+				{
+					fitness_rank[9] = pop->organisms[count - 2]->fitness;
+				}
+				if (fitness_rank[9] < pop->organisms[count - 1]->fitness)
+				{
+					fitness_rank[9] = pop->organisms[count - 1]->fitness;
+				}
+			}
 			//각 게임에 대한 fitness를 측정하고 여기서 더함. fitness측정은 어떻게?
 			//우선..게임 끝났을 때의 상태를 저장하고 해당 정보를 바탕으로
 			//탱크 몇 마리가 데미지를 얼만큼 데미지를 입었는지..
@@ -615,9 +636,20 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		(*curspecies)->compute_max_fitness();
 	}
 
+	sort(fitness_rank.rbegin(), fitness_rank.rend());
+	for (auto &i : pop->organisms)
+	{
+		if (i->fitness >= fitness_rank[9])
+			i->print_to_file(filename);
+	}
+
+	fitness_rank.clear();
+
 	//Only print to file every print_every generations
-	if (win || ((generation % (NEAT::print_every)) == 0))
-		pop->print_to_file_by_species(filename);
+	//if (win || ((generation % (NEAT::print_every)) == 0))
+	//	pop->print_to_file_by_species(filename);
+
+	//여기서 여러파일 출력 담당!
 
 	if (win) {
 		for (curorg = (pop->organisms).begin(); curorg != (pop->organisms).end(); ++curorg) {
@@ -668,21 +700,22 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 
 	}
 
+	mutex_2.lock();
 	if (num < 3)
 	{
 		users[num]->isDie = false;
 		users[num]->hp = 100;
-		users[num]->angle = 90;
-		users[num]->c_angle = 0.0f;
+		users[num]->angle = 90.0;
+		users[num]->c_angle = 0.0;
 	}
 	else
 	{
 		enemies[num - 3]->isDie = false;
 		enemies[num - 3]->hp = 100;
-		enemies[num - 3]->angle = 270;
-		enemies[num - 3]->c_angle = 0.0f;
+		enemies[num - 3]->angle = 270.0;
+		enemies[num - 3]->c_angle = 0.0;
 	}
-
+	mutex_2.unlock();
 	while (!GameOver) //다음으로 넘어갈 조건..->게임오버
 	{
 		//Measure만 넣으면 됨!!!
@@ -691,42 +724,44 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		double out_Right;
 		double out_isShoot;
 		double out_angle;
-		double in[13];
+		double in[14];
 
 		if (num < 3)
 		{
 			//User(아래쪽)
-			in[0] = users[num]->x;
-			in[1] = users[num]->y;
+			in[0] = 1.0;
+			in[1] = users[num]->x;
+			in[2] = users[num]->y;
 			if (num == 0)
 			{
-				in[2] = users[num + 1]->x;
-				in[3] = users[num + 1]->y;
-				in[4] = users[num + 2]->x;
-				in[5] = users[num + 2]->y;
+				in[3] = users[num + 1]->x;
+				in[4] = users[num + 1]->y;
+				in[5] = users[num + 2]->x;
+				in[6] = users[num + 2]->y;
 			}
 			else if (num == 1)
 			{
-				in[2] = users[num - 1]->x;
-				in[3] = users[num - 1]->y;
-				in[4] = users[num + 1]->x;
-				in[5] = users[num + 1]->y;
+				in[3] = users[num - 1]->x;
+				in[4] = users[num - 1]->y;
+				in[5] = users[num + 1]->x;
+				in[6] = users[num + 1]->y;
 			}
 			else
 			{
-				in[2] = users[num - 2]->x;
-				in[3] = users[num - 2]->y;
-				in[4] = users[num - 1]->x;
-				in[5] = users[num - 1]->y;
+				in[3] = users[num - 2]->x;
+				in[4] = users[num - 2]->y;
+				in[5] = users[num - 1]->x;
+				in[6] = users[num - 1]->y;
 			}
 
-			in[6] = enemies[0]->x;
-			in[7] = enemies[0]->y;
-			in[8] = enemies[1]->x;
-			in[9] = enemies[1]->y;
-			in[10] = enemies[2]->x;
-			in[11] = enemies[2]->y;
-			in[12] = -(users[num]->angle - 90 + users[num]->c_angle * 180 / 3.14159);
+			in[7] = enemies[0]->x;
+			in[8] = enemies[0]->y;
+			in[9] = enemies[1]->x;
+			in[10] = enemies[1]->y;
+			in[11] = enemies[2]->x;
+			in[12] = enemies[2]->y;
+			in[13] = ((users[num]->angle - 90 + (users[num]->c_angle * 180)) / 3.14159);
+			//in[12] = 90.0;
 		}
 		else
 		{
@@ -776,12 +811,14 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		++out_iter;
 		out_angle = (*out_iter)->activation;
 
+		if (out_angle < 0.1)
+			out_angle = 0.1;
 		if (num < 3)
 		{
 			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
 			users[num]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				users[num]->gun->RateOfShoot = out_isShoot;
+				users[num]->gun->RateOfShoot = out_isShoot * 50;
 				//users[num]->gun->Shoot();
 		}
 		else
@@ -789,7 +826,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
 			enemies[num - 3]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				enemies[num - 3]->gun->RateOfShoot = out_isShoot;
+				enemies[num - 3]->gun->RateOfShoot = out_isShoot * 50;
 				//enemies[num - 3]->gun->Shoot();
 		}
 		mutex_2.unlock();

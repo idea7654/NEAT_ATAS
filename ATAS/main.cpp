@@ -266,7 +266,7 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 20;
+						j->hp -= 2;
 						i->isDestroy = true;
 						if (j->hp <= 0)
 						{
@@ -284,7 +284,7 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 20;
+						j->hp -= 2;
 						i->isDestroy = true;
 
 						if (j->hp <= 0)

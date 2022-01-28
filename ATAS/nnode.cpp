@@ -73,13 +73,31 @@ NNode::NNode(const char *argline, std::vector<Trait*> &traits) {
 	std::vector<Trait*> curtrait;
 
 	activesum = 0;
+	activation = 0;
 
 	std::stringstream ss(argline);
 
 	int nodety, nodepl;
 	ss >> node_id >> traitnum >> nodety >> nodepl;
 	type = (nodetype)nodety;
-	gen_node_label = (nodeplace)nodepl;
+	switch (nodepl)
+	{
+	case 0:
+		gen_node_label = nodeplace::HIDDEN;
+		break;
+	case 1:
+		gen_node_label = nodeplace::INPUT;
+		break;
+	case 2:
+		gen_node_label = nodeplace::OUTPUT;
+		break;
+	case 3:
+		gen_node_label = nodeplace::BIAS;
+		break;
+	default:
+		break;
+	}
+	//gen_node_label = (nodeplace)nodepl;
 
 	// Get the Sensor Identifier and Parameter String
 	// mySensor = SensorRegistry::getSensor(id, param);
