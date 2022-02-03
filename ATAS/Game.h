@@ -180,8 +180,9 @@ public:
 		m.unlock();
 	}
 
-	void DestoryBullet()
+	void DestroyBullet()
 	{
+		//m.lock();
 		vector<Bullet *> removeList;
 		for (auto &i : bullet_for_threadsafe)
 		{
@@ -200,51 +201,66 @@ public:
 				return false;
 			}), Gbullets.end());*/
 
-		for (vector<Bullet*>::size_type i = 0; i < bullet_for_threadsafe.size();)
+		if (bullet_for_threadsafe.size() > 0)
 		{
-			if (bullet_for_threadsafe[i]->isDestroy)
+			for (vector<Bullet*>::size_type i = 0; i < bullet_for_threadsafe.size();)
 			{
-				bullet_for_threadsafe.erase(bullet_for_threadsafe.begin() + i);
-			}
-			else
-			{
-				i++;
+				if (bullet_for_threadsafe[i]->isDestroy)
+				{
+					bullet_for_threadsafe.erase(bullet_for_threadsafe.begin() + i);
+				}
+				else
+				{
+					i++;
+				}
 			}
 		}
 
-		for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
+		if (Gbullets_ThreadSafe.size() > 0)
 		{
-			if (Gbullets_ThreadSafe[i]->isDestroy)
+			for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
 			{
-				Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
+				if (Gbullets_ThreadSafe[i]->isDestroy && Gbullets_ThreadSafe[i] != nullptr)
+				{
+					Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
+				}
+				else
+				{
+					i++;
+				}
 			}
-			else
+		}
+		
+		if (bullets.size() > 0)
+		{
+			for (vector<Bullet*>::size_type i = 0; i < bullets.size();)
 			{
-				i++;
+				if (bullets[i]->isDestroy && bullets[i] != nullptr)
+				{
+					bullets.erase(bullets.begin() + i);
+				}
+				else
+				{
+					i++;
+				}
 			}
 		}
 
-		for (vector<Bullet*>::size_type i = 0; i < bullets.size();)
+		if (Gbullets.size() > 0)
 		{
-			if (bullets[i]->isDestroy || bullets[i] == nullptr)
+			for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
 			{
-				bullets.erase(bullets.begin() + i);
-			}
-			else
-			{
-				i++;
-			}
-		}
-
-		for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
-		{
-			if (Gbullets[i]->isDestroy || Gbullets[i] == nullptr)
-			{
-				Gbullets.erase(Gbullets.begin() + i);
-			}
-			else
-			{
-				i++;
+				if (Gbullets[i] != nullptr)
+				{
+					if (Gbullets[i]->isDestroy)
+					{
+						Gbullets.erase(Gbullets.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
 			}
 		}
 		
@@ -257,6 +273,7 @@ public:
 			}
 		}
 		//메모리 삭제도 이루어져야함.
+		//m.unlock();
 	}
 };
 

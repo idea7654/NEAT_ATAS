@@ -586,8 +586,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			//	enemy_fitness_sum += 200; //ÀûÀÌ ÀÌ°åÀ» °æ¿ì fitness 200³Ö¾îÁÜ
 			//if (enemy_hp_sum == 0)
 			//	user_fitness_sum += 200; //user°¡ ÀÌ°åÀ» °æ¿ì fitness 200³Ö¾îÁÜ
-			pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum;
-			pop->organisms[count - 1]->fitness = 300 - user_hp_sum;
+			pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum + (user_hp_sum / 2);
+			pop->organisms[count - 1]->fitness = 300 - user_hp_sum + (enemy_hp_sum / 2);
 
 			if (fitness_rank.size() < 10)
 			{
@@ -765,36 +765,37 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		}
 		else
 		{
-			in[0] = enemies[num - 3]->x;
-			in[1] = enemies[num - 3]->y;
+			in[0] = 1.0;
+			in[1] = enemies[num - 3]->x;
+			in[2] = enemies[num - 3]->y;
 			if (num == 3)
 			{
-				in[2] = enemies[num - 2]->x;
-				in[3] = enemies[num - 2]->y;
-				in[4] = enemies[num - 1]->x;
-				in[5] = enemies[num - 1]->y;
+				in[3] = enemies[num - 2]->x;
+				in[4] = enemies[num - 2]->y;
+				in[5] = enemies[num - 1]->x;
+				in[6] = enemies[num - 1]->y;
 			}
 			else if (num == 4)
 			{
-				in[2] = enemies[num - 4]->x;
-				in[3] = enemies[num - 4]->y;
-				in[4] = enemies[num - 2]->x;
-				in[5] = enemies[num - 2]->y;
+				in[3] = enemies[num - 4]->x;
+				in[4] = enemies[num - 4]->y;
+				in[5] = enemies[num - 2]->x;
+				in[6] = enemies[num - 2]->y;
 			}
 			else
 			{
-				in[2] = enemies[num - 5]->x;
-				in[3] = enemies[num - 5]->y;
-				in[4] = enemies[num - 4]->x;
-				in[5] = enemies[num - 4]->y;
+				in[3] = enemies[num - 5]->x;
+				in[4] = enemies[num - 5]->y;
+				in[5] = enemies[num - 4]->x;
+				in[6] = enemies[num - 4]->y;
 			}
-			in[6] = users[0]->x;
-			in[7] = users[0]->y;
-			in[8] = users[1]->x;
-			in[9] = users[1]->y;
-			in[10] = users[2]->x;
-			in[11] = users[2]->y;
-			in[12] = -(enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
+			in[7] = users[0]->x;
+			in[8] = users[0]->y;
+			in[9] = users[1]->x;
+			in[10] = users[1]->y;
+			in[11] = users[2]->x;
+			in[12] = users[2]->y;
+			in[13] = (enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
 		}
 
 		net->load_sensors(in);
@@ -813,12 +814,16 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 
 		if (out_angle < 0.1)
 			out_angle = 0.1;
+
+		if (out_angle < 0.5)
+			out_angle = 1 - out_angle;
+
 		if (num < 3)
 		{
 			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
 			users[num]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				users[num]->gun->RateOfShoot = out_isShoot * 50;
+				users[num]->gun->RateOfShoot = out_isShoot;
 				//users[num]->gun->Shoot();
 		}
 		else
@@ -826,7 +831,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
 			enemies[num - 3]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
-				enemies[num - 3]->gun->RateOfShoot = out_isShoot * 50;
+				enemies[num - 3]->gun->RateOfShoot = out_isShoot;
 				//enemies[num - 3]->gun->Shoot();
 		}
 		mutex_2.unlock();

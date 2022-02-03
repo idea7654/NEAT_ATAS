@@ -210,10 +210,12 @@ void display_callback()
 					j->MoveBullet();
 					j->drawBullet();
 				}
-				
-				i->gun->DestoryBullet();
 				m.unlock();
 			}
+
+			m.lock();
+			i->gun->DestroyBullet();
+			m.unlock();
 		}
 	}
 
@@ -232,7 +234,7 @@ void display_callback()
 			i->gun->DrawGun();
 			i->gun->Shoot();
 			i->gun->bullet_for_threadsafe = i->gun->bullets;
-			Gbullets_ThreadSafe = Gbullets;
+			//Gbullets_ThreadSafe = Gbullets;
 		}
 	}
 
@@ -249,9 +251,13 @@ void display_callback()
 					j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
 					j->drawBullet();
 				}
-				i->gun->DestoryBullet();
+				//i->gun->DestoryBullet();
 				m.unlock();
 			}
+
+			m.lock();
+			i->gun->DestroyBullet();
+			m.unlock();
 		}
 	}
 
