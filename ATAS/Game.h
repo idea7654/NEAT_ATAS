@@ -220,7 +220,7 @@ public:
 		{
 			for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
 			{
-				if (Gbullets_ThreadSafe[i]->isDestroy && Gbullets_ThreadSafe[i] != nullptr)
+				if (Gbullets_ThreadSafe[i]->isDestroy)
 				{
 					Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
 				}
@@ -308,11 +308,11 @@ public:
 		}
 		if (y > 93)
 		{
-			y = 7;
+			y = 93;
 		}
 		if (y < 7)
 		{
-			y = 93;
+			y = 7;
 		}
 	}
 };
@@ -346,6 +346,8 @@ public:
 	{
 		if (this->y > 40)
 			this->y = 40;
+		//if (this->y < 4)
+		//	this->y = 4;
 	}
 
 	void drawUser()
@@ -396,7 +398,12 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		c_angle += sum;
+		//float sum = -0.1;
+		c_angle -= sum;
+		if (c_angle > 360)
+			c_angle -= 360;
+		if (c_angle < 0)
+			c_angle += 360;
 		if (c_angle < 0)
 		{
 			this->x -= cosf(c_angle - 90);
@@ -404,8 +411,8 @@ public:
 		}
 		else
 		{
-			this->x += cosf(c_angle + 90);
-			this->y += sinf(c_angle + 90);
+			this->x += cosf(c_angle + 3.14159 / 2);
+			this->y += sinf(c_angle + 3.14159 / 2);
 		}
 	}
 
@@ -500,7 +507,12 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
+		//float sum = 0.0;
 		c_angle += sum;
+		if (c_angle > 360)
+			c_angle -= 360;
+		if (c_angle < 0)
+			c_angle += 360;
 		if (c_angle < 0)
 		{
 			this->x -= cosf(c_angle - 90);
@@ -508,8 +520,8 @@ public:
 		}
 		else
 		{
-			this->x += cosf(c_angle + 90);
-			this->y -= sinf(c_angle + 90);
+			this->x += cosf(c_angle + 3.14159 / 2);
+			this->y -= sinf(c_angle + 3.14159 / 2);
 		}
 	}
 

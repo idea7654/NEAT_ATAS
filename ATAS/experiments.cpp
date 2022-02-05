@@ -484,6 +484,7 @@ bool tank_evaluate(Organism * org, bool &isWin, int num)
 	if (net->net_id > 0)
 	{
 		//org->fitness = try_tank(net, MAX_STEPS, thresh, num);
+		gameStartCount++;
 		if (num < 3)
 			user_fitness_sum += try_tank(net, MAX_STEPS, thresh, num);
 		else
@@ -492,6 +493,7 @@ bool tank_evaluate(Organism * org, bool &isWin, int num)
 	}
 	else
 	{
+		net->isFailed = true;
 		isWin = false;
 		return false;
 	}
@@ -573,42 +575,56 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 				num++;
 			}
 			count++;
+			/*while (gameStartCount < 6)
+			{
 
+			}*/
+			joinFinish = true;
+			gameStartCount = 0;
+			//담게임 준비완료 신호
 			for (auto &i : thread_pool)
 			{
 				//cout << "here" << endl;
 				i.join();
 			}
 
-			joinFinish = true;
+			if (!pop->organisms[count - 2]->net->isFailed && !pop->organisms[count - 1]->net->isFailed)
+			{
+				pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum + (user_hp_sum / 2);
+				pop->organisms[count - 1]->fitness = 300 - user_hp_sum + (enemy_hp_sum / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 2]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 1]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 2]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 2]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 1]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 1]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 2]->fitness = 0;
+				pop->organisms[count - 1]->fitness = 0;
+			}
 			//cout << "join!" << endl;
 			//if (user_hp_sum == 0)
 			//	enemy_fitness_sum += 200; //적이 이겼을 경우 fitness 200넣어줌
 			//if (enemy_hp_sum == 0)
 			//	user_fitness_sum += 200; //user가 이겼을 경우 fitness 200넣어줌
-			pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum + (user_hp_sum / 2);
-			pop->organisms[count - 1]->fitness = 300 - user_hp_sum + (enemy_hp_sum / 2);
-
-			if (fitness_rank.size() < 10)
-			{
-				fitness_rank.push_back(pop->organisms[count - 2]->fitness);
-			}
-			if (fitness_rank.size() < 10)
-			{
-				fitness_rank.push_back(pop->organisms[count - 1]->fitness);
-			}
-			else
-			{
-				sort(fitness_rank.rbegin(), fitness_rank.rend());
-				if (fitness_rank[9] < pop->organisms[count - 2]->fitness)
-				{
-					fitness_rank[9] = pop->organisms[count - 2]->fitness;
-				}
-				if (fitness_rank[9] < pop->organisms[count - 1]->fitness)
-				{
-					fitness_rank[9] = pop->organisms[count - 1]->fitness;
-				}
-			}
+			
 			//각 게임에 대한 fitness를 측정하고 여기서 더함. fitness측정은 어떻게?
 			//우선..게임 끝났을 때의 상태를 저장하고 해당 정보를 바탕으로
 			//탱크 몇 마리가 데미지를 얼만큼 데미지를 입었는지..
@@ -664,6 +680,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 
 	if (win) return ((generation - 1)*NEAT::pop_size + winnernum);
 	else return 0;
+	//return 0;
 }
 
 int try_tank(Network * net, int max_steps, int thresh, int num)
@@ -810,7 +827,8 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		++out_iter;
 		out_isShoot = (*out_iter)->activation;
 		++out_iter;
-		out_angle = (*out_iter)->activation;
+		//out_angle = (*out_iter)->activation;
+		out_angle = net->outputs[3]->activation;
 
 		if (out_angle < 0.1)
 			out_angle = 0.1;
@@ -820,7 +838,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 
 		if (num < 3)
 		{
-			users[num]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+			users[num]->MoveUser(out_Left, out_Right);
 			users[num]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
 				users[num]->gun->RateOfShoot = out_isShoot;
@@ -828,7 +846,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		}
 		else
 		{
-			enemies[num - 3]->MoveUser(out_Left / 1000000, out_Right / 1000000);
+			enemies[num - 3]->MoveUser(out_Left, out_Right);
 			enemies[num - 3]->RotateCannon(out_angle * 5);
 			if (out_isShoot > 0)
 				enemies[num - 3]->gun->RateOfShoot = out_isShoot;

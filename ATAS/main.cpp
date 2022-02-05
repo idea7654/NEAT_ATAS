@@ -106,8 +106,10 @@ int main(int argc, char **argv)
 					initial_pos.push_back(y);
 					i->x = x;
 					i->y = y;
+					m.lock();
 					i->gun->bullets.clear();
 					i->gun->bullet_for_threadsafe.clear();
+					m.unlock();
 					i->isDie = false;
 					user_hp_sum += i->hp;
 					i->hp = 100;
@@ -122,8 +124,10 @@ int main(int argc, char **argv)
 					initial_pos.push_back(y);
 					i->x = x;
 					i->y = y;
+					m.lock();
 					i->gun->bullets.clear();
 					i->gun->bullet_for_threadsafe.clear();
+					m.unlock();
 					i->isDie = false;
 					enemy_hp_sum += i->hp;
 					i->hp = 100;
@@ -133,8 +137,14 @@ int main(int argc, char **argv)
 				GameOver = true;
 				startNextGame = true;
 				Sleep(500); //Wait for all tank thread join
+				m.lock();
 				Gbullets_ThreadSafe.clear();
 				Gbullets.clear();
+				m.unlock();
+				/*while (!joinFinish)
+				{
+
+				}*/
 			}
 		}
 		});

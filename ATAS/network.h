@@ -98,7 +98,7 @@ namespace NEAT {
 
 		// Counts the number of links in the net if not yet counted
 		int linkcount();
-
+		bool isFailed = false;
 		// This checks a POTENTIAL link between a potential in_node
 		// and potential out_node to see if it must be recurrent 
 		// Use count and thresh to jump out in the case of an infinite loop 

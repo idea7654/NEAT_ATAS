@@ -39,6 +39,7 @@ static mutex mutex_2;
 static vector<int> fitness_rank;
 static atomic<int> user_fitness_sum = 0;
 static atomic<int> enemy_fitness_sum = 0;
+static atomic<int> gameStartCount = 0;
 
 Population *pole1_test(int gens);
 bool pole1_evaluate(Organism *org);
