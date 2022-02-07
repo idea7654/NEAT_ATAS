@@ -746,7 +746,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		if (num < 3)
 		{
 			//User(¾Æ·¡ÂÊ)
-			in[0] = 1.0;
+			in[0] = 0.1;
 			in[1] = users[num]->x;
 			in[2] = users[num]->y;
 			if (num == 0)
@@ -782,7 +782,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		}
 		else
 		{
-			in[0] = 1.0;
+			in[0] = 0.1;
 			in[1] = enemies[num - 3]->x;
 			in[2] = enemies[num - 3]->y;
 			if (num == 3)
@@ -834,12 +834,17 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 			out_angle = 0.1;
 
 		if (out_angle < 0.5)
+		{
 			out_angle = 1 - out_angle;
+		}
 
+		if (out_isShoot < 0.1)
+			out_isShoot = 0.1;
+			
 		if (num < 3)
 		{
 			users[num]->MoveUser(out_Left, out_Right);
-			users[num]->RotateCannon(out_angle * 5);
+			users[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				users[num]->gun->RateOfShoot = out_isShoot;
 				//users[num]->gun->Shoot();
@@ -847,7 +852,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		else
 		{
 			enemies[num - 3]->MoveUser(out_Left, out_Right);
-			enemies[num - 3]->RotateCannon(out_angle * 5);
+			enemies[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				enemies[num - 3]->gun->RateOfShoot = out_isShoot;
 				//enemies[num - 3]->gun->Shoot();

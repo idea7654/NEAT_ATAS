@@ -467,7 +467,7 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 	thechamp = (*(organisms.begin()));
 	//Create the designated number of offspring for the Species
 	//one at a time
-	for (count = 0; count < expected_offspring; count++) {
+	for (count = 1; count <= expected_offspring; count++) {
 
 		mut_struct_baby = false;
 		mate_baby = false;
@@ -830,14 +830,8 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 				newspecies->add_Organism(baby);  //Add the baby
 				baby->species = newspecies;  //Point baby to its species
 			}
-
-
 		} //end else 
-
 	}
-
-
-
 	return true;
 }
 

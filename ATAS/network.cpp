@@ -265,9 +265,7 @@ bool NEAT::Network::activate()
 				{
 					if (!j->time_delay)
 					{
-						j->weight = j->weight / 10000;
-						j->weight = round(j->weight * 1000) / 1000;
-						double a = round(j->in_node->get_active_out());
+						double a = j->in_node->get_active_out();
 						add_amount = j->weight * a;
 						if ((j->in_node)->active_flag || (j->in_node)->type == SENSOR)
 							i->active_flag = true;
@@ -333,7 +331,8 @@ bool NEAT::Network::activate()
 						if (i->ftype == SIGMOID)
 						{
 							//i->activesum = (int)i->activesum;
-							i->activation = fsigmoid(i->activesum / 1000000, 4.924273, 2.4621365);
+							i->activesum = round(i->activesum * 1000) / 1000;
+							i->activation = fsigmoid(i->activesum / 2000000000, 4.924273, 2.4621365);
 						}					
 					}
 					i->activation_count++;

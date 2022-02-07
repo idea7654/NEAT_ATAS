@@ -774,7 +774,7 @@ bool Population::epoch(int generation) {
 
 	//Kill off all Organisms marked for death.  The remainder
 	//will be allowed to reproduce.
-	curorg=organisms.begin();
+ 	curorg=organisms.begin();
 	while(curorg!=organisms.end()) {
 		if (((*curorg)->eliminate)) {
 			//Remove the organism from its Species
@@ -865,7 +865,7 @@ bool Population::epoch(int generation) {
 
 	  //std::cout<<"nnext org # "<<(*curorg)->gnome->genome_id<<std::endl;
 
-	}
+	} //여기서 에러남
 
 	//Remove all empty Species and age ones that survive
 	//As this happens, create master organism list for the new generation
