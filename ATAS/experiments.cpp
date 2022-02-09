@@ -741,78 +741,178 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		double out_Right;
 		double out_isShoot;
 		double out_angle;
-		double in[14];
+		double in[12];
 
+		//상대좌표 구하고 역행렬회전하면됨!
 		if (num < 3)
 		{
 			//User(아래쪽)
 			in[0] = 0.1;
-			in[1] = users[num]->x;
-			in[2] = users[num]->y;
+			//in[1] = users[num]->x;
+			//in[2] = users[num]->y;
 			if (num == 0)
 			{
-				in[3] = users[num + 1]->x;
-				in[4] = users[num + 1]->y;
-				in[5] = users[num + 2]->x;
-				in[6] = users[num + 2]->y;
+				//in[3] = users[num + 1]->x;
+				//in[4] = users[num + 1]->y;
+				//in[5] = users[num + 2]->x;
+				//in[6] = users[num + 2]->y;
+
+				float diffX = users[num + 1]->x - users[num]->x;
+				float diffY = users[num + 1]->y - users[num]->y;
+
+				in[1] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = users[num + 2]->x - users[num]->x;
+				diffY = users[num + 2]->y - users[num]->y;
+
+				in[3] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
 			}
 			else if (num == 1)
 			{
-				in[3] = users[num - 1]->x;
-				in[4] = users[num - 1]->y;
-				in[5] = users[num + 1]->x;
-				in[6] = users[num + 1]->y;
+				//in[3] = users[num - 1]->x;
+				//in[4] = users[num - 1]->y;
+				//in[5] = users[num + 1]->x;
+				//in[6] = users[num + 1]->y;
+
+				float diffX = users[num - 1]->x - users[num]->x;
+				float diffY = users[num - 1]->y - users[num]->y;
+
+				in[1] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = users[num + 1]->x - users[num]->x;
+				diffY = users[num + 1]->y - users[num]->y;
+
+				in[3] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
 			}
 			else
 			{
-				in[3] = users[num - 2]->x;
-				in[4] = users[num - 2]->y;
-				in[5] = users[num - 1]->x;
-				in[6] = users[num - 1]->y;
+				//in[3] = users[num - 2]->x;
+				//in[4] = users[num - 2]->y;
+				//in[5] = users[num - 1]->x;
+				//in[6] = users[num - 1]->y;
+
+				float diffX = users[num - 2]->x - users[num]->x;
+				float diffY = users[num - 2]->y - users[num]->y;
+
+				in[1] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = users[num - 1]->x - users[num]->x;
+				diffY = users[num - 1]->y - users[num]->y;
+
+				in[3] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
 			}
 
-			in[7] = enemies[0]->x;
-			in[8] = enemies[0]->y;
-			in[9] = enemies[1]->x;
-			in[10] = enemies[1]->y;
-			in[11] = enemies[2]->x;
-			in[12] = enemies[2]->y;
-			in[13] = ((users[num]->angle - 90 + (users[num]->c_angle * 180)) / 3.14159);
-			//in[12] = 90.0;
+			float diffX = enemies[0]->x - users[num]->x;
+			float diffY = enemies[0]->y - users[num]->y;
+
+			in[5] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+			in[6] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+
+			diffX = enemies[1]->x - users[num]->x;
+			diffY = enemies[1]->y - users[num]->y;
+
+			in[7] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+			in[8] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+
+			diffX = enemies[2]->x - users[num]->x;
+			diffY = enemies[2]->y - users[num]->y;
+
+			in[9] = cos(users[num]->c_angle / 180 * 3.14159) * diffX + sin(users[num]->c_angle / 180 * 3.14159) * diffY;
+			in[10] = -sin(users[num]->c_angle / 180 * 3.14159) * diffX - cos(users[num]->c_angle / 180 * 3.14159) * diffY;
+			in[11] = ((users[num]->angle - 90 + (users[num]->c_angle * 180)) / 3.14159);
 		}
 		else
 		{
 			in[0] = 0.1;
-			in[1] = enemies[num - 3]->x;
-			in[2] = enemies[num - 3]->y;
+			//in[1] = enemies[num - 3]->x;
+			//in[2] = enemies[num - 3]->y;
 			if (num == 3)
 			{
-				in[3] = enemies[num - 2]->x;
-				in[4] = enemies[num - 2]->y;
-				in[5] = enemies[num - 1]->x;
-				in[6] = enemies[num - 1]->y;
+				//in[3] = enemies[num - 2]->x;
+				//in[4] = enemies[num - 2]->y;
+				//in[5] = enemies[num - 1]->x;
+				//in[6] = enemies[num - 1]->y;
+
+				float diffX = enemies[num - 2]->x - enemies[num - 3]->x;
+				float diffY = enemies[num - 2]->y - enemies[num - 3]->y;
+
+				in[1] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = enemies[num - 1]->x - enemies[num - 3]->x;
+				diffY = enemies[num - 1]->y - enemies[num - 3]->y;
+
+				in[3] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			}
 			else if (num == 4)
 			{
-				in[3] = enemies[num - 4]->x;
-				in[4] = enemies[num - 4]->y;
-				in[5] = enemies[num - 2]->x;
-				in[6] = enemies[num - 2]->y;
+				//in[3] = enemies[num - 4]->x;
+				//in[4] = enemies[num - 4]->y;
+				//in[5] = enemies[num - 2]->x;
+				//in[6] = enemies[num - 2]->y;
+				float diffX = enemies[num - 4]->x - enemies[num - 3]->x;
+				float diffY = enemies[num - 4]->y - enemies[num - 3]->y;
+
+				in[1] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = enemies[num - 2]->x - enemies[num - 3]->x;
+				diffY = enemies[num - 2]->y - enemies[num - 3]->y;
+
+				in[3] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			}
 			else
 			{
-				in[3] = enemies[num - 5]->x;
-				in[4] = enemies[num - 5]->y;
-				in[5] = enemies[num - 4]->x;
-				in[6] = enemies[num - 4]->y;
+				//in[3] = enemies[num - 5]->x;
+				//in[4] = enemies[num - 5]->y;
+				//in[5] = enemies[num - 4]->x;
+				//in[6] = enemies[num - 4]->y;
+
+				float diffX = enemies[num - 5]->x - enemies[num - 3]->x;
+				float diffY = enemies[num - 5]->y - enemies[num - 3]->y;
+
+				in[1] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				diffX = enemies[num - 4]->x - enemies[num - 3]->x;
+				diffY = enemies[num - 4]->y - enemies[num - 3]->y;
+
+				in[3] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			}
-			in[7] = users[0]->x;
+			/*in[7] = users[0]->x;
 			in[8] = users[0]->y;
 			in[9] = users[1]->x;
 			in[10] = users[1]->y;
 			in[11] = users[2]->x;
 			in[12] = users[2]->y;
-			in[13] = (enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);
+			in[13] = (enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);*/
+			float diffX = users[0]->x - enemies[num - 3]->x;
+			float diffY = users[0]->y - enemies[num - 3]->y;
+
+			in[5] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[6] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+			diffX = users[1]->x - enemies[num - 3]->x;
+			diffY = users[1]->y - enemies[num - 3]->y;
+
+			in[7] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[8] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+			diffX = users[2]->x - enemies[num - 3]->x;
+			diffY = users[2]->y - enemies[num - 3]->y;
+
+			in[9] = cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[10] = -sin(enemies[num - 3]->c_angle / 180 * 3.14159) * diffX - cos(enemies[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[11] = ((enemies[num - 3]->angle - 90 + (enemies[num - 3]->c_angle * 180)) / 3.14159);
 		}
 
 		net->load_sensors(in);
@@ -833,13 +933,10 @@ int try_tank(Network * net, int max_steps, int thresh, int num)
 		if (out_angle < 0.1)
 			out_angle = 0.1;
 
-		if (out_angle < 0.5)
-		{
-			out_angle = 1 - out_angle;
-		}
+		out_angle -= 0.5;
 
-		if (out_isShoot < 0.1)
-			out_isShoot = 0.1;
+		double copyShoot = out_isShoot;
+		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
 			
 		if (num < 3)
 		{

@@ -93,7 +93,7 @@ public:
 		if (isUnder)
 			glColor3f(0, 0, 1);
 		else
-			glColor3f(1, 2, 1);
+			glColor3f(1, 1, 0);
 		glBegin(GL_POLYGON);
 		for (int i = 0; i <= 300; i++) {
 			double angle = 2 * 3.14159 * i / 300;
@@ -308,11 +308,11 @@ public:
 		}
 		if (y > 93)
 		{
-			y = 93;
+			y = 7;
 		}
 		if (y < 7)
 		{
-			y = 7;
+			y = 93;
 		}
 	}
 };
@@ -344,8 +344,8 @@ public:
 
 	void UserCollider()
 	{
-		if (this->y > 40)
-			this->y = 40;
+		//if (this->y > 40)
+		//	this->y = 40;
 		//if (this->y < 4)
 		//	this->y = 4;
 	}
@@ -454,8 +454,8 @@ public:
 
 	void EnemyCollider()
 	{
-		if (this->y <= 60)
-			this->y = 60;
+		//if (this->y <= 60)
+		//	this->y = 60;
 	}
 
 	void drawUser()

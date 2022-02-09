@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		tank_game(100);
 		});
 
-	auto gameManager =  async(launch::async, [&]() {
+	auto gameManager = async(launch::async, [&]() {
 		while (true)
 		{
 			if (GameOver || isFirst)
@@ -141,10 +141,6 @@ int main(int argc, char **argv)
 				Gbullets_ThreadSafe.clear();
 				Gbullets.clear();
 				m.unlock();
-				/*while (!joinFinish)
-				{
-
-				}*/
 			}
 		}
 		});
