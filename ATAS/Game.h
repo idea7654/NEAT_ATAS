@@ -108,6 +108,27 @@ public:
 extern vector<Bullet*> Gbullets;
 extern vector<Bullet*> Gbullets_ThreadSafe;
 
+extern vector<Bullet*> Gbullets2;
+extern vector<Bullet*> Gbullets_ThreadSafe2;
+
+extern vector<Bullet*> Gbullets3;
+extern vector<Bullet*> Gbullets_ThreadSafe3;
+
+extern vector<Bullet*> Gbullets4;
+extern vector<Bullet*> Gbullets_ThreadSafe4;
+
+extern vector<Bullet*> Gbullets5;
+extern vector<Bullet*> Gbullets_ThreadSafe5;
+
+extern vector<Bullet*> Gbullets6;
+extern vector<Bullet*> Gbullets_ThreadSafe6;
+
+extern vector<Bullet*> Gbullets7;
+extern vector<Bullet*> Gbullets_ThreadSafe7;
+
+extern vector<Bullet*> Gbullets8;
+extern vector<Bullet*> Gbullets_ThreadSafe8;
+
 class Gun
 {
 public:
@@ -124,6 +145,7 @@ public:
 	Character *Whohas;
 	vector<Bullet*> bullets;
 	vector<Bullet*> bullet_for_threadsafe;
+	int roomNum = 0;
 
 	~Gun()
 	{
@@ -174,7 +196,52 @@ public:
 			}
 
 			bullets.emplace_back(newBullet);
-			Gbullets.emplace_back(newBullet);
+			switch (roomNum)
+			{
+			case 0:
+			{
+				Gbullets.emplace_back(newBullet);
+				break;
+			}
+			case 1:
+			{
+				Gbullets2.emplace_back(newBullet);
+				break;
+			}
+			case 2:
+			{
+				Gbullets3.emplace_back(newBullet);
+				break;
+			}
+			case 3:
+			{
+				Gbullets4.emplace_back(newBullet);
+				break;
+			}
+			case 4:
+			{
+				Gbullets5.emplace_back(newBullet);
+				break;
+			}
+			case 5:
+			{
+				Gbullets6.emplace_back(newBullet);
+				break;
+			}
+			case 6:
+			{
+				Gbullets7.emplace_back(newBullet);
+				break;
+			}
+			case 7:
+			{
+				Gbullets8.emplace_back(newBullet);
+				break;
+			}
+			default:
+				break;
+			}
+			
 			last_shoot = chrono::system_clock::now();
 		}
 		m.unlock();
@@ -215,21 +282,6 @@ public:
 				}
 			}
 		}
-
-		if (Gbullets_ThreadSafe.size() > 0)
-		{
-			for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
-			{
-				if (Gbullets_ThreadSafe[i]->isDestroy)
-				{
-					Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
-				}
-				else
-				{
-					i++;
-				}
-			}
-		}
 		
 		if (bullets.size() > 0)
 		{
@@ -246,15 +298,17 @@ public:
 			}
 		}
 
-		if (Gbullets.size() > 0)
+		switch (roomNum)
 		{
-			for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
+		case 0:
+		{
+			if (Gbullets_ThreadSafe.size() > 0)
 			{
-				if (Gbullets[i] != nullptr)
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe.size();)
 				{
-					if (Gbullets[i]->isDestroy)
+					if (Gbullets_ThreadSafe[i]->isDestroy)
 					{
-						Gbullets.erase(Gbullets.begin() + i);
+						Gbullets_ThreadSafe.erase(Gbullets_ThreadSafe.begin() + i);
 					}
 					else
 					{
@@ -262,7 +316,282 @@ public:
 					}
 				}
 			}
+
+			if (Gbullets.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets.size();)
+				{
+					if (Gbullets[i] != nullptr)
+					{
+						if (Gbullets[i]->isDestroy)
+						{
+							Gbullets.erase(Gbullets.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
 		}
+		case 1:
+		{
+			if (Gbullets_ThreadSafe2.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe2.size();)
+				{
+					if (Gbullets_ThreadSafe2[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe2.erase(Gbullets_ThreadSafe2.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets2.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets2.size();)
+				{
+					if (Gbullets2[i] != nullptr)
+					{
+						if (Gbullets2[i]->isDestroy)
+						{
+							Gbullets2.erase(Gbullets2.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 2:
+		{
+			if (Gbullets_ThreadSafe3.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe3.size();)
+				{
+					if (Gbullets_ThreadSafe3[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe3.erase(Gbullets_ThreadSafe3.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets3.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets3.size();)
+				{
+					if (Gbullets3[i] != nullptr)
+					{
+						if (Gbullets3[i]->isDestroy)
+						{
+							Gbullets3.erase(Gbullets3.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 3:
+		{
+			if (Gbullets_ThreadSafe4.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe4.size();)
+				{
+					if (Gbullets_ThreadSafe4[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe4.erase(Gbullets_ThreadSafe4.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets4.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets4.size();)
+				{
+					if (Gbullets4[i] != nullptr)
+					{
+						if (Gbullets4[i]->isDestroy)
+						{
+							Gbullets4.erase(Gbullets4.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 4:
+		{
+			if (Gbullets_ThreadSafe5.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe5.size();)
+				{
+					if (Gbullets_ThreadSafe5[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe5.erase(Gbullets_ThreadSafe5.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets5.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets5.size();)
+				{
+					if (Gbullets5[i] != nullptr)
+					{
+						if (Gbullets5[i]->isDestroy)
+						{
+							Gbullets5.erase(Gbullets5.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 5:
+		{
+			if (Gbullets_ThreadSafe6.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe6.size();)
+				{
+					if (Gbullets_ThreadSafe6[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe6.erase(Gbullets_ThreadSafe6.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets6.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets6.size();)
+				{
+					if (Gbullets6[i] != nullptr)
+					{
+						if (Gbullets6[i]->isDestroy)
+						{
+							Gbullets6.erase(Gbullets6.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 6:
+		{
+			if (Gbullets_ThreadSafe7.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe7.size();)
+				{
+					if (Gbullets_ThreadSafe7[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe7.erase(Gbullets_ThreadSafe7.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets7.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets7.size();)
+				{
+					if (Gbullets7[i] != nullptr)
+					{
+						if (Gbullets7[i]->isDestroy)
+						{
+							Gbullets7.erase(Gbullets7.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		case 7:
+		{
+			if (Gbullets_ThreadSafe8.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets_ThreadSafe8.size();)
+				{
+					if (Gbullets_ThreadSafe8[i]->isDestroy)
+					{
+						Gbullets_ThreadSafe8.erase(Gbullets_ThreadSafe8.begin() + i);
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+
+			if (Gbullets8.size() > 0)
+			{
+				for (vector<Bullet*>::size_type i = 0; i < Gbullets8.size();)
+				{
+					if (Gbullets8[i] != nullptr)
+					{
+						if (Gbullets8[i]->isDestroy)
+						{
+							Gbullets8.erase(Gbullets8.begin() + i);
+						}
+						else
+						{
+							i++;
+						}
+					}
+				}
+			}
+			break;
+		}
+		default:
+			break;
+		}
+		
 		
 		if (removeList.size() > 0)
 		{
@@ -275,7 +604,7 @@ public:
 		//메모리 삭제도 이루어져야함.
 		//m.unlock();
 	}
-};
+}; // 지우기만 하면됨
 
 class Character
 {
