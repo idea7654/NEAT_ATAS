@@ -928,208 +928,43 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			}
 
 			//---------- Room1 -----------------
-			if (!pop->organisms[count - 2]->net->isFailed && !pop->organisms[count - 1]->net->isFailed)
+			if (!pop->organisms[count - 16]->net->isFailed && !pop->organisms[count - 15]->net->isFailed)
 			{
-				pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum + (user_hp_sum / 2);
-				pop->organisms[count - 1]->fitness = 300 - user_hp_sum + (enemy_hp_sum / 2);
+				pop->organisms[count - 16]->fitness = 300 - enemy_hp_sum + (user_hp_sum / 2);
+				pop->organisms[count - 15]->fitness = 300 - user_hp_sum + (enemy_hp_sum / 2);
 
 				if (fitness_rank.size() < 10)
 				{
-					fitness_rank.push_back(pop->organisms[count - 2]->fitness);
+					fitness_rank.push_back(pop->organisms[count - 16]->fitness);
 				}
 				if (fitness_rank.size() < 10)
 				{
-					fitness_rank.push_back(pop->organisms[count - 1]->fitness);
+					fitness_rank.push_back(pop->organisms[count - 15]->fitness);
 				}
 				else
 				{
 					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 2]->fitness)
+					if (fitness_rank[9] < pop->organisms[count - 16]->fitness)
 					{
-						fitness_rank[9] = pop->organisms[count - 2]->fitness;
+						fitness_rank[9] = pop->organisms[count - 16]->fitness;
 					}
-					if (fitness_rank[9] < pop->organisms[count - 1]->fitness)
+					if (fitness_rank[9] < pop->organisms[count - 15]->fitness)
 					{
-						fitness_rank[9] = pop->organisms[count - 1]->fitness;
+						fitness_rank[9] = pop->organisms[count - 15]->fitness;
 					}
 				}
 			}
 			else
 			{
-				pop->organisms[count - 2]->fitness = 0;
-				pop->organisms[count - 1]->fitness = 0;
+				pop->organisms[count - 16]->fitness = 0;
+				pop->organisms[count - 15]->fitness = 0;
 			}
 
 			//---------- Room2 -----------------
-			if (!pop->organisms[count - 4]->net->isFailed && !pop->organisms[count - 3]->net->isFailed)
-			{
-				pop->organisms[count - 4]->fitness = 300 - enemy_hp_sum2 + (user_hp_sum2 / 2);
-				pop->organisms[count - 3]->fitness = 300 - user_hp_sum2 + (enemy_hp_sum2 / 2);
-
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 4]->fitness);
-				}
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 3]->fitness);
-				}
-				else
-				{
-					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 4]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 4]->fitness;
-					}
-					if (fitness_rank[9] < pop->organisms[count - 3]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 3]->fitness;
-					}
-				}
-			}
-			else
-			{
-				pop->organisms[count - 4]->fitness = 0;
-				pop->organisms[count - 3]->fitness = 0;
-			}
-
-			//---------- Room3 -----------------
-			if (!pop->organisms[count - 6]->net->isFailed && !pop->organisms[count - 5]->net->isFailed)
-			{
-				pop->organisms[count - 6]->fitness = 300 - enemy_hp_sum3 + (user_hp_sum3 / 2);
-				pop->organisms[count - 5]->fitness = 300 - user_hp_sum3 + (enemy_hp_sum3 / 2);
-
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 6]->fitness);
-				}
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 5]->fitness);
-				}
-				else
-				{
-					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 6]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 6]->fitness;
-					}
-					if (fitness_rank[9] < pop->organisms[count - 5]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 5]->fitness;
-					}
-				}
-			}
-			else
-			{
-				pop->organisms[count - 6]->fitness = 0;
-				pop->organisms[count - 5]->fitness = 0;
-			}
-
-			//---------- Room4 -----------------
-			if (!pop->organisms[count - 8]->net->isFailed && !pop->organisms[count - 7]->net->isFailed)
-			{
-				pop->organisms[count - 8]->fitness = 300 - enemy_hp_sum4 + (user_hp_sum4 / 2);
-				pop->organisms[count - 7]->fitness = 300 - user_hp_sum4 + (enemy_hp_sum4 / 2);
-
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 8]->fitness);
-				}
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 7]->fitness);
-				}
-				else
-				{
-					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 8]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 8]->fitness;
-					}
-					if (fitness_rank[9] < pop->organisms[count - 7]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 7]->fitness;
-					}
-				}
-			}
-			else
-			{
-				pop->organisms[count - 8]->fitness = 0;
-				pop->organisms[count - 7]->fitness = 0;
-			}
-
-			//---------- Room5 -----------------
-			if (!pop->organisms[count - 10]->net->isFailed && !pop->organisms[count - 9]->net->isFailed)
-			{
-				pop->organisms[count - 10]->fitness = 300 - enemy_hp_sum5 + (user_hp_sum5 / 2);
-				pop->organisms[count - 9]->fitness = 300 - user_hp_sum5 + (enemy_hp_sum5 / 2);
-
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 10]->fitness);
-				}
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 9]->fitness);
-				}
-				else
-				{
-					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 10]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 10]->fitness;
-					}
-					if (fitness_rank[9] < pop->organisms[count - 9]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 9]->fitness;
-					}
-				}
-			}
-			else
-			{
-				pop->organisms[count - 10]->fitness = 0;
-				pop->organisms[count - 9]->fitness = 0;
-			}
-
-			//---------- Room6 -----------------
-			if (!pop->organisms[count - 12]->net->isFailed && !pop->organisms[count - 11]->net->isFailed)
-			{
-				pop->organisms[count - 12]->fitness = 300 - enemy_hp_sum6 + (user_hp_sum6 / 2);
-				pop->organisms[count - 11]->fitness = 300 - user_hp_sum6 + (enemy_hp_sum6 / 2);
-
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 12]->fitness);
-				}
-				if (fitness_rank.size() < 10)
-				{
-					fitness_rank.push_back(pop->organisms[count - 11]->fitness);
-				}
-				else
-				{
-					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 12]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 12]->fitness;
-					}
-					if (fitness_rank[9] < pop->organisms[count - 11]->fitness)
-					{
-						fitness_rank[9] = pop->organisms[count - 11]->fitness;
-					}
-				}
-			}
-			else
-			{
-				pop->organisms[count - 12]->fitness = 0;
-				pop->organisms[count - 11]->fitness = 0;
-			}
-
-			//---------- Room7 -----------------
 			if (!pop->organisms[count - 14]->net->isFailed && !pop->organisms[count - 13]->net->isFailed)
 			{
-				pop->organisms[count - 14]->fitness = 300 - enemy_hp_sum7 + (user_hp_sum7 / 2);
-				pop->organisms[count - 13]->fitness = 300 - user_hp_sum7 + (enemy_hp_sum7 / 2);
+				pop->organisms[count - 14]->fitness = 300 - enemy_hp_sum2 + (user_hp_sum2 / 2);
+				pop->organisms[count - 13]->fitness = 300 - user_hp_sum2 + (enemy_hp_sum2 / 2);
 
 				if (fitness_rank.size() < 10)
 				{
@@ -1158,37 +993,202 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 				pop->organisms[count - 13]->fitness = 0;
 			}
 
-			//---------- Room8 -----------------
-			if (!pop->organisms[count - 16]->net->isFailed && !pop->organisms[count - 15]->net->isFailed)
+			//---------- Room3 -----------------
+			if (!pop->organisms[count - 12]->net->isFailed && !pop->organisms[count - 11]->net->isFailed)
 			{
-				pop->organisms[count - 16]->fitness = 300 - enemy_hp_sum8 + (user_hp_sum8 / 2);
-				pop->organisms[count - 15]->fitness = 300 - user_hp_sum8 + (enemy_hp_sum8 / 2);
+				pop->organisms[count - 12]->fitness = 300 - enemy_hp_sum3 + (user_hp_sum3 / 2);
+				pop->organisms[count - 11]->fitness = 300 - user_hp_sum3 + (enemy_hp_sum3 / 2);
 
 				if (fitness_rank.size() < 10)
 				{
-					fitness_rank.push_back(pop->organisms[count - 16]->fitness);
+					fitness_rank.push_back(pop->organisms[count - 12]->fitness);
 				}
 				if (fitness_rank.size() < 10)
 				{
-					fitness_rank.push_back(pop->organisms[count - 15]->fitness);
+					fitness_rank.push_back(pop->organisms[count - 11]->fitness);
 				}
 				else
 				{
 					sort(fitness_rank.rbegin(), fitness_rank.rend());
-					if (fitness_rank[9] < pop->organisms[count - 16]->fitness)
+					if (fitness_rank[9] < pop->organisms[count - 12]->fitness)
 					{
-						fitness_rank[9] = pop->organisms[count - 16]->fitness;
+						fitness_rank[9] = pop->organisms[count - 12]->fitness;
 					}
-					if (fitness_rank[9] < pop->organisms[count - 15]->fitness)
+					if (fitness_rank[9] < pop->organisms[count - 11]->fitness)
 					{
-						fitness_rank[9] = pop->organisms[count - 15]->fitness;
+						fitness_rank[9] = pop->organisms[count - 11]->fitness;
 					}
 				}
 			}
 			else
 			{
-				pop->organisms[count - 16]->fitness = 0;
-				pop->organisms[count - 15]->fitness = 0;
+				pop->organisms[count - 12]->fitness = 0;
+				pop->organisms[count - 11]->fitness = 0;
+			}
+
+			//---------- Room4 -----------------
+			if (!pop->organisms[count - 10]->net->isFailed && !pop->organisms[count - 9]->net->isFailed)
+			{
+				pop->organisms[count - 10]->fitness = 300 - enemy_hp_sum4 + (user_hp_sum4 / 2);
+				pop->organisms[count - 9]->fitness = 300 - user_hp_sum4 + (enemy_hp_sum4 / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 10]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 9]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 10]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 10]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 9]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 9]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 10]->fitness = 0;
+				pop->organisms[count - 9]->fitness = 0;
+			}
+
+			//---------- Room5 -----------------
+			if (!pop->organisms[count - 8]->net->isFailed && !pop->organisms[count - 7]->net->isFailed)
+			{
+				pop->organisms[count - 8]->fitness = 300 - enemy_hp_sum5 + (user_hp_sum5 / 2);
+				pop->organisms[count - 7]->fitness = 300 - user_hp_sum5 + (enemy_hp_sum5 / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 8]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 7]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 8]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 8]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 7]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 7]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 8]->fitness = 0;
+				pop->organisms[count - 7]->fitness = 0;
+			}
+
+			//---------- Room6 -----------------
+			if (!pop->organisms[count - 6]->net->isFailed && !pop->organisms[count - 5]->net->isFailed)
+			{
+				pop->organisms[count - 6]->fitness = 300 - enemy_hp_sum6 + (user_hp_sum6 / 2);
+				pop->organisms[count - 5]->fitness = 300 - user_hp_sum6 + (enemy_hp_sum6 / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 6]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 5]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 6]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 6]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 5]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 5]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 6]->fitness = 0;
+				pop->organisms[count - 5]->fitness = 0;
+			}
+
+			//---------- Room7 -----------------
+			if (!pop->organisms[count - 4]->net->isFailed && !pop->organisms[count - 3]->net->isFailed)
+			{
+				pop->organisms[count - 4]->fitness = 300 - enemy_hp_sum7 + (user_hp_sum7 / 2);
+				pop->organisms[count - 3]->fitness = 300 - user_hp_sum7 + (enemy_hp_sum7 / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 4]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 3]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 4]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 4]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 3]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 3]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 4]->fitness = 0;
+				pop->organisms[count - 3]->fitness = 0;
+			}
+
+			//---------- Room8 -----------------
+			if (!pop->organisms[count - 2]->net->isFailed && !pop->organisms[count - 1]->net->isFailed)
+			{
+				pop->organisms[count - 2]->fitness = 300 - enemy_hp_sum8 + (user_hp_sum8 / 2);
+				pop->organisms[count - 1]->fitness = 300 - user_hp_sum8 + (enemy_hp_sum8 / 2);
+
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 2]->fitness);
+				}
+				if (fitness_rank.size() < 10)
+				{
+					fitness_rank.push_back(pop->organisms[count - 1]->fitness);
+				}
+				else
+				{
+					sort(fitness_rank.rbegin(), fitness_rank.rend());
+					if (fitness_rank[9] < pop->organisms[count - 2]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 2]->fitness;
+					}
+					if (fitness_rank[9] < pop->organisms[count - 1]->fitness)
+					{
+						fitness_rank[9] = pop->organisms[count - 1]->fitness;
+					}
+				}
+			}
+			else
+			{
+				pop->organisms[count - 2]->fitness = 0;
+				pop->organisms[count - 1]->fitness = 0;
 			}
 
 
@@ -1319,40 +1319,58 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 
 	int random = 0;
 
-	bool isOver;
 	switch (roomNum)
 	{
 	case 0:
-		isOver = GameOver;
+		while (GameOver)
+		{
+
+		}
 		break;
 	case 1:
-		isOver = GameOver2;
+		while (GameOver2)
+		{
+
+		}
 		break;
 	case 2:
-		isOver = GameOver3;
+		while (GameOver3)
+		{
+
+		}
 		break;
 	case 3:
-		isOver = GameOver4;
+		while (GameOver4)
+		{
+
+		}
 		break;
 	case 4:
-		isOver = GameOver5;
+		while (GameOver5)
+		{
+
+		}
 		break;
 	case 5:
-		isOver = GameOver6;
+		while (GameOver6)
+		{
+
+		}
 		break;
 	case 6:
-		isOver = GameOver7;
+		while (GameOver7)
+		{
+
+		}
 		break;
 	case 7:
-		isOver = GameOver8;
+		while (GameOver8)
+		{
+
+		}
 		break;
 	default:
 		break;
-	}
-
-	while (isOver)
-	{
-
 	}
 
 	vector<User*> userArr;
@@ -1438,6 +1456,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 	}
 	mutex_2.unlock();
 	
+	atomic<bool> &isOver = findRoomGameOver(roomNum);
 	while (!isOver) //다음으로 넘어갈 조건..->게임오버
 	{
 		//Measure만 넣으면 됨!!!
@@ -1640,6 +1659,9 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 
 		out_angle -= 0.5;
 
+		out_Left = out_Left / 10;
+		out_Right = out_Right / 10;
+
 		double copyShoot = out_isShoot;
 		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
 			
@@ -1665,4 +1687,54 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 	}
 
 	return 0;
+}
+
+atomic<bool>& findRoomGameOver(int roomNum)
+{
+	switch (roomNum)
+	{
+	case 0:
+	{
+		return GameOver;
+		break;
+	}
+	case 1:
+	{
+		return GameOver2;
+		break;
+	}
+	case 2:
+	{
+		return GameOver3;
+		break;
+	}
+	case 3:
+	{
+		return GameOver4;
+		break;
+	}
+	case 4:
+	{
+		return GameOver5;
+		break;
+	}
+	case 5:
+	{
+		return GameOver6;
+		break;
+	}
+	case 6:
+	{
+		return GameOver7;
+		break;
+	}
+	case 7:
+	{
+		return GameOver8;
+		break;
+	}
+	default:
+		return GameOver;
+		break;
+	}
 }

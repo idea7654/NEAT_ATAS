@@ -17,6 +17,7 @@ using namespace std;
 #define ROWS 100
 
 #define FPS 60
+#define GAME_TIME 50000
 
 void timer_callback(int);
 void display_callback();
@@ -158,24 +159,31 @@ int main(int argc, char **argv)
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
 
+		users2.push_back(user);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
 
+		users3.push_back(user);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
 
+		users4.push_back(user);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
 
+		users5.push_back(user);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
 
+		users6.push_back(user);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
 
+		users7.push_back(user);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
 
+		users8.push_back(user);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
 	}
@@ -191,30 +199,58 @@ int main(int argc, char **argv)
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
 
+		enemies2.push_back(enemy);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
 
+		enemies3.push_back(enemy);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
 
+		enemies4.push_back(enemy);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
 
+		enemies5.push_back(enemy);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
 
+		enemies6.push_back(enemy);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
 
+		enemies7.push_back(enemy);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
 
+		enemies8.push_back(enemy);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
 	} //Enemy Spawn
 
 	GameOver = false;
 	startNextGame = true;
+
+	GameOver2 = false;
+	startNextGame2 = true;
+
+	GameOver3 = false;
+	startNextGame3 = true;
+
+	GameOver4 = false;
+	startNextGame4 = true;
+
+	GameOver5 = false;
+	startNextGame5 = true;
+
+	GameOver6 = false;
+	startNextGame6 = true;
+
+	GameOver7 = false;
+	startNextGame7 = true;
+
+	GameOver8 = false;
+	startNextGame8 = true;
 
 	future<void> future = async(launch::async, []() {
 		tank_game(100);
@@ -227,7 +263,7 @@ int main(int argc, char **argv)
 			{
 				isFirst = false;
 				GameOver = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos.clear();
 				//게임 재시작 로직
 				for (auto &i : users)
@@ -268,7 +304,7 @@ int main(int argc, char **argv)
 				}
 				GameOver = true;
 				startNextGame = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe.clear();
 				Gbullets.clear();
@@ -284,7 +320,7 @@ int main(int argc, char **argv)
 			{
 				isFirst2 = false;
 				GameOver2 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos2.clear();
 				//게임 재시작 로직
 				for (auto &i : users2)
@@ -325,7 +361,7 @@ int main(int argc, char **argv)
 				}
 				GameOver2 = true;
 				startNextGame2 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe2.clear();
 				Gbullets2.clear();
@@ -341,7 +377,7 @@ int main(int argc, char **argv)
 			{
 				isFirst3 = false;
 				GameOver3 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos3.clear();
 				//게임 재시작 로직
 				for (auto &i : users3)
@@ -382,7 +418,7 @@ int main(int argc, char **argv)
 				}
 				GameOver3 = true;
 				startNextGame3 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe3.clear();
 				Gbullets3.clear();
@@ -398,7 +434,7 @@ int main(int argc, char **argv)
 			{
 				isFirst4 = false;
 				GameOver4 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos4.clear();
 				//게임 재시작 로직
 				for (auto &i : users4)
@@ -439,7 +475,7 @@ int main(int argc, char **argv)
 				}
 				GameOver4 = true;
 				startNextGame4 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe4.clear();
 				Gbullets4.clear();
@@ -455,7 +491,7 @@ int main(int argc, char **argv)
 			{
 				isFirst5 = false;
 				GameOver5 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos5.clear();
 				//게임 재시작 로직
 				for (auto &i : users5)
@@ -496,7 +532,7 @@ int main(int argc, char **argv)
 				}
 				GameOver5 = true;
 				startNextGame5 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe5.clear();
 				Gbullets5.clear();
@@ -512,7 +548,7 @@ int main(int argc, char **argv)
 			{
 				isFirst6 = false;
 				GameOver6 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos6.clear();
 				//게임 재시작 로직
 				for (auto &i : users6)
@@ -553,7 +589,7 @@ int main(int argc, char **argv)
 				}
 				GameOver6 = true;
 				startNextGame6 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe6.clear();
 				Gbullets6.clear();
@@ -569,7 +605,7 @@ int main(int argc, char **argv)
 			{
 				isFirst7 = false;
 				GameOver7 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos7.clear();
 				//게임 재시작 로직
 				for (auto &i : users7)
@@ -610,7 +646,7 @@ int main(int argc, char **argv)
 				}
 				GameOver7 = true;
 				startNextGame7 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe7.clear();
 				Gbullets7.clear();
@@ -626,7 +662,7 @@ int main(int argc, char **argv)
 			{
 				isFirst8 = false;
 				GameOver8 = false;
-				Sleep(5000);
+				Sleep(GAME_TIME);
 				initial_pos8.clear();
 				//게임 재시작 로직
 				for (auto &i : users8)
@@ -667,7 +703,7 @@ int main(int argc, char **argv)
 				}
 				GameOver8 = true;
 				startNextGame8 = true;
-				Sleep(1000); //Wait for all tank thread join
+				Sleep(500); //Wait for all tank thread join
 				m.lock();
 				Gbullets_ThreadSafe8.clear();
 				Gbullets8.clear();
@@ -690,14 +726,14 @@ int main(int argc, char **argv)
 	glutMainLoop();
 
 	future.get();
-	gameManager8.get();
-	gameManager7.get();
-	gameManager6.get();
-	gameManager5.get();
-	gameManager4.get();
-	gameManager3.get();
-	gameManager2.get();
 	gameManager.get();
+	gameManager2.get();
+	gameManager3.get();
+	gameManager4.get();
+	gameManager5.get();
+	gameManager6.get();
+	gameManager7.get();
+	gameManager8.get();
 
 	for (auto &i : walls)
 		delete i;

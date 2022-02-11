@@ -186,13 +186,13 @@ public:
 			newBullet->isUnder = isUnder;
 			if (!isUnder)
 			{
-				newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
-				newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180);
+				newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180) / 8;
 			}
 			else
 			{
-				newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
-				newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180);
+				newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
 			}
 
 			bullets.emplace_back(newBullet);
@@ -735,13 +735,13 @@ public:
 			c_angle += 360;
 		if (c_angle < 0)
 		{
-			this->x -= cosf(c_angle - 90);
-			this->y -= sinf(c_angle - 90);
+			this->x -= cosf(c_angle - 90) / 8;
+			this->y -= sinf(c_angle - 90) / 8;
 		}
 		else
 		{
-			this->x += cosf(c_angle + 3.14159 / 2);
-			this->y += sinf(c_angle + 3.14159 / 2);
+			this->x += cosf(c_angle + 3.14159 / 2) / 8;
+			this->y += sinf(c_angle + 3.14159 / 2) / 8;
 		}
 	}
 
@@ -844,13 +844,13 @@ public:
 			c_angle += 360;
 		if (c_angle < 0)
 		{
-			this->x -= cosf(c_angle - 90);
-			this->y += sinf(c_angle - 90);
+			this->x -= cosf(c_angle - 90) / 8;
+			this->y += sinf(c_angle - 90) / 8;
 		}
 		else
 		{
-			this->x += cosf(c_angle + 3.14159 / 2);
-			this->y -= sinf(c_angle + 3.14159 / 2);
+			this->x += cosf(c_angle + 3.14159 / 2) / 8;
+			this->y -= sinf(c_angle + 3.14159 / 2) / 8;
 		}
 	}
 
