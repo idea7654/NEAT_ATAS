@@ -85,7 +85,7 @@ void Organism::update_phenotype() {
 
 bool Organism::print_to_file(char *filename) {
 
-	std::ofstream oFile(filename);
+	std::ofstream oFile(filename, std::ios_base::out | std::ios_base::app);
 
 	return write_to_file(oFile);
 }
