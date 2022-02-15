@@ -727,7 +727,7 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		//float sum = -0.1;
+		//float sum = 0.009;
 		c_angle -= sum;
 		if (c_angle > 360)
 			c_angle -= 360;

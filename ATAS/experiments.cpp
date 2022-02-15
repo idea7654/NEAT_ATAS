@@ -1657,10 +1657,16 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 		if (out_angle < 0.1)
 			out_angle = 0.1;
 
+		if (out_Left > 2 || out_Right > 2)
+		{
+			out_Left = 0;
+			out_Right = 0;
+			cout << "overflow!!" << endl;
+		}
 		out_angle -= 0.5;
 
-		out_Left = out_Left / 10;
-		out_Right = out_Right / 10;
+		//out_Left = out_Left / 50;
+		//out_Right = out_Right / 50;
 
 		double copyShoot = out_isShoot;
 		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;

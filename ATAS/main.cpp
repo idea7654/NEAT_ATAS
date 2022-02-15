@@ -17,7 +17,7 @@ using namespace std;
 #define ROWS 100
 
 #define FPS 60
-#define GAME_TIME 50000
+#define GAME_TIME 25000
 
 void timer_callback(int);
 void display_callback();
