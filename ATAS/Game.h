@@ -619,6 +619,8 @@ public:
 	bool isDie = false;
 	bool isUnder = false;
 	int hp = 100;
+	int sameDirCount = 0;
+	bool previousDir; // false - Left, true - Right
 
 	void Collision(Wall *wall)
 	{
@@ -836,7 +838,7 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		//float sum = 0.0;
+		//float sum = -1;
 		c_angle += sum;
 		if (c_angle > 360)
 			c_angle -= 360;
