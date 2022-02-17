@@ -68,6 +68,8 @@ public:
 	bool isUnder;
 	Character *WhoShoot;
 	Character *WhoDamaged;
+	float origin_x;
+	float origin_y;
 
 	void CheckRemoveBullet(Wall *left, Wall *right, Wall *bottom, Wall *top)
 	{
@@ -84,6 +86,10 @@ public:
 		{
 			x += forwardVec[0];
 			y += forwardVec[1];
+
+			float distance = (origin_x - x) * (origin_x - x) + (origin_y - y) * (origin_y - y);
+			if (distance > 900)
+				this->isDestroy = true;
 		}
 		//m.unlock();
 	}
@@ -182,6 +188,8 @@ public:
 			Bullet *newBullet = new Bullet();
 			newBullet->x = x + 0.125;
 			newBullet->y = y;
+			newBullet->origin_x = x + 0.125;
+			newBullet->origin_y = y;
 			newBullet->WhoShoot = Whohas;
 			newBullet->isUnder = isUnder;
 			if (!isUnder)

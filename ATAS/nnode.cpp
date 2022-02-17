@@ -263,9 +263,7 @@ void NNode::flushback() {
 		activation = 0;
 		last_activation = 0;
 		last_activation2 = 0;
-
 	}
-
 }
 
 // This recursively checks everything leading into and including this NNode, 

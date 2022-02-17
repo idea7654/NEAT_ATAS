@@ -148,5 +148,6 @@ Population *tank_game(int gens);
 bool tank_evaluate(Organism *org, bool &isWin, int num, int roomNum);
 int measure_fitness_tank(Population *pop, int generation, char *filename);
 int try_tank(Network *net, int max_steps, int thresh, int num, int roomNum);
+int try_tank_mirror(Network *net, int max_steps, int thresh, int num, int roomNum);
 
 atomic<bool> &findRoomGameOver(int roomNum);
