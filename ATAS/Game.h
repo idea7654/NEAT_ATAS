@@ -169,10 +169,10 @@ public:
 		glTranslatef(x + 0.125, y - 0.5, 0);
 		if (isUnder)
 			//glRotatef(inputRotate, 0, 0, 1);
-			glRotatef(-(angle - 90 + c_angle * 180 / 3.14159), 0, 0, 1);
+			glRotatef(-(angle - 90 + c_angle), 0, 0, 1);
 		else
 			//glRotatef(inputRotate, 0, 0, 1);
-			glRotatef(angle - 90 + c_angle * 180 / 3.14159, 0, 0, 1);
+			glRotatef(angle - 90 + c_angle, 0, 0, 1);
 		glTranslatef(-(x + 0.125), -(y - 0.5), 0);
 		glRectd(x, y, x + width, y + height);
 		glEnd();
@@ -202,6 +202,8 @@ public:
 				newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
 				newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
 			}
+
+			//Àü¹æº¤ÅÍ °íÄ¥°Í!!!!!!
 
 			bullets.emplace_back(newBullet);
 			switch (roomNum)
@@ -702,7 +704,7 @@ public:
 		
 		glPushMatrix();
 		glTranslatef(x, y, 0);
-		glRotatef(c_angle * 180 / 3.14159, 0, 0, 1);
+		glRotatef(-c_angle, 0, 0, 1);
 		glTranslatef(-x , -y, 0);
 		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
 		
@@ -737,22 +739,15 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		//float sum = 0.009;
+		//float sum = 0;
 		c_angle -= sum;
 		if (c_angle > 360)
 			c_angle -= 360;
 		if (c_angle < 0)
 			c_angle += 360;
-		if (c_angle < 0)
-		{
-			this->x -= cosf(c_angle - 90) / 8;
-			this->y -= sinf(c_angle - 90) / 8;
-		}
-		else
-		{
-			this->x += cosf(c_angle + 3.14159 / 2) / 8;
-			this->y += sinf(c_angle + 3.14159 / 2) / 8;
-		}
+
+		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 8;
+		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 8;
 	}
 
 	void RotateCannon(double value)
@@ -810,7 +805,7 @@ public:
 
 		glPushMatrix();
 		glTranslatef(x, y, 0);
-		glRotatef(-c_angle * 180 / 3.14159, 0, 0, 1);
+		glRotatef(-c_angle, 0, 0, 1);
 		glTranslatef(-x, -y, 0);
 		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
 		glEnd();
@@ -846,29 +841,19 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		//float sum = -1;
+		//float sum = 0.1;
 		c_angle += sum;
 		if (c_angle > 360)
 			c_angle -= 360;
 		if (c_angle < 0)
 			c_angle += 360;
-		if (c_angle < 0)
-		{
-			this->x -= cosf(c_angle - 90) / 8;
-			this->y += sinf(c_angle - 90) / 8;
-		}
-		else
-		{
-			this->x += cosf(c_angle + 3.14159 / 2) / 8;
-			this->y -= sinf(c_angle + 3.14159 / 2) / 8;
-		}
+
+		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 8;
+		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 8;
 	}
 
-	void RotateCannon(int value)
+	void RotateCannon(double value)
 	{
-		if (isUnder)
-			angle += value;
-		else
-			angle -= value;
+		angle += value;
 	}
 };

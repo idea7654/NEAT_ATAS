@@ -2330,7 +2330,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			}
 		}
 
-		double out_angle = out_angle_left - out_angle_right;
+		double out_angle = out_angle_right - out_angle_left;
 
 		double copyShoot = out_isShoot;
 		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
@@ -2345,8 +2345,8 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			if (out_isShoot > 0)
 				userArr[num]->gun->RateOfShoot = out_isShoot;
 			//users[num]->gun->Shoot();
-			if (userArr[num]->sameDirCount > 50)
-				fitness--;
+			//if (userArr[num]->sameDirCount > 50)
+			//	fitness--;
 		}
 		else
 		{
@@ -2355,8 +2355,8 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			if (out_isShoot > 0)
 				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot;
 			//enemies[num - 3]->gun->Shoot();
-			if (enemyArr[num - 3]->sameDirCount > 50)
-				fitness--;
+			//if (enemyArr[num - 3]->sameDirCount > 50)
+			//	fitness--;
 		}
 		mutex_2.unlock();
 		Sleep(50);
