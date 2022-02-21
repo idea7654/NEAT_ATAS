@@ -39,6 +39,8 @@ atomic<bool> GameOver;
 atomic<bool> startNextGame = false;
 atomic<int> user_hp_sum = 0;
 atomic<int> enemy_hp_sum = 0;
+atomic<int> user_fitness_sum = 0;
+atomic<int> enemy_fitness_sum = 0;
 
 bool isFirst = true;
 
@@ -52,6 +54,8 @@ atomic<bool> GameOver2;
 atomic<bool> startNextGame2 = false;
 atomic<int> user_hp_sum2 = 0;
 atomic<int> enemy_hp_sum2 = 0;
+atomic<int> user_fitness_sum2 = 0;
+atomic<int> enemy_fitness_sum2 = 0;
 
 bool isFirst2 = true;
 
@@ -65,6 +69,8 @@ atomic<bool> GameOver3;
 atomic<bool> startNextGame3 = false;
 atomic<int> user_hp_sum3 = 0;
 atomic<int> enemy_hp_sum3 = 0;
+atomic<int> user_fitness_sum3 = 0;
+atomic<int> enemy_fitness_sum3 = 0;
 
 bool isFirst3 = true;
 
@@ -78,6 +84,8 @@ atomic<bool> GameOver4;
 atomic<bool> startNextGame4 = false;
 atomic<int> user_hp_sum4 = 0;
 atomic<int> enemy_hp_sum4 = 0;
+atomic<int> user_fitness_sum4 = 0;
+atomic<int> enemy_fitness_sum4 = 0;
 
 bool isFirst4 = true;
 
@@ -91,6 +99,8 @@ atomic<bool> GameOver5;
 atomic<bool> startNextGame5 = false;
 atomic<int> user_hp_sum5 = 0;
 atomic<int> enemy_hp_sum5 = 0;
+atomic<int> user_fitness_sum5 = 0;
+atomic<int> enemy_fitness_sum5 = 0;
 
 bool isFirst5 = true;
 
@@ -104,6 +114,8 @@ atomic<bool> GameOver6;
 atomic<bool> startNextGame6 = false;
 atomic<int> user_hp_sum6 = 0;
 atomic<int> enemy_hp_sum6 = 0;
+atomic<int> user_fitness_sum6 = 0;
+atomic<int> enemy_fitness_sum6 = 0;
 
 bool isFirst6 = true;
 
@@ -117,6 +129,8 @@ atomic<bool> GameOver7;
 atomic<bool> startNextGame7 = false;
 atomic<int> user_hp_sum7 = 0;
 atomic<int> enemy_hp_sum7 = 0;
+atomic<int> user_fitness_sum7 = 0;
+atomic<int> enemy_fitness_sum7 = 0;
 
 bool isFirst7 = true;
 
@@ -130,6 +144,8 @@ atomic<bool> GameOver8;
 atomic<bool> startNextGame8 = false;
 atomic<int> user_hp_sum8 = 0;
 atomic<int> enemy_hp_sum8 = 0;
+atomic<int> user_fitness_sum8 = 0;
+atomic<int> enemy_fitness_sum8 = 0;
 
 bool isFirst8 = true;
 
@@ -924,11 +940,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						//j -> enemy...isUnder = false
+						if (i->WhoShoot->isUnder) //상대편이 쏜거에 맞았으면
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else //우리팀이 쏜거에 맞았으면...
+						{
+							i->isDestroy = true; //일단 없어지고..
+							//체력은 냅두고 우리팀 fitness를 줄여야댐.
+							enemy_fitness_sum -= 10;
 						}
 					}
 				}
@@ -939,13 +965,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum -= 10;
 						}
 					}
 				}
@@ -1062,11 +1096,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum2 -= 10;
 						}
 					}
 				}
@@ -1077,13 +1119,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum2 -= 10;
 						}
 					}
 				}
@@ -1200,11 +1250,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum3 -= 10;
 						}
 					}
 				}
@@ -1215,13 +1273,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum3 -= 10;
 						}
 					}
 				}
@@ -1338,11 +1404,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum4 -= 10;
 						}
 					}
 				}
@@ -1353,13 +1427,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum4 -= 10;
 						}
 					}
 				}
@@ -1476,11 +1558,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum5 -= 10;
 						}
 					}
 				}
@@ -1491,13 +1581,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum5 -= 10;
 						}
 					}
 				}
@@ -1614,11 +1712,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum6 -= 10;
 						}
 					}
 				}
@@ -1629,13 +1735,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum6 -= 10;
 						}
 					}
 				}
@@ -1752,11 +1866,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum7 -= 10;
 						}
 					}
 				}
@@ -1767,13 +1889,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum7 -= 10;
 						}
 					}
 				}
@@ -1890,11 +2020,19 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-						if (j->hp <= 0)
+						if (i->WhoShoot->isUnder)
 						{
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum8 -= 10;
 						}
 					}
 				}
@@ -1905,13 +2043,21 @@ void display_callback()
 				{
 					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 					{
-						j->hp -= 2;
-						i->isDestroy = true;
-
-						if (j->hp <= 0)
+						if (!i->WhoShoot->isUnder)
 						{
-							//cout << "Die!" << endl;
-							j->isDie = true;
+							j->hp -= 2;
+							i->isDestroy = true;
+
+							if (j->hp <= 0)
+							{
+								//cout << "Die!" << endl;
+								j->isDie = true;
+							}
+						}
+						else
+						{
+							i->isDestroy = true;
+							user_fitness_sum8 -= 10;
 						}
 					}
 				}

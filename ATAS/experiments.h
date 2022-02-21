@@ -37,8 +37,8 @@ extern atomic<int> user_hp_sum;
 extern atomic<int> enemy_hp_sum;
 static mutex mutex_2;
 static vector<int> fitness_rank;
-static atomic<int> user_fitness_sum = 0;
-static atomic<int> enemy_fitness_sum = 0;
+extern atomic<int> user_fitness_sum;
+extern atomic<int> enemy_fitness_sum;
 
 //------------ Room2 ------------//
 extern vector<User*> users2;
@@ -50,8 +50,8 @@ extern atomic<int> user_hp_sum2;
 extern atomic<int> enemy_hp_sum2;
 static mutex mutex_3;
 static vector<int> fitness_rank2;
-static atomic<int> user_fitness_sum2 = 0;
-static atomic<int> enemy_fitness_sum2 = 0;
+extern atomic<int> user_fitness_sum2;
+extern atomic<int> enemy_fitness_sum2;
 
 //------------ Room3 ------------//
 extern vector<User*> users3;
@@ -63,8 +63,8 @@ extern atomic<int> user_hp_sum3;
 extern atomic<int> enemy_hp_sum3;
 static mutex mutex_4;
 static vector<int> fitness_rank3;
-static atomic<int> user_fitness_sum3 = 0;
-static atomic<int> enemy_fitness_sum3 = 0;
+extern atomic<int> user_fitness_sum3;
+extern atomic<int> enemy_fitness_sum3;
 
 //------------ Room4 ------------//
 extern vector<User*> users4;
@@ -76,8 +76,8 @@ extern atomic<int> user_hp_sum4;
 extern atomic<int> enemy_hp_sum4;
 static mutex mutex_5;
 static vector<int> fitness_rank4;
-static atomic<int> user_fitness_sum4 = 0;
-static atomic<int> enemy_fitness_sum4 = 0;
+extern atomic<int> user_fitness_sum4;
+extern atomic<int> enemy_fitness_sum4;
 
 //------------ Room5 ------------//
 extern vector<User*> users5;
@@ -89,8 +89,8 @@ extern atomic<int> user_hp_sum5;
 extern atomic<int> enemy_hp_sum5;
 static mutex mutex_6;
 static vector<int> fitness_rank5;
-static atomic<int> user_fitness_sum5 = 0;
-static atomic<int> enemy_fitness_sum5 = 0;
+extern atomic<int> user_fitness_sum5;
+extern atomic<int> enemy_fitness_sum5;
 
 //------------ Room6 ------------//
 extern vector<User*> users6;
@@ -102,8 +102,8 @@ extern atomic<int> user_hp_sum6;
 extern atomic<int> enemy_hp_sum6;
 static mutex mutex_7;
 static vector<int> fitness_rank6;
-static atomic<int> user_fitness_sum6 = 0;
-static atomic<int> enemy_fitness_sum6 = 0;
+extern atomic<int> user_fitness_sum6;
+extern atomic<int> enemy_fitness_sum6;
 
 //------------ Room7 ------------//
 extern vector<User*> users7;
@@ -115,8 +115,8 @@ extern atomic<int> user_hp_sum7;
 extern atomic<int> enemy_hp_sum7;
 static mutex mutex_8;
 static vector<int> fitness_rank7;
-static atomic<int> user_fitness_sum7 = 0;
-static atomic<int> enemy_fitness_sum7 = 0;
+extern atomic<int> user_fitness_sum7;
+extern atomic<int> enemy_fitness_sum7;
 
 //------------ Room8 ------------//
 extern vector<User*> users8;
@@ -128,8 +128,8 @@ extern atomic<int> user_hp_sum8;
 extern atomic<int> enemy_hp_sum8;
 static mutex mutex_9;
 static vector<int> fitness_rank8;
-static atomic<int> user_fitness_sum8 = 0;
-static atomic<int> enemy_fitness_sum8 = 0;
+extern atomic<int> user_fitness_sum8;
+extern atomic<int> enemy_fitness_sum8;
 
 Population *pole1_test(int gens);
 bool pole1_evaluate(Organism *org);

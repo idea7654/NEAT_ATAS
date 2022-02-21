@@ -194,13 +194,13 @@ public:
 			newBullet->isUnder = isUnder;
 			if (!isUnder)
 			{
-				newBullet->forwardVec[0] = cos(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180) / 8;
-				newBullet->forwardVec[1] = sin(c_angle - (270 * 3.14159 / 180) + (angle - 90) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
 			}
 			else
 			{
-				newBullet->forwardVec[0] = -cos(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
-				newBullet->forwardVec[1] = sin(c_angle - (90 * 3.14159 / 180) + (angle - 270) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
+				newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
 			}
 
 			//전방벡터 고칠것!!!!!!
