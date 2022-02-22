@@ -151,3 +151,5 @@ int try_tank(Network *net, int max_steps, int thresh, int num, int roomNum);
 int try_tank_mirror(Network *net, int max_steps, int thresh, int num, int roomNum);
 
 atomic<bool> &findRoomGameOver(int roomNum);
+vector<User*> &findRoomUserArr(int roomNum);
+vector<Enemy*> &findRoomEnemyArr(int roomNum);

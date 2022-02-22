@@ -203,10 +203,8 @@ public:
 				newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
 			}
 
-			//전방벡터 고칠것!!!!!!
-
 			bullets.emplace_back(newBullet);
-			switch (roomNum)
+			switch (roomNum) //roomNum이 7만 들어오는 사태..
 			{
 			case 0:
 			{
@@ -746,8 +744,8 @@ public:
 		if (c_angle < 0)
 			c_angle += 360;
 
-		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 8;
-		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 8;
+		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 12;
+		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 12;
 	}
 
 	void RotateCannon(double value)
@@ -848,8 +846,8 @@ public:
 		if (c_angle < 0)
 			c_angle += 360;
 
-		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 8;
-		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 8;
+		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 12;
+		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 12;
 	}
 
 	void RotateCannon(double value)

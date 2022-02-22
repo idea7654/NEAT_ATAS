@@ -211,6 +211,7 @@ int main(int argc, char **argv)
 
 		Enemy *enemy = new Enemy(x, y);
 		enemy->gun->Whohas = enemy;
+		enemy->isUnder = false;
 		enemies.push_back(enemy);
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
@@ -830,10 +831,13 @@ void display_callback()
 	Gbullets_ThreadSafe6 = Gbullets6;
 	Gbullets_ThreadSafe7 = Gbullets7;
 	Gbullets_ThreadSafe8 = Gbullets8;
+	
+	//요거 왜 안될까? 일단!!! shoot이 안됨 진짜루
 
 	{ // ------ Room1 ----------
 		for (auto &i : users)
 		{
+			i->gun->roomNum = 0;
 			if (!i->isDie)
 			{
 				i->drawUser();
@@ -847,9 +851,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -879,6 +883,7 @@ void display_callback()
 
 		for (auto &i : enemies)
 		{
+			i->gun->roomNum = 0;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -896,9 +901,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 90000)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -990,6 +995,7 @@ void display_callback()
 	{ // ------ Room2 ----------
 		for (auto &i : users2)
 		{
+			i->gun->roomNum = 1;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1003,9 +1009,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1035,6 +1041,7 @@ void display_callback()
 
 		for (auto &i : enemies2)
 		{
+			i->gun->roomNum = 1;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1052,9 +1059,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1144,6 +1151,7 @@ void display_callback()
 	{ // ------ Room3 ----------
 		for (auto &i : users3)
 		{
+			i->gun->roomNum = 2;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1157,9 +1165,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1189,6 +1197,7 @@ void display_callback()
 
 		for (auto &i : enemies3)
 		{
+			i->gun->roomNum = 2;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1206,9 +1215,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1298,6 +1307,7 @@ void display_callback()
 	{ // ------ Room4 ----------
 		for (auto &i : users4)
 		{
+			i->gun->roomNum = 3;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1311,9 +1321,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1343,6 +1353,7 @@ void display_callback()
 
 		for (auto &i : enemies4)
 		{
+			i->gun->roomNum = 3;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1360,9 +1371,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1452,6 +1463,7 @@ void display_callback()
 	{ // ------ Room5 ----------
 		for (auto &i : users5)
 		{
+			i->gun->roomNum = 4;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1465,9 +1477,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1497,6 +1509,7 @@ void display_callback()
 
 		for (auto &i : enemies5)
 		{
+			i->gun->roomNum = 4;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1514,9 +1527,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1606,6 +1619,7 @@ void display_callback()
 	{ // ------ Room6 ----------
 		for (auto &i : users6)
 		{
+			i->gun->roomNum = 5;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1619,9 +1633,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1651,6 +1665,7 @@ void display_callback()
 
 		for (auto &i : enemies6)
 		{
+			i->gun->roomNum = 5;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1668,9 +1683,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1760,6 +1775,7 @@ void display_callback()
 	{ // ------ Room7 ----------
 		for (auto &i : users7)
 		{
+			i->gun->roomNum = 6;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1773,9 +1789,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1805,6 +1821,7 @@ void display_callback()
 
 		for (auto &i : enemies7)
 		{
+			i->gun->roomNum = 6;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1822,9 +1839,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1914,6 +1931,7 @@ void display_callback()
 	{ // ------ Room8 ----------
 		for (auto &i : users8)
 		{
+			i->gun->roomNum = 7;
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1927,9 +1945,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)
@@ -1959,6 +1977,7 @@ void display_callback()
 
 		for (auto &i : enemies8)
 		{
+			i->gun->roomNum = 7;
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1976,9 +1995,9 @@ void display_callback()
 				{
 					double diffX = j->x - i->x;
 					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle) * diffY;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
 					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 900)
+					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
 				if (shootTrue)

@@ -1521,6 +1521,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 		break;
 	}
 
+	//mutex_2.lock();
 	for (auto &i : userArr)
 	{
 		i->gun->roomNum = roomNum;
@@ -1529,6 +1530,7 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 	{
 		i->gun->roomNum = roomNum;
 	}
+	//mutex_2.unlock();
 
 	mutex_2.lock();
 	if (num < 3)
@@ -1996,63 +1998,10 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		break;
 	}
 
-	vector<User*> userArr;
-	vector<Enemy*> enemyArr;
+	vector<User*> &userArr = findRoomUserArr(roomNum);
+	vector<Enemy*> &enemyArr = findRoomEnemyArr(roomNum);
 
-	switch (roomNum)
-	{
-	case 0:
-	{
-		userArr = users;
-		enemyArr = enemies;
-		break;
-	}
-	case 1:
-	{
-		userArr = users2;
-		enemyArr = enemies2;
-		break;
-	}
-	case 2:
-	{
-		userArr = users3;
-		enemyArr = enemies3;
-		break;
-	}
-	case 3:
-	{
-		userArr = users4;
-		enemyArr = enemies4;
-		break;
-	}
-	case 4:
-	{
-		userArr = users5;
-		enemyArr = enemies5;
-		break;
-	}
-	case 5:
-	{
-		userArr = users6;
-		enemyArr = enemies6;
-		break;
-	}
-	case 6:
-	{
-		userArr = users7;
-		enemyArr = enemies7;
-		break;
-	}
-	case 7:
-	{
-		userArr = users8;
-		enemyArr = enemies8;
-		break;
-	}
-	default:
-		break;
-	}
-
+	/*mutex_2.lock();
 	for (auto &i : userArr)
 	{
 		i->gun->roomNum = roomNum;
@@ -2061,6 +2010,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 	{
 		i->gun->roomNum = roomNum;
 	}
+	mutex_2.unlock();*/
 
 	mutex_2.lock();
 	if (num < 3)
@@ -2371,7 +2321,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			userArr[num]->MoveUser(out_Left * 10, out_Right * 10);
 			userArr[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				userArr[num]->gun->RateOfShoot = out_isShoot;
+				userArr[num]->gun->RateOfShoot = out_isShoot / 5;
 			//users[num]->gun->Shoot();
 			//if (userArr[num]->sameDirCount > 50)
 			//	fitness--;
@@ -2381,7 +2331,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			enemyArr[num - 3]->MoveUser(out_Left * 10, out_Right * 10);
 			enemyArr[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot;
+				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot / 5;
 			//enemies[num - 3]->gun->Shoot();
 			//if (enemyArr[num - 3]->sameDirCount > 50)
 			//	fitness--;
@@ -2513,3 +2463,104 @@ atomic<bool>& findRoomGameOver(int roomNum)
 		break;
 	}
 }
+
+vector<User*>& findRoomUserArr(int roomNum)
+{
+	switch (roomNum)
+	{
+	case 0:
+	{
+		return users;
+		break;
+	}
+	case 1:
+	{
+		return users2;
+		break;
+	}
+	case 2:
+	{
+		return users3;
+		break;
+	}
+	case 3:
+	{
+		return users4;
+		break;
+	}
+	case 4:
+	{
+		return users5;
+		break;
+	}
+	case 5:
+	{
+		return users6;
+		break;
+	}
+	case 6:
+	{
+		return users7;
+		break;
+	}
+	case 7:
+	{
+		return users8;
+		break;
+	}
+	default:
+		return users;
+		break;
+	}
+}
+
+vector<Enemy*>& findRoomEnemyArr(int roomNum)
+{
+	switch (roomNum)
+	{
+	case 0:
+	{
+		return enemies;
+		break;
+	}
+	case 1:
+	{
+		return enemies2;
+		break;
+	}
+	case 2:
+	{
+		return enemies3;
+		break;
+	}
+	case 3:
+	{
+		return enemies4;
+		break;
+	}
+	case 4:
+	{
+		return enemies5;
+		break;
+	}
+	case 5:
+	{
+		return enemies6;
+		break;
+	}
+	case 6:
+	{
+		return enemies7;
+		break;
+	}
+	case 7:
+	{
+		return enemies8;
+		break;
+	}
+	default:
+		return enemies;
+		break;
+	}
+}
+
