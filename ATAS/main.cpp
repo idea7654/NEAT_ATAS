@@ -29,6 +29,8 @@ vector<Wall*> walls;
 //vector<User*> users;
 //User *user;
 
+mutex m;
+
 //-------- Room1 ------------//
 vector<User*> users;
 vector<Enemy*> enemies;
@@ -146,6 +148,7 @@ atomic<int> user_hp_sum8 = 0;
 atomic<int> enemy_hp_sum8 = 0;
 atomic<int> user_fitness_sum8 = 0;
 atomic<int> enemy_fitness_sum8 = 0;
+bool finishJoin8 = false;
 
 bool isFirst8 = true;
 
@@ -296,7 +299,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum += i->hp;
+					//user_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -314,7 +317,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum += i->hp;
+					//enemy_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -353,7 +356,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum2 += i->hp;
+					//user_hp_sum2 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -371,7 +374,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum2 += i->hp;
+					//enemy_hp_sum2 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -410,7 +413,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum3 += i->hp;
+					//user_hp_sum3 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -428,7 +431,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum3 += i->hp;
+					//enemy_hp_sum3 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -467,7 +470,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum4 += i->hp;
+					//user_hp_sum4 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -485,7 +488,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum4 += i->hp;
+					//enemy_hp_sum4 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -524,7 +527,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum5 += i->hp;
+					//user_hp_sum5 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -542,7 +545,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum5 += i->hp;
+					//enemy_hp_sum5 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -581,7 +584,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum6 += i->hp;
+					//user_hp_sum6 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -599,7 +602,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum6 += i->hp;
+					//enemy_hp_sum6 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -638,7 +641,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum7 += i->hp;
+					//user_hp_sum7 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -656,7 +659,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum7 += i->hp;
+					//enemy_hp_sum7 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -695,7 +698,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					user_hp_sum8 += i->hp;
+					//user_hp_sum8 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
 					i->c_angle = 0.0f;
@@ -713,7 +716,7 @@ int main(int argc, char **argv)
 					i->gun->bullet_for_threadsafe.clear();
 					m.unlock();
 					i->isDie = false;
-					enemy_hp_sum8 += i->hp;
+					//enemy_hp_sum8 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
 					i->c_angle = 0.0f;
@@ -840,13 +843,13 @@ void display_callback()
 			i->gun->roomNum = 0;
 			if (!i->isDie)
 			{
-				i->drawUser();
+				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
+				//i->gun->DrawGun();
 				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = false;
+				bool shootTrue = true;
 				for (auto &j : enemies)
 				{
 					double diffX = j->x - i->x;
@@ -857,7 +860,7 @@ void display_callback()
 						shootTrue = true;
 				}
 				if (shootTrue)
-					i->gun->Shoot();
+					i->gun->Shoot(0);
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -870,7 +873,7 @@ void display_callback()
 					{
 						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
 						j->MoveBullet();
-						j->drawBullet();
+						//j->drawBullet();
 					}
 					m.unlock();
 				}
@@ -892,11 +895,10 @@ void display_callback()
 					i->Collision(j);
 				}
 				i->EnemyCollider();
-				i->drawUser();
+				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
+				//i->gun->DrawGun();
+				bool shootTrue = true;
 				for (auto &j : users)
 				{
 					double diffX = j->x - i->x;
@@ -907,13 +909,1573 @@ void display_callback()
 						shootTrue = true;
 				}
 				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
+					i->gun->Shoot(0);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
 		}
 
 		for (auto &i : enemies)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe)
+		//{
+		//	for (auto &j : enemies)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				//j -> enemy...isUnder = false
+		//				if (i->WhoShoot->isUnder) //상대편이 쏜거에 맞았으면
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else //우리팀이 쏜거에 맞았으면...
+		//				{
+		//					i->isDestroy = true; //일단 없어지고..
+		//					//체력은 냅두고 우리팀 fitness를 줄여야댐.
+		//					enemy_fitness_sum -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room2 ----------
+		for (auto &i : users2)
+		{
+			i->gun->roomNum = 1;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies2)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(1);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies2)
+		{
+			i->gun->roomNum = 1;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				//i->drawUser();
+				i->UpdateGunPos();
+				i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users2)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(1);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies2)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users2)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies2)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum2 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users2)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum2 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies2)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users2)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum2 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies2)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum2 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe2)
+		//{
+		//	for (auto &j : enemies2)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum2 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users2)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum2 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room3 ----------
+		for (auto &i : users3)
+		{
+			i->gun->roomNum = 2;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies3)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(2);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies3)
+		{
+			i->gun->roomNum = 2;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users3)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(2);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies3)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users3)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies3)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum3 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users3)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum3 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies3)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users3)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum3 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies3)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum3 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe3)
+		//{
+		//	for (auto &j : enemies3)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum3 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users3)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum3 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room4 ----------
+		for (auto &i : users4)
+		{
+			i->gun->roomNum = 3;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies4)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(3);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies4)
+		{
+			i->gun->roomNum = 3;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				//i->drawUser();
+				i->UpdateGunPos();
+				i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users4)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(3);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies4)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users4)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies4)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum4 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users4)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum4 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies4)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users4)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum4 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies4)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum4 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe4)
+		//{
+		//	for (auto &j : enemies4)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum4 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users4)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum4 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room5 ----------
+		for (auto &i : users5)
+		{
+			i->gun->roomNum = 4;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies5)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(4);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies5)
+		{
+			i->gun->roomNum = 4;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users5)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(4);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies5)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users5)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies5)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum5 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users5)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum5 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies5)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users5)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum5 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies5)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum5 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe5)
+		//{
+		//	for (auto &j : enemies5)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum5 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users5)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum5 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room6 ----------
+		for (auto &i : users6)
+		{
+			i->gun->roomNum = 5;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies6)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(5);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies6)
+		{
+			i->gun->roomNum = 5;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users6)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(5);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies6)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users6)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies6)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum6 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users6)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum6 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies6)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users6)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum6 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies6)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum6 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe6)
+		//{
+		//	for (auto &j : enemies6)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum6 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users6)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum6 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room7 ----------
+		for (auto &i : users7)
+		{
+			i->gun->roomNum = 6;
+			if (!i->isDie)
+			{
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : enemies7)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(6);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						//j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies7)
+		{
+			i->gun->roomNum = 6;
+			//i->drawEnemy();
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				//i->drawUser();
+				i->UpdateGunPos();
+				//i->gun->DrawGun();
+				//i->gun->Shoot();
+				bool shootTrue = true;
+				for (auto &j : users7)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(6);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies7)
+		{
+			if (!i->isDie)
+			{
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->MoveBullet();
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						//j->drawBullet();
+					}
+					//i->gun->DestoryBullet();
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &k : users7)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : enemies7)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum7 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : users7)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							user_fitness_sum7 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		for (auto &k : enemies7)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users7)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum7 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies7)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum7 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe7)
+		//{
+		//	for (auto &j : enemies7)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum7 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users7)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum7 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
+	{ // ------ Room8 ----------
+		for (auto &i : users8)
+		{
+			i->gun->roomNum = 7;
+			if (!i->isDie)
+			{
+				i->drawUser();
+				i->UpdateGunPos();
+				i->gun->DrawGun();
+				i->UserCollider();
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				bool shootTrue = true;
+				for (auto &j : enemies8)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(7);
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+
+				if (i->gun->bullet_for_threadsafe.size() > 0)
+				{
+					m.lock();
+					for (auto &j : i->gun->bullet_for_threadsafe)
+					{
+						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
+						j->MoveBullet();
+						j->drawBullet();
+					}
+					m.unlock();
+				}
+
+				m.lock();
+				i->gun->DestroyBullet();
+				m.unlock();
+			}
+		}
+
+		for (auto &i : enemies8)
+		{
+			i->gun->roomNum = 7;
+			if (!i->isDie)
+			{
+				for (auto &j : walls)
+				{
+					i->Collision(j);
+				}
+				i->EnemyCollider();
+				i->drawUser();
+				i->UpdateGunPos();
+				i->gun->DrawGun();
+				bool shootTrue = true;
+				for (auto &j : users8)
+				{
+					double diffX = j->x - i->x;
+					double diffY = j->y - i->y;
+					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
+					double distance = diffX * diffX + diffY * diffY;
+					if (y > 0 && distance < 1600)
+						shootTrue = true;
+				}
+				if (shootTrue)
+					i->gun->Shoot(7);
+				//i->gun->bullet_for_threadsafe = i->gun->bullets;
+				//Gbullets_ThreadSafe = Gbullets;
+			}
+		}
+
+		for (auto &i : enemies8)
 		{
 			if (!i->isDie)
 			{
@@ -936,1152 +2498,125 @@ void display_callback()
 			}
 		}
 
-		for (auto &i : Gbullets_ThreadSafe)
+		for (auto &k : users8)
 		{
-			for (auto &j : enemies)
+			for (auto &i : k->gun->bullet_for_threadsafe)
 			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						//j -> enemy...isUnder = false
-						if (i->WhoShoot->isUnder) //상대편이 쏜거에 맞았으면
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else //우리팀이 쏜거에 맞았으면...
-						{
-							i->isDestroy = true; //일단 없어지고..
-							//체력은 냅두고 우리팀 fitness를 줄여야댐.
-							enemy_fitness_sum -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room2 ----------
-		for (auto &i : users2)
-		{
-			i->gun->roomNum = 1;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies2)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies2)
-		{
-			i->gun->roomNum = 1;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users2)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies2)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe2)
-		{
-			for (auto &j : enemies2)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum2 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users2)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum2 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room3 ----------
-		for (auto &i : users3)
-		{
-			i->gun->roomNum = 2;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies3)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies3)
-		{
-			i->gun->roomNum = 2;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users3)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies3)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe3)
-		{
-			for (auto &j : enemies3)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum3 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users3)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum3 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room4 ----------
-		for (auto &i : users4)
-		{
-			i->gun->roomNum = 3;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies4)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies4)
-		{
-			i->gun->roomNum = 3;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users4)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies4)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe4)
-		{
-			for (auto &j : enemies4)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum4 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users4)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum4 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room5 ----------
-		for (auto &i : users5)
-		{
-			i->gun->roomNum = 4;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies5)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies5)
-		{
-			i->gun->roomNum = 4;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users5)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies5)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe5)
-		{
-			for (auto &j : enemies5)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum5 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users5)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum5 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room6 ----------
-		for (auto &i : users6)
-		{
-			i->gun->roomNum = 5;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies6)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies6)
-		{
-			i->gun->roomNum = 5;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users6)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies6)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe6)
-		{
-			for (auto &j : enemies6)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum6 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users6)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum6 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room7 ----------
-		for (auto &i : users7)
-		{
-			i->gun->roomNum = 6;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : enemies7)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
-					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies7)
-		{
-			i->gun->roomNum = 6;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
-				for (auto &j : users7)
-				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies7)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
-					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe7)
-		{
-			for (auto &j : enemies7)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum7 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users7)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							user_fitness_sum7 -= 10;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	{ // ------ Room8 ----------
-		for (auto &i : users8)
-		{
-			i->gun->roomNum = 7;
-			if (!i->isDie)
-			{
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				i->UserCollider();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//i->gun->Shoot();
-				bool shootTrue = false;
 				for (auto &j : enemies8)
 				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
+					if (!j->isDie)
 					{
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->MoveBullet();
-						//j->drawBullet();
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							enemy_hp_sum8 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
 					}
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : enemies8)
-		{
-			i->gun->roomNum = 7;
-			//i->drawEnemy();
-			if (!i->isDie)
-			{
-				for (auto &j : walls)
-				{
-					i->Collision(j);
-				}
-				i->EnemyCollider();
-				//i->drawUser();
-				i->UpdateGunPos();
-				//i->gun->DrawGun();
-				//i->gun->Shoot();
-				bool shootTrue = false;
+				} //적이 맞은거
 				for (auto &j : users8)
 				{
-					double diffX = j->x - i->x;
-					double diffY = j->y - i->y;
-					double y = -sin(i->c_angle / 180 * 3.14159) * diffX + cos(i->c_angle / 180 * 3.14159) * diffY;
-					double distance = diffX * diffX + diffY * diffY;
-					if (y > 0 && distance < 1600)
-						shootTrue = true;
-				}
-				if (shootTrue)
-					i->gun->Shoot();
-				i->gun->bullet_for_threadsafe = i->gun->bullets;
-				//Gbullets_ThreadSafe = Gbullets;
-			}
-		}
-
-		for (auto &i : enemies8)
-		{
-			if (!i->isDie)
-			{
-				if (i->gun->bullet_for_threadsafe.size() > 0)
-				{
-					m.lock();
-					for (auto &j : i->gun->bullet_for_threadsafe)
+					if (!j->isDie && i->WhoShoot != j)
 					{
-						j->MoveBullet();
-						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
-					}
-					//i->gun->DestoryBullet();
-					m.unlock();
-				}
-
-				m.lock();
-				i->gun->DestroyBullet();
-				m.unlock();
-			}
-		}
-
-		for (auto &i : Gbullets_ThreadSafe8)
-		{
-			for (auto &j : enemies8)
-			{
-				//적들과의 충돌처리!
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-							if (j->hp <= 0)
-							{
-								j->isDie = true;
-							}
-						}
-						else
-						{
-							i->isDestroy = true;
-							enemy_fitness_sum8 -= 10;
-						}
-					}
-				}
-			}
-			for (auto &j : users8)
-			{
-				if (!j->isDie && i->WhoShoot != j)
-				{
-					if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
-					{
-						if (!i->WhoShoot->isUnder)
-						{
-							j->hp -= 2;
-							i->isDestroy = true;
-
-							if (j->hp <= 0)
-							{
-								//cout << "Die!" << endl;
-								j->isDie = true;
-							}
-						}
-						else
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
 							user_fitness_sum8 -= 10;
 						}
 					}
-				}
+				} //자기팀 맞은거
 			}
 		}
+
+		for (auto &k : enemies8)
+		{
+			for (auto &i : k->gun->bullet_for_threadsafe)
+			{
+				for (auto &j : users8)
+				{
+					if (!j->isDie)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							//j->hp -= 2;
+							user_hp_sum8 -= 2;
+							i->isDestroy = true;
+							if (j->hp <= 0)
+							{
+								j->isDie = true;
+							}
+						}
+					}
+				} //적이 맞은거
+				for (auto &j : enemies8)
+				{
+					if (!j->isDie && i->WhoShoot != j)
+					{
+						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+						{
+							i->isDestroy = true;
+							enemy_fitness_sum8 -= 10;
+						}
+					}
+				} //자기팀 맞은거
+			}
+		}
+
+		//for (auto &i : Gbullets_ThreadSafe8)
+		//{
+		//	for (auto &j : enemies8)
+		//	{
+		//		//적들과의 충돌처리!
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					enemy_fitness_sum8 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	for (auto &j : users8)
+		//	{
+		//		if (!j->isDie && i->WhoShoot != j)
+		//		{
+		//			if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
+		//			{
+		//				if (!i->WhoShoot->isUnder)
+		//				{
+		//					j->hp -= 2;
+		//					i->isDestroy = true;
+		//					if (j->hp <= 0)
+		//					{
+		//						//cout << "Die!" << endl;
+		//						j->isDie = true;
+		//					}
+		//				}
+		//				else
+		//				{
+		//					i->isDestroy = true;
+		//					user_fitness_sum8 -= 10;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 	}
 
 	glutPostRedisplay();
@@ -2108,7 +2643,7 @@ void keyboard_callback(int key, int, int)
 	if (key == GLUT_KEY_UP)
 	{
 		//user->gun->Shoot();
-		enemies[0]->gun->Shoot();
+		//enemies[0]->gun->Shoot();
 	}
 
 	if (key == GLUT_KEY_RIGHT)

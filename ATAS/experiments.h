@@ -130,6 +130,7 @@ static mutex mutex_9;
 static vector<int> fitness_rank8;
 extern atomic<int> user_fitness_sum8;
 extern atomic<int> enemy_fitness_sum8;
+extern bool finishJoin8;
 
 Population *pole1_test(int gens);
 bool pole1_evaluate(Organism *org);

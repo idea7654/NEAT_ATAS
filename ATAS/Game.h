@@ -56,7 +56,7 @@ enum Gun_Type
 	NORMAL = 0,
 };
 
-static mutex m;
+extern mutex m;
 
 class Bullet
 {
@@ -179,7 +179,7 @@ public:
 		glPopMatrix();
 	}
 
-	void Shoot()
+	void Shoot(int roomNum)
 	{
 		m.lock();
 		chrono::duration<double> sec = chrono::system_clock::now() - last_shoot;
@@ -203,7 +203,7 @@ public:
 				newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
 			}
 
-			bullets.emplace_back(newBullet);
+			bullet_for_threadsafe.emplace_back(newBullet);
 			switch (roomNum) //roomNum이 7만 들어오는 사태..
 			{
 			case 0:
@@ -247,6 +247,7 @@ public:
 				break;
 			}
 			default:
+				cout << "Error" << endl;
 				break;
 			}
 			
