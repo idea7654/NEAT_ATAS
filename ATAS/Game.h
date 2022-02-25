@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <mutex>
 #include <chrono>
+#include <typeinfo>
 
 using namespace std;
 
@@ -182,77 +183,77 @@ public:
 	void Shoot(int roomNum)
 	{
 		m.lock();
-		chrono::duration<double> sec = chrono::system_clock::now() - last_shoot;
-		if (sec.count() > RateOfShoot)
+		//chrono::duration<double> sec = chrono::system_clock::now() - last_shoot;
+		//if (sec.count() >= RateOfShoot)
+		//{
+		Bullet *newBullet = new Bullet();
+		newBullet->x = x + 0.125;
+		newBullet->y = y;
+		newBullet->origin_x = x + 0.125;
+		newBullet->origin_y = y;
+		newBullet->WhoShoot = Whohas;
+		newBullet->isUnder = isUnder;
+		if (!isUnder)
 		{
-			Bullet *newBullet = new Bullet();
-			newBullet->x = x + 0.125;
-			newBullet->y = y;
-			newBullet->origin_x = x + 0.125;
-			newBullet->origin_y = y;
-			newBullet->WhoShoot = Whohas;
-			newBullet->isUnder = isUnder;
-			if (!isUnder)
-			{
-				newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
-				newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
-			}
-			else
-			{
-				newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
-				newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
-			}
-
-			bullet_for_threadsafe.emplace_back(newBullet);
-			switch (roomNum) //roomNum이 7만 들어오는 사태..
-			{
-			case 0:
-			{
-				Gbullets.emplace_back(newBullet);
-				break;
-			}
-			case 1:
-			{
-				Gbullets2.emplace_back(newBullet);
-				break;
-			}
-			case 2:
-			{
-				Gbullets3.emplace_back(newBullet);
-				break;
-			}
-			case 3:
-			{
-				Gbullets4.emplace_back(newBullet);
-				break;
-			}
-			case 4:
-			{
-				Gbullets5.emplace_back(newBullet);
-				break;
-			}
-			case 5:
-			{
-				Gbullets6.emplace_back(newBullet);
-				break;
-			}
-			case 6:
-			{
-				Gbullets7.emplace_back(newBullet);
-				break;
-			}
-			case 7:
-			{
-				Gbullets8.emplace_back(newBullet);
-				break;
-			}
-			default:
-				cout << "Error" << endl;
-				break;
-			}
-			
-			last_shoot = chrono::system_clock::now();
+			newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
+			newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
 		}
+		else
+		{
+			newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
+			newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
+		}
+
+		bullet_for_threadsafe.push_back(newBullet);
+		switch (roomNum) //roomNum이 7만 들어오는 사태..
+		{
+		case 0:
+		{
+			Gbullets.emplace_back(newBullet);
+			break;
+		}
+		case 1:
+		{
+			Gbullets2.emplace_back(newBullet);
+			break;
+		}
+		case 2:
+		{
+			Gbullets3.emplace_back(newBullet);
+			break;
+		}
+		case 3:
+		{
+			Gbullets4.emplace_back(newBullet);
+			break;
+		}
+		case 4:
+		{
+			Gbullets5.emplace_back(newBullet);
+			break;
+		}
+		case 5:
+		{
+			Gbullets6.emplace_back(newBullet);
+			break;
+		}
+		case 6:
+		{
+			Gbullets7.emplace_back(newBullet);
+			break;
+		}
+		case 7:
+		{
+			Gbullets8.emplace_back(newBullet);
+			break;
+		}
+		default:
+			cout << "Error" << endl;
+			break;
+		}
+
+		//last_shoot = chrono::system_clock::now();
+		//}
 		m.unlock();
 	}
 
@@ -665,7 +666,11 @@ public:
 		x = px;
 		y = py;
 		gun = new Gun();
-		gun->last_shoot = chrono::system_clock::now();
+		//auto current_time = std::chrono::system_clock::now();
+		//auto duration_in_seconds = std::chrono::duration<double>(current_time.time_since_epoch());
+
+		//double num_seconds = duration_in_seconds.count();
+		//gun->last_shoot = num_seconds;
 		angle = 90;
 	}
 

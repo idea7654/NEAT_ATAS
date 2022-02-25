@@ -1,6 +1,6 @@
 ﻿// ATAS.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
-
+#pragma warning(disable:4996)
 #include <iostream>
 #include <vector>
 #include <future>
@@ -859,8 +859,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(0);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(0);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -908,8 +914,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(0);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(0);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -1083,8 +1095,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				///	i->gun->Shoot(1);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(1);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -1121,7 +1139,7 @@ void display_callback()
 				i->EnemyCollider();
 				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
+				//i->gun->DrawGun();
 				//i->gun->Shoot();
 				bool shootTrue = true;
 				for (auto &j : users2)
@@ -1133,8 +1151,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				///	i->gun->Shoot(1);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(1);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -1306,8 +1330,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(2);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(2);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -1356,8 +1386,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				///	i->gun->Shoot(2);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(2);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -1529,8 +1565,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(3);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(3);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -1567,7 +1609,7 @@ void display_callback()
 				i->EnemyCollider();
 				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
+				//i->gun->DrawGun();
 				//i->gun->Shoot();
 				bool shootTrue = true;
 				for (auto &j : users4)
@@ -1579,8 +1621,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(3);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(3);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -1752,8 +1800,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(4);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(4);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -1802,8 +1856,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(4);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(4);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -1975,8 +2035,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(5);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(5);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -2011,7 +2077,7 @@ void display_callback()
 					i->Collision(j);
 				}
 				i->EnemyCollider();
-				i->drawUser();
+				//i->drawUser();
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
@@ -2025,8 +2091,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(5);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(5);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -2198,8 +2270,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(6);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(6);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -2248,8 +2326,14 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(6);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
 					i->gun->Shoot(6);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -2290,6 +2374,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum7 -= 2;
+							//cout << enemy_hp_sum7 << endl;
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -2420,8 +2505,17 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
+				//if (shootTrue)
+				//	i->gun->Shoot(7);
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				std::time_t ttp = std::chrono::system_clock::to_time_t(i->gun->last_shoot);
+				std::cout << "time: " << std::ctime(&ttp);
+				if (sec.count() > i->gun->RateOfShoot)
+				{
+					cout << "Shoot!" << endl;
 					i->gun->Shoot(7);
+					//i->gun->last_shoot = chrono::system_clock::now();
+				}
 				for (auto &j : walls)
 				{
 					i->Collision(j);
@@ -2458,6 +2552,12 @@ void display_callback()
 				i->drawUser();
 				i->UpdateGunPos();
 				i->gun->DrawGun();
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot)
+				{
+					i->gun->Shoot(7);
+					i->gun->last_shoot = chrono::system_clock::now();
+				}
 				bool shootTrue = true;
 				for (auto &j : users8)
 				{
@@ -2468,8 +2568,10 @@ void display_callback()
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
 				}
-				if (shootTrue)
-					i->gun->Shoot(7);
+				//if (shootTrue)
+				//{
+				//	i->gun->Shoot(7);
+				//}
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//Gbullets_ThreadSafe = Gbullets;
 			}
@@ -2510,6 +2612,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum8 -= 2;
+							cout << "작동합니다~~~" << endl;
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -2524,7 +2627,7 @@ void display_callback()
 					{
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
-							i->isDestroy = true;
+							i->isDestroy =  true;
 							user_fitness_sum8 -= 10;
 						}
 					}
