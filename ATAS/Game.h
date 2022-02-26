@@ -195,13 +195,13 @@ public:
 		newBullet->isUnder = isUnder;
 		if (!isUnder)
 		{
-			newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
-			newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180) / 8;
+			newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
+			newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
 		}
 		else
 		{
-			newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
-			newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180) / 8;
+			newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
+			newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
 		}
 
 		bullet_for_threadsafe.push_back(newBullet);
@@ -670,7 +670,7 @@ public:
 		//auto duration_in_seconds = std::chrono::duration<double>(current_time.time_since_epoch());
 
 		//double num_seconds = duration_in_seconds.count();
-		//gun->last_shoot = num_seconds;
+		gun->last_shoot = chrono::system_clock::now();
 		angle = 90;
 	}
 
@@ -750,8 +750,8 @@ public:
 		if (c_angle < 0)
 			c_angle += 360;
 
-		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 12;
-		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 12;
+		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 1.5;
+		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 1.5;
 	}
 
 	void RotateCannon(double value)
@@ -768,6 +768,7 @@ public:
 		x = px;
 		y = py;
 		gun = new Gun();
+		gun->last_shoot = chrono::system_clock::now();
 		angle = 270;
 	}
 
@@ -852,8 +853,8 @@ public:
 		if (c_angle < 0)
 			c_angle += 360;
 
-		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 12;
-		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 12;
+		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 1.5;
+		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 1.5;
 	}
 
 	void RotateCannon(double value)

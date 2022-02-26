@@ -178,31 +178,52 @@ int main(int argc, char **argv)
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
 
-		users2.push_back(user);
+		User *user2 = new User(x, y);
+		user2->gun->Whohas = user2;
+		user2->isUnder = true;
+		users2.push_back(user2);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
 
-		users3.push_back(user);
+		User *user3 = new User(x, y);
+		user3->gun->Whohas = user2;
+		user3->isUnder = true;
+		users3.push_back(user3);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
 
-		users4.push_back(user);
+		User *user4 = new User(x, y);
+		user4->gun->Whohas = user4;
+		user4->isUnder = true;
+		users4.push_back(user4);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
 
-		users5.push_back(user);
+		User *user5 = new User(x, y);
+		user5->gun->Whohas = user5;
+		user5->isUnder = true;
+		users5.push_back(user5);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
 
-		users6.push_back(user);
+		User *user6 = new User(x, y);
+		user6->gun->Whohas = user6;
+		user6->isUnder = true;
+		users6.push_back(user6);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
 
-		users7.push_back(user);
+		User *user7 = new User(x, y);
+		user7->gun->Whohas = user7;
+		user7->isUnder = true;
+		users7.push_back(user7);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
 
-		users8.push_back(user);
+		User *user8 = new User(x, y);
+		user8->gun->Whohas = user8;
+		user8->isUnder = true;
+		users8.push_back(user8);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
 	}
@@ -219,31 +240,52 @@ int main(int argc, char **argv)
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
 
-		enemies2.push_back(enemy);
+		Enemy *enemy2 = new Enemy(x, y);
+		enemy2->gun->Whohas = enemy2;
+		enemy2->isUnder = false;
+		enemies2.push_back(enemy2);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
 
-		enemies3.push_back(enemy);
+		Enemy *enemy3 = new Enemy(x, y);
+		enemy3->gun->Whohas = enemy3;
+		enemy3->isUnder = false;
+		enemies3.push_back(enemy3);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
 
-		enemies4.push_back(enemy);
+		Enemy *enemy4 = new Enemy(x, y);
+		enemy4->gun->Whohas = enemy4;
+		enemy4->isUnder = false;
+		enemies4.push_back(enemy4);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
 
-		enemies5.push_back(enemy);
+		Enemy *enemy5 = new Enemy(x, y);
+		enemy5->gun->Whohas = enemy5;
+		enemy5->isUnder = false;
+		enemies5.push_back(enemy5);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
 
-		enemies6.push_back(enemy);
+		Enemy *enemy6 = new Enemy(x, y);
+		enemy6->gun->Whohas = enemy6;
+		enemy6->isUnder = false;
+		enemies6.push_back(enemy6);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
 
-		enemies7.push_back(enemy);
+		Enemy *enemy7 = new Enemy(x, y);
+		enemy7->gun->Whohas = enemy7;
+		enemy7->isUnder = false;
+		enemies7.push_back(enemy7);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
 
-		enemies8.push_back(enemy);
+		Enemy *enemy8 = new Enemy(x, y);
+		enemy8->gun->Whohas = enemy8;
+		enemy8->isUnder = false;
+		enemies8.push_back(enemy8);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
 	} //Enemy Spawn
@@ -849,7 +891,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies)
 				{
 					double diffX = j->x - i->x;
@@ -862,7 +904,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(0);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(0);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -904,7 +946,7 @@ void display_callback()
 				//i->drawUser();
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users)
 				{
 					double diffX = j->x - i->x;
@@ -917,7 +959,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(0);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(0);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1085,7 +1127,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies2)
 				{
 					double diffX = j->x - i->x;
@@ -1098,7 +1140,7 @@ void display_callback()
 				//if (shootTrue)
 				///	i->gun->Shoot(1);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(1);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1141,7 +1183,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users2)
 				{
 					double diffX = j->x - i->x;
@@ -1154,7 +1196,7 @@ void display_callback()
 				//if (shootTrue)
 				///	i->gun->Shoot(1);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(1);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1320,7 +1362,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies3)
 				{
 					double diffX = j->x - i->x;
@@ -1333,7 +1375,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(2);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(2);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1376,7 +1418,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users3)
 				{
 					double diffX = j->x - i->x;
@@ -1389,7 +1431,7 @@ void display_callback()
 				//if (shootTrue)
 				///	i->gun->Shoot(2);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(2);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1555,7 +1597,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies4)
 				{
 					double diffX = j->x - i->x;
@@ -1568,7 +1610,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(3);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(3);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1611,7 +1653,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users4)
 				{
 					double diffX = j->x - i->x;
@@ -1624,7 +1666,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(3);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(3);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1790,7 +1832,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies5)
 				{
 					double diffX = j->x - i->x;
@@ -1803,7 +1845,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(4);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(4);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -1846,7 +1888,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users5)
 				{
 					double diffX = j->x - i->x;
@@ -1859,7 +1901,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(4);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(4);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -2025,7 +2067,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies6)
 				{
 					double diffX = j->x - i->x;
@@ -2038,7 +2080,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(5);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(5);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -2081,7 +2123,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users6)
 				{
 					double diffX = j->x - i->x;
@@ -2094,7 +2136,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(5);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(5);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -2260,7 +2302,7 @@ void display_callback()
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies7)
 				{
 					double diffX = j->x - i->x;
@@ -2273,7 +2315,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(6);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(6);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -2316,7 +2358,7 @@ void display_callback()
 				i->UpdateGunPos();
 				//i->gun->DrawGun();
 				//i->gun->Shoot();
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : users7)
 				{
 					double diffX = j->x - i->x;
@@ -2329,7 +2371,7 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(6);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
 					i->gun->Shoot(6);
 					i->gun->last_shoot = chrono::system_clock::now();
@@ -2495,7 +2537,7 @@ void display_callback()
 				i->gun->DrawGun();
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
-				bool shootTrue = true;
+				bool shootTrue = false;
 				for (auto &j : enemies8)
 				{
 					double diffX = j->x - i->x;
@@ -2508,13 +2550,10 @@ void display_callback()
 				//if (shootTrue)
 				//	i->gun->Shoot(7);
 				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				std::time_t ttp = std::chrono::system_clock::to_time_t(i->gun->last_shoot);
-				std::cout << "time: " << std::ctime(&ttp);
-				if (sec.count() > i->gun->RateOfShoot)
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
 				{
-					cout << "Shoot!" << endl;
 					i->gun->Shoot(7);
-					//i->gun->last_shoot = chrono::system_clock::now();
+					i->gun->last_shoot = chrono::system_clock::now();
 				}
 				for (auto &j : walls)
 				{
@@ -2552,13 +2591,8 @@ void display_callback()
 				i->drawUser();
 				i->UpdateGunPos();
 				i->gun->DrawGun();
-				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
-				if (sec.count() > i->gun->RateOfShoot)
-				{
-					i->gun->Shoot(7);
-					i->gun->last_shoot = chrono::system_clock::now();
-				}
-				bool shootTrue = true;
+				
+				bool shootTrue = false;
 				for (auto &j : users8)
 				{
 					double diffX = j->x - i->x;
@@ -2567,6 +2601,13 @@ void display_callback()
 					double distance = diffX * diffX + diffY * diffY;
 					if (y > 0 && distance < 1600)
 						shootTrue = true;
+				}
+
+				chrono::duration<double> sec = chrono::system_clock::now() - i->gun->last_shoot;
+				if (sec.count() > i->gun->RateOfShoot && shootTrue)
+				{
+					i->gun->Shoot(7);
+					i->gun->last_shoot = chrono::system_clock::now();
 				}
 				//if (shootTrue)
 				//{
@@ -2612,7 +2653,6 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum8 -= 2;
-							cout << "작동합니다~~~" << endl;
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
