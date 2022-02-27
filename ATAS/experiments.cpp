@@ -998,8 +998,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room1 -----------------
 		if (!pop->organisms[count - 16]->net->isFailed && !pop->organisms[count - 15]->net->isFailed)
 		{
-			pop->organisms[count - 16]->fitness = 3000 - ((300 + enemy_hp_sum) * 10) + user_fitness_sum;
-			pop->organisms[count - 15]->fitness = 3000 - ((300 + user_hp_sum) * 10) + enemy_fitness_sum;
+			pop->organisms[count - 16]->fitness = 3000 - ((300 + enemy_hp_sum) * 10);// + user_fitness_sum;
+			pop->organisms[count - 15]->fitness = 3000 - ((300 + user_hp_sum) * 10);// + enemy_fitness_sum;
 
 			cout << "Room1 enemy_hp, user fitness: " << enemy_hp_sum << ", " << user_fitness_sum << endl;
 			cout << "Room1 user_hp, enemy fitness: " << user_hp_sum << ", " << enemy_fitness_sum << endl;
@@ -1034,8 +1034,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room2 -----------------
 		if (!pop->organisms[count - 14]->net->isFailed && !pop->organisms[count - 13]->net->isFailed)
 		{
-			pop->organisms[count - 14]->fitness = 3000 - ((300 + enemy_hp_sum2) * 10) + user_fitness_sum2;
-			pop->organisms[count - 13]->fitness = 3000 - ((300 + user_hp_sum2) * 10) + enemy_fitness_sum2;
+			pop->organisms[count - 14]->fitness = 3000 - ((300 + enemy_hp_sum2) * 10);// + user_fitness_sum2;
+			pop->organisms[count - 13]->fitness = 3000 - ((300 + user_hp_sum2) * 10);// + enemy_fitness_sum2;
 
 			cout << "Room2 enemy_hp, user fitness: " << enemy_hp_sum2 << ", " << user_fitness_sum2 << endl;
 			cout << "Room2 user_hp, enemy fitness: " << user_hp_sum2 << ", " << enemy_fitness_sum2 << endl;
@@ -1070,8 +1070,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room3 -----------------
 		if (!pop->organisms[count - 12]->net->isFailed && !pop->organisms[count - 11]->net->isFailed)
 		{
-			pop->organisms[count - 12]->fitness = 3000 - ((300 + enemy_hp_sum3) * 10) + user_fitness_sum3;
-			pop->organisms[count - 11]->fitness = 3000 - ((300 + user_hp_sum3) * 10) + enemy_fitness_sum3;
+			pop->organisms[count - 12]->fitness = 3000 - ((300 + enemy_hp_sum3) * 10);// + user_fitness_sum3;
+			pop->organisms[count - 11]->fitness = 3000 - ((300 + user_hp_sum3) * 10);// + enemy_fitness_sum3;
 
 			cout << "Room3 enemy_hp, user fitness: " << enemy_hp_sum3 << ", " << user_fitness_sum3 << endl;
 			cout << "Room3 user_hp, enemy fitness: " << user_hp_sum3 << ", " << enemy_fitness_sum3 << endl;
@@ -1106,8 +1106,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room4 -----------------
 		if (!pop->organisms[count - 10]->net->isFailed && !pop->organisms[count - 9]->net->isFailed)
 		{
-			pop->organisms[count - 10]->fitness = 3000 - ((300 + enemy_hp_sum4) * 10) + user_fitness_sum4;
-			pop->organisms[count - 9]->fitness = 3000 - ((300 + user_hp_sum4) * 10) + enemy_fitness_sum4;
+			pop->organisms[count - 10]->fitness = 3000 - ((300 + enemy_hp_sum4) * 10);// + user_fitness_sum4;
+			pop->organisms[count - 9]->fitness = 3000 - ((300 + user_hp_sum4) * 10);// + enemy_fitness_sum4;
 
 			cout << "Room4 enemy_hp, user fitness: " << enemy_hp_sum4 << ", " << user_fitness_sum4 << endl;
 			cout << "Room4 user_hp, enemy fitness: " << user_hp_sum4 << ", " << enemy_fitness_sum4 << endl;
@@ -1142,8 +1142,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room5 -----------------
 		if (!pop->organisms[count - 8]->net->isFailed && !pop->organisms[count - 7]->net->isFailed)
 		{
-			pop->organisms[count - 8]->fitness = 3000 - ((300 + enemy_hp_sum5) * 10) + user_fitness_sum5;
-			pop->organisms[count - 7]->fitness = 3000 - ((300 + user_hp_sum5) * 10) + enemy_fitness_sum5;
+			pop->organisms[count - 8]->fitness = 3000 - ((300 + enemy_hp_sum5) * 10);// + user_fitness_sum5;
+			pop->organisms[count - 7]->fitness = 3000 - ((300 + user_hp_sum5) * 10);// + enemy_fitness_sum5;
 
 			cout << "Room5 enemy_hp, user fitness: " << enemy_hp_sum5 << ", " << user_fitness_sum5 << endl;
 			cout << "Room5 user_hp, enemy fitness: " << user_hp_sum5 << ", " << enemy_fitness_sum5 << endl;
@@ -1178,8 +1178,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room6 -----------------
 		if (!pop->organisms[count - 6]->net->isFailed && !pop->organisms[count - 5]->net->isFailed)
 		{
-			pop->organisms[count - 6]->fitness = 3000 - ((300 + enemy_hp_sum6) * 10) + user_fitness_sum6;
-			pop->organisms[count - 5]->fitness = 3000 - ((300 + user_hp_sum6) * 10) + enemy_fitness_sum6;
+			pop->organisms[count - 6]->fitness = 3000 - ((300 + enemy_hp_sum6) * 10);// + user_fitness_sum6;
+			pop->organisms[count - 5]->fitness = 3000 - ((300 + user_hp_sum6) * 10);// + enemy_fitness_sum6;
 
 			cout << "Room6 enemy_hp, user fitness: " << enemy_hp_sum6 << ", " << user_fitness_sum6 << endl;
 			cout << "Room6 user_hp, enemy fitness: " << user_hp_sum6 << ", " << enemy_fitness_sum6 << endl;
@@ -1214,8 +1214,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room7 -----------------
 		if (!pop->organisms[count - 4]->net->isFailed && !pop->organisms[count - 3]->net->isFailed)
 		{
-			pop->organisms[count - 4]->fitness = 3000 - ((300 + enemy_hp_sum7) * 10) + user_fitness_sum7;
-			pop->organisms[count - 3]->fitness = 3000 - ((300 + user_hp_sum7) * 10) + enemy_fitness_sum7;
+			pop->organisms[count - 4]->fitness = 3000 - ((300 + enemy_hp_sum7) * 10);// + user_fitness_sum7;
+			pop->organisms[count - 3]->fitness = 3000 - ((300 + user_hp_sum7) * 10);// + enemy_fitness_sum7;
 
 			cout << "Room7 enemy_hp, user fitness: " << enemy_hp_sum7 << ", " << user_fitness_sum7 << endl;
 			cout << "Room7 user_hp, enemy fitness: " << user_hp_sum7 << ", " << enemy_fitness_sum7 << endl;
@@ -1250,8 +1250,8 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//---------- Room8 -----------------
 		if (!pop->organisms[count - 2]->net->isFailed && !pop->organisms[count - 1]->net->isFailed)
 		{
-			pop->organisms[count - 2]->fitness = 3000 - ((300 + enemy_hp_sum8) * 10) + user_fitness_sum8;
-			pop->organisms[count - 1]->fitness = 3000 - ((300 + user_hp_sum8) * 10) + enemy_fitness_sum8;
+			pop->organisms[count - 2]->fitness = 3000 - ((300 + enemy_hp_sum8) * 10);// + user_fitness_sum8;
+			pop->organisms[count - 1]->fitness = 3000 - ((300 + user_hp_sum8) * 10);// + enemy_fitness_sum8;
 
 			cout << "Room8 enemy_hp, user fitness: " << enemy_hp_sum8 << ", " << user_fitness_sum8 << endl;
 			cout << "Room8 user_hp, enemy fitness: " << user_hp_sum8 << ", " << enemy_fitness_sum8 << endl;
