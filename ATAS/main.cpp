@@ -315,7 +315,7 @@ int main(int argc, char **argv)
 	startNextGame8 = true;
 
 	future<void> future = async(launch::async, []() {
-		tank_game(100);
+		tank_game(300);
 		});
 
 	auto gameManager = async(launch::async, [&]() {
