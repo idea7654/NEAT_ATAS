@@ -2312,6 +2312,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 		double copyShoot = out_isShoot;
 		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
+		out_isShoot = out_isShoot * 2;
 
 		if (abs(out_Left - out_Right) > 0.5)
 			fitness--;
