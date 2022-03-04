@@ -672,6 +672,7 @@ public:
 		//double num_seconds = duration_in_seconds.count();
 		gun->last_shoot = chrono::system_clock::now();
 		angle = 90;
+		c_angle = 90;
 	}
 
 	~User()
@@ -708,7 +709,7 @@ public:
 		
 		glPushMatrix();
 		glTranslatef(x, y, 0);
-		glRotatef(-c_angle, 0, 0, 1);
+		glRotatef(-(c_angle + 180), 0, 0, 1);
 		glTranslatef(-x , -y, 0);
 		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
 		
@@ -743,7 +744,7 @@ public:
 	void MoveUser(float left, float right)
 	{
 		float sum = right - left;
-		//float sum = 0;
+		//float sum = 0.1;
 		c_angle -= sum;
 		if (c_angle > 360)
 			c_angle -= 360;
@@ -770,6 +771,7 @@ public:
 		gun = new Gun();
 		gun->last_shoot = chrono::system_clock::now();
 		angle = 270;
+		c_angle = 270;
 	}
 
 	Enemy()
@@ -810,7 +812,7 @@ public:
 
 		glPushMatrix();
 		glTranslatef(x, y, 0);
-		glRotatef(-c_angle, 0, 0, 1);
+		glRotatef(-(c_angle + 180), 0, 0, 1);
 		glTranslatef(-x, -y, 0);
 		glRectd(x - 1.0f, y - 1.0f, x + 1.0f, y + 1.0f);
 		glEnd();
@@ -847,7 +849,7 @@ public:
 	{
 		float sum = right - left;
 		//float sum = 0.1;
-		c_angle += sum;
+		c_angle -= sum;
 		if (c_angle > 360)
 			c_angle -= 360;
 		if (c_angle < 0)
