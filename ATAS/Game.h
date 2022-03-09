@@ -15,6 +15,23 @@ using namespace std;
 
 class Character;
 
+extern atomic<int> user_fitness_sum;
+extern atomic<int> enemy_fitness_sum;
+extern atomic<int> user_fitness_sum2;
+extern atomic<int> enemy_fitness_sum2;
+extern atomic<int> user_fitness_sum3;
+extern atomic<int> enemy_fitness_sum3;
+extern atomic<int> user_fitness_sum4;
+extern atomic<int> enemy_fitness_sum4;
+extern atomic<int> user_fitness_sum5;
+extern atomic<int> enemy_fitness_sum5;
+extern atomic<int> user_fitness_sum6;
+extern atomic<int> enemy_fitness_sum6;
+extern atomic<int> user_fitness_sum7;
+extern atomic<int> enemy_fitness_sum7;
+extern atomic<int> user_fitness_sum8;
+extern atomic<int> enemy_fitness_sum8;
+
 class Wall
 {
 public:
@@ -630,7 +647,81 @@ public:
 	bool isUnder = false;
 	int hp = 100;
 	int sameDirCount = 0;
+	int roomNum = 0;
 	bool previousDir; // false - Left, true - Right
+
+	void ReduceFitness()
+	{
+		switch (roomNum)
+		{
+		case 0:
+		{
+			if (isUnder)
+				user_fitness_sum -= 100;
+			else
+				enemy_fitness_sum -= 100;
+			break;
+		}
+		case 1:
+		{
+			if (isUnder)
+				user_fitness_sum2 -= 100;
+			else
+				enemy_fitness_sum2 -= 100;
+			break;
+		}
+		case 2:
+		{
+			if (isUnder)
+				user_fitness_sum3 -= 100;
+			else
+				enemy_fitness_sum3 -= 100;
+			break;
+		}
+		case 3:
+		{
+			if (isUnder)
+				user_fitness_sum4 -= 100;
+			else
+				enemy_fitness_sum4 -= 100;
+			break;
+		}
+		case 4:
+		{
+			if (isUnder)
+				user_fitness_sum5 -= 100;
+			else
+				enemy_fitness_sum5 -= 100;
+			break;
+		}
+		case 5:
+		{
+			if (isUnder)
+				user_fitness_sum6 -= 100;
+			else
+				enemy_fitness_sum6 -= 100;
+			break;
+		}
+		case 6:
+		{
+			if (isUnder)
+				user_fitness_sum7 -= 100;
+			else
+				enemy_fitness_sum7 -= 100;
+			break;
+		}
+		case 7:
+		{
+			if (isUnder)
+				user_fitness_sum8 -= 100;
+			else
+				enemy_fitness_sum8 -= 100;
+			break;
+		}
+		default:
+			break;
+		}
+	}
 
 	void Collision(Wall *wall)
 	{
@@ -642,18 +733,22 @@ public:
 		if (x < 7)
 		{
 			x = 93;
+			//ReduceFitness();
 		}
 		if (x > 93)
 		{
 			x = 7;
+			//ReduceFitness();
 		}
 		if (y > 93)
 		{
 			y = 7;
+			//ReduceFitness();
 		}
 		if (y < 7)
 		{
 			y = 93;
+			//ReduceFitness();
 		}
 	}
 };

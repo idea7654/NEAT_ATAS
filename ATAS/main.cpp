@@ -174,6 +174,7 @@ int main(int argc, char **argv)
 		User *user = new User(x, y);
 		user->gun->Whohas = user;
 		user->isUnder = true;
+		user->roomNum = 0;
 		users.push_back(user);
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
@@ -181,6 +182,7 @@ int main(int argc, char **argv)
 		User *user2 = new User(x, y);
 		user2->gun->Whohas = user2;
 		user2->isUnder = true;
+		user2->roomNum = 1;
 		users2.push_back(user2);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
@@ -188,6 +190,7 @@ int main(int argc, char **argv)
 		User *user3 = new User(x, y);
 		user3->gun->Whohas = user2;
 		user3->isUnder = true;
+		user3->roomNum = 2;
 		users3.push_back(user3);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
@@ -195,6 +198,7 @@ int main(int argc, char **argv)
 		User *user4 = new User(x, y);
 		user4->gun->Whohas = user4;
 		user4->isUnder = true;
+		user4->roomNum = 3;
 		users4.push_back(user4);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
@@ -202,6 +206,7 @@ int main(int argc, char **argv)
 		User *user5 = new User(x, y);
 		user5->gun->Whohas = user5;
 		user5->isUnder = true;
+		user5->roomNum = 4;
 		users5.push_back(user5);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
@@ -209,6 +214,7 @@ int main(int argc, char **argv)
 		User *user6 = new User(x, y);
 		user6->gun->Whohas = user6;
 		user6->isUnder = true;
+		user6->roomNum = 5;
 		users6.push_back(user6);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
@@ -216,6 +222,7 @@ int main(int argc, char **argv)
 		User *user7 = new User(x, y);
 		user7->gun->Whohas = user7;
 		user7->isUnder = true;
+		user7->roomNum = 6;
 		users7.push_back(user7);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
@@ -223,6 +230,7 @@ int main(int argc, char **argv)
 		User *user8 = new User(x, y);
 		user8->gun->Whohas = user8;
 		user8->isUnder = true;
+		user8->roomNum = 7;
 		users8.push_back(user8);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
@@ -236,6 +244,7 @@ int main(int argc, char **argv)
 		Enemy *enemy = new Enemy(x, y);
 		enemy->gun->Whohas = enemy;
 		enemy->isUnder = false;
+		enemy->roomNum = 0;
 		enemies.push_back(enemy);
 		initial_pos.push_back(x);
 		initial_pos.push_back(y);
@@ -243,6 +252,7 @@ int main(int argc, char **argv)
 		Enemy *enemy2 = new Enemy(x, y);
 		enemy2->gun->Whohas = enemy2;
 		enemy2->isUnder = false;
+		enemy2->roomNum = 1;
 		enemies2.push_back(enemy2);
 		initial_pos2.push_back(x);
 		initial_pos2.push_back(y);
@@ -250,6 +260,7 @@ int main(int argc, char **argv)
 		Enemy *enemy3 = new Enemy(x, y);
 		enemy3->gun->Whohas = enemy3;
 		enemy3->isUnder = false;
+		enemy3->roomNum = 2;
 		enemies3.push_back(enemy3);
 		initial_pos3.push_back(x);
 		initial_pos3.push_back(y);
@@ -257,6 +268,7 @@ int main(int argc, char **argv)
 		Enemy *enemy4 = new Enemy(x, y);
 		enemy4->gun->Whohas = enemy4;
 		enemy4->isUnder = false;
+		enemy4->roomNum = 3;
 		enemies4.push_back(enemy4);
 		initial_pos4.push_back(x);
 		initial_pos4.push_back(y);
@@ -264,6 +276,7 @@ int main(int argc, char **argv)
 		Enemy *enemy5 = new Enemy(x, y);
 		enemy5->gun->Whohas = enemy5;
 		enemy5->isUnder = false;
+		enemy5->roomNum = 4;
 		enemies5.push_back(enemy5);
 		initial_pos5.push_back(x);
 		initial_pos5.push_back(y);
@@ -271,6 +284,7 @@ int main(int argc, char **argv)
 		Enemy *enemy6 = new Enemy(x, y);
 		enemy6->gun->Whohas = enemy6;
 		enemy6->isUnder = false;
+		enemy6->roomNum = 5;
 		enemies6.push_back(enemy6);
 		initial_pos6.push_back(x);
 		initial_pos6.push_back(y);
@@ -278,6 +292,7 @@ int main(int argc, char **argv)
 		Enemy *enemy7 = new Enemy(x, y);
 		enemy7->gun->Whohas = enemy7;
 		enemy7->isUnder = false;
+		enemy7->roomNum = 6;
 		enemies7.push_back(enemy7);
 		initial_pos7.push_back(x);
 		initial_pos7.push_back(y);
@@ -285,6 +300,7 @@ int main(int argc, char **argv)
 		Enemy *enemy8 = new Enemy(x, y);
 		enemy8->gun->Whohas = enemy8;
 		enemy8->isUnder = false;
+		enemy8->roomNum = 7;
 		enemies8.push_back(enemy8);
 		initial_pos8.push_back(x);
 		initial_pos8.push_back(y);
