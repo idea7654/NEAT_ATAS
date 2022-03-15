@@ -657,65 +657,65 @@ public:
 		case 0:
 		{
 			if (isUnder)
-				user_fitness_sum -= 100;
+				user_fitness_sum -= 10;
 			else
-				enemy_fitness_sum -= 100;
+				enemy_fitness_sum -= 10;
 			break;
 		}
 		case 1:
 		{
 			if (isUnder)
-				user_fitness_sum2 -= 100;
+				user_fitness_sum2 -= 10;
 			else
-				enemy_fitness_sum2 -= 100;
+				enemy_fitness_sum2 -= 10;
 			break;
 		}
 		case 2:
 		{
 			if (isUnder)
-				user_fitness_sum3 -= 100;
+				user_fitness_sum3 -= 10;
 			else
-				enemy_fitness_sum3 -= 100;
+				enemy_fitness_sum3 -= 10;
 			break;
 		}
 		case 3:
 		{
 			if (isUnder)
-				user_fitness_sum4 -= 100;
+				user_fitness_sum4 -= 10;
 			else
-				enemy_fitness_sum4 -= 100;
+				enemy_fitness_sum4 -= 10;
 			break;
 		}
 		case 4:
 		{
 			if (isUnder)
-				user_fitness_sum5 -= 100;
+				user_fitness_sum5 -= 10;
 			else
-				enemy_fitness_sum5 -= 100;
+				enemy_fitness_sum5 -= 10;
 			break;
 		}
 		case 5:
 		{
 			if (isUnder)
-				user_fitness_sum6 -= 100;
+				user_fitness_sum6 -= 10;
 			else
-				enemy_fitness_sum6 -= 100;
+				enemy_fitness_sum6 -= 10;
 			break;
 		}
 		case 6:
 		{
 			if (isUnder)
-				user_fitness_sum7 -= 100;
+				user_fitness_sum7 -= 10;
 			else
-				enemy_fitness_sum7 -= 100;
+				enemy_fitness_sum7 -= 10;
 			break;
 		}
 		case 7:
 		{
 			if (isUnder)
-				user_fitness_sum8 -= 100;
+				user_fitness_sum8 -= 10;
 			else
-				enemy_fitness_sum8 -= 100;
+				enemy_fitness_sum8 -= 10;
 			break;
 		}
 		default:
@@ -733,22 +733,22 @@ public:
 		if (x < 7)
 		{
 			x = 93;
-			//ReduceFitness();
+			ReduceFitness();
 		}
 		if (x > 93)
 		{
 			x = 7;
-			//ReduceFitness();
+			ReduceFitness();
 		}
 		if (y > 93)
 		{
 			y = 7;
-			//ReduceFitness();
+			ReduceFitness();
 		}
 		if (y < 7)
 		{
 			y = 93;
-			//ReduceFitness();
+			ReduceFitness();
 		}
 	}
 };

@@ -2165,14 +2165,14 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 				float diffX = userArr[num - 1]->x - userArr[num]->x;
 				float diffY = userArr[num - 1]->y - userArr[num]->y;
 
-				in[1] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-				in[2] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[1] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[2] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
 
 				diffX = userArr[num + 1]->x - userArr[num]->x;
 				diffY = userArr[num + 1]->y - userArr[num]->y;
 
-				in[3] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-				in[4] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[3] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[4] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
 			}
 			else
 			{
@@ -2184,14 +2184,14 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 				float diffX = userArr[num - 2]->x - userArr[num]->x;
 				float diffY = userArr[num - 2]->y - userArr[num]->y;
 
-				in[1] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-				in[2] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[1] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[2] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
 
 				diffX = userArr[num - 1]->x - userArr[num]->x;
 				diffY = userArr[num - 1]->y - userArr[num]->y;
 
-				in[3] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-				in[4] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[3] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[4] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
 			}
 
 			float diffX = enemyArr[0]->x - userArr[num]->x;
@@ -2212,7 +2212,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			in[9] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 			in[10] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((userArr[num]->angle - 90 + (userArr[num]->c_angle * 180)) / 3.14159);
-			in[11] = (userArr[num]->angle - 90) * 3.14159 / 180;
+			in[11] = (userArr[num]->angle) * 3.14159 / 180;
 		}
 		else
 		{
@@ -2300,7 +2300,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			in[9] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			in[10] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((enemyArr[num - 3]->angle - 90 + (enemyArr[num - 3]->c_angle * 180)) / 3.14159);
-			in[11] = (enemyArr[num - 3]->angle - 90) / 180 * 3.14159;
+			in[11] = (enemyArr[num - 3]->angle) / 180 * 3.14159;
 		}
 
 		net->load_sensors(in);
@@ -2406,7 +2406,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 		if (num < 3)
 		{
-			userArr[num]->MoveUser(out_Right * 50, out_Left * 50);
+			userArr[num]->MoveUser(out_Right * 200, out_Left * 200);
 			userArr[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				userArr[num]->gun->RateOfShoot = out_isShoot / 2;
@@ -2416,7 +2416,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		}
 		else
 		{
-			enemyArr[num - 3]->MoveUser(out_Right * 50, out_Left * 50);
+			enemyArr[num - 3]->MoveUser(out_Right * 200, out_Left * 200);
 			enemyArr[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot / 2;
