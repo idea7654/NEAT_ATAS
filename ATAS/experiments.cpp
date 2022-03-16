@@ -2212,7 +2212,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			in[9] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 			in[10] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((userArr[num]->angle - 90 + (userArr[num]->c_angle * 180)) / 3.14159);
-			in[11] = (userArr[num]->angle) * 3.14159 / 180;
+			in[11] = (userArr[num]->angle - 90) * 3.14159 / 180;
 		}
 		else
 		{
@@ -2300,7 +2300,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			in[9] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			in[10] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((enemyArr[num - 3]->angle - 90 + (enemyArr[num - 3]->c_angle * 180)) / 3.14159);
-			in[11] = (enemyArr[num - 3]->angle) / 180 * 3.14159;
+			in[11] = (enemyArr[num - 3]->angle - 270) / 180 * 3.14159;
 		}
 
 		net->load_sensors(in);

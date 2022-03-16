@@ -899,6 +899,14 @@ void display_callback()
 		for (auto &i : users)
 		{
 			i->gun->roomNum = 0;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -952,6 +960,14 @@ void display_callback()
 		{
 			i->gun->roomNum = 0;
 			//i->drawEnemy();
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				for (auto &j : walls)
@@ -1019,6 +1035,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							enemy_hp_sum -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -1054,6 +1071,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							user_hp_sum -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -1135,6 +1153,14 @@ void display_callback()
 		for (auto &i : users2)
 		{
 			i->gun->roomNum = 1;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1187,6 +1213,14 @@ void display_callback()
 		for (auto &i : enemies2)
 		{
 			i->gun->roomNum = 1;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1256,6 +1290,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							enemy_hp_sum2 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -1290,6 +1325,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							user_hp_sum2 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -1370,6 +1406,14 @@ void display_callback()
 		for (auto &i : users3)
 		{
 			i->gun->roomNum = 2;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1422,6 +1466,14 @@ void display_callback()
 		for (auto &i : enemies3)
 		{
 			i->gun->roomNum = 2;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1491,6 +1543,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							enemy_hp_sum3 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -1525,6 +1578,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							user_hp_sum3 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -1605,6 +1659,14 @@ void display_callback()
 		for (auto &i : users4)
 		{
 			i->gun->roomNum = 3;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1657,6 +1719,14 @@ void display_callback()
 		for (auto &i : enemies4)
 		{
 			i->gun->roomNum = 3;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1728,6 +1798,7 @@ void display_callback()
 							//j->hp -= 2;
 							enemy_hp_sum4 -= 2;
 							i->isDestroy = true;
+							j->Stun();
 							if (j->hp <= 0)
 							{
 								j->isDie = true;
@@ -1761,6 +1832,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							user_hp_sum4 -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -1840,6 +1912,14 @@ void display_callback()
 		for (auto &i : users5)
 		{
 			i->gun->roomNum = 4;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -1892,6 +1972,14 @@ void display_callback()
 		for (auto &i : enemies5)
 		{
 			i->gun->roomNum = 4;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -1962,6 +2050,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum5 -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -1995,6 +2084,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							user_hp_sum5 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -2075,6 +2165,14 @@ void display_callback()
 		for (auto &i : users6)
 		{
 			i->gun->roomNum = 5;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -2127,6 +2225,14 @@ void display_callback()
 		for (auto &i : enemies6)
 		{
 			i->gun->roomNum = 5;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			//i->drawEnemy();
 			if (!i->isDie)
 			{
@@ -2197,6 +2303,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum6 -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -2231,6 +2338,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							user_hp_sum6 -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -2310,6 +2418,14 @@ void display_callback()
 		for (auto &i : users7)
 		{
 			i->gun->roomNum = 6;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				//i->drawUser();
@@ -2363,6 +2479,14 @@ void display_callback()
 		{
 			i->gun->roomNum = 6;
 			//i->drawEnemy();
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				for (auto &j : walls)
@@ -2432,6 +2556,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							enemy_hp_sum7 -= 2;
+							j->Stun();
 							//cout << enemy_hp_sum7 << endl;
 							i->isDestroy = true;
 							if (j->hp <= 0)
@@ -2467,6 +2592,7 @@ void display_callback()
 						{
 							//j->hp -= 2;
 							user_hp_sum7 -= 2;
+							j->Stun();
 							i->isDestroy = true;
 							if (j->hp <= 0)
 							{
@@ -2546,6 +2672,14 @@ void display_callback()
 		for (auto &i : users8)
 		{
 			i->gun->roomNum = 7;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				i->drawUser();
@@ -2597,6 +2731,14 @@ void display_callback()
 		for (auto &i : enemies8)
 		{
 			i->gun->roomNum = 7;
+			if (i->stun)
+			{
+				chrono::duration<double> sec = chrono::system_clock::now() - i->stun_time;
+				if (sec.count() > 3)
+				{
+					i->stun = false;
+				}
+			}
 			if (!i->isDie)
 			{
 				for (auto &j : walls)
@@ -2667,9 +2809,10 @@ void display_callback()
 					{
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
-							//j->hp -= 2;
+							//j->hp -= 2;f
 							enemy_hp_sum8 -= 2;
 							i->isDestroy = true;
+							j->Stun();
 							if (j->hp <= 0)
 							{
 								j->isDie = true;
@@ -2702,6 +2845,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							j->Stun();
 							user_hp_sum8 -= 2;
 							i->isDestroy = true;
 							if (j->hp <= 0)

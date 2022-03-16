@@ -8,6 +8,7 @@
 #include <mutex>
 #include <chrono>
 #include <typeinfo>
+#include <thread>
 
 using namespace std;
 
@@ -170,6 +171,7 @@ public:
 	vector<Bullet*> bullets;
 	vector<Bullet*> bullet_for_threadsafe;
 	int roomNum = 0;
+	bool stun = false;
 
 	~Gun()
 	{
@@ -200,74 +202,78 @@ public:
 	void Shoot(int roomNum)
 	{
 		m.lock();
+		if (!stun)
+		{
+			Bullet *newBullet = new Bullet();
+			newBullet->x = x + 0.125;
+			newBullet->y = y;
+			newBullet->origin_x = x + 0.125;
+			newBullet->origin_y = y;
+			newBullet->WhoShoot = Whohas;
+			newBullet->isUnder = isUnder;
+			if (!isUnder)
+			{
+				newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
+				newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
+			}
+			else
+			{
+				newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
+				newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
+			}
+
+			bullet_for_threadsafe.push_back(newBullet);
+			switch (roomNum) //roomNum이 7만 들어오는 사태..
+			{
+			case 0:
+			{
+				Gbullets.emplace_back(newBullet);
+				break;
+			}
+			case 1:
+			{
+				Gbullets2.emplace_back(newBullet);
+				break;
+			}
+			case 2:
+			{
+				Gbullets3.emplace_back(newBullet);
+				break;
+			}
+			case 3:
+			{
+				Gbullets4.emplace_back(newBullet);
+				break;
+			}
+			case 4:
+			{
+				Gbullets5.emplace_back(newBullet);
+				break;
+			}
+			case 5:
+			{
+				Gbullets6.emplace_back(newBullet);
+				break;
+			}
+			case 6:
+			{
+				Gbullets7.emplace_back(newBullet);
+				break;
+			}
+			case 7:
+			{
+				Gbullets8.emplace_back(newBullet);
+				break;
+			}
+			default:
+				cout << "Error" << endl;
+				break;
+			}
+		}
 		//chrono::duration<double> sec = chrono::system_clock::now() - last_shoot;
 		//if (sec.count() >= RateOfShoot)
 		//{
-		Bullet *newBullet = new Bullet();
-		newBullet->x = x + 0.125;
-		newBullet->y = y;
-		newBullet->origin_x = x + 0.125;
-		newBullet->origin_y = y;
-		newBullet->WhoShoot = Whohas;
-		newBullet->isUnder = isUnder;
-		if (!isUnder)
-		{
-			newBullet->forwardVec[0] = cos((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
-			newBullet->forwardVec[1] = sin((c_angle - 270) * 3.14159 / 180 + (angle - 90) * 3.14159 / 180);
-		}
-		else
-		{
-			newBullet->forwardVec[0] = -cos((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
-			newBullet->forwardVec[1] = sin((c_angle - 90) * 3.14159 / 180 + (angle - 270) * 3.14159 / 180);
-		}
-
-		bullet_for_threadsafe.push_back(newBullet);
-		switch (roomNum) //roomNum이 7만 들어오는 사태..
-		{
-		case 0:
-		{
-			Gbullets.emplace_back(newBullet);
-			break;
-		}
-		case 1:
-		{
-			Gbullets2.emplace_back(newBullet);
-			break;
-		}
-		case 2:
-		{
-			Gbullets3.emplace_back(newBullet);
-			break;
-		}
-		case 3:
-		{
-			Gbullets4.emplace_back(newBullet);
-			break;
-		}
-		case 4:
-		{
-			Gbullets5.emplace_back(newBullet);
-			break;
-		}
-		case 5:
-		{
-			Gbullets6.emplace_back(newBullet);
-			break;
-		}
-		case 6:
-		{
-			Gbullets7.emplace_back(newBullet);
-			break;
-		}
-		case 7:
-		{
-			Gbullets8.emplace_back(newBullet);
-			break;
-		}
-		default:
-			cout << "Error" << endl;
-			break;
-		}
+		
 
 		//last_shoot = chrono::system_clock::now();
 		//}
@@ -649,6 +655,14 @@ public:
 	int sameDirCount = 0;
 	int roomNum = 0;
 	bool previousDir; // false - Left, true - Right
+	bool stun = false;
+	chrono::system_clock::time_point stun_time;
+
+	void Stun()
+	{
+		stun = true;
+		stun_time = chrono::system_clock::now();
+	}
 
 	void ReduceFitness()
 	{
@@ -781,6 +795,7 @@ public:
 		gun->y = y + 0.5;
 		gun->angle = angle;
 		gun->c_angle = c_angle;
+		gun->stun = stun;
 	}
 
 	void UserCollider()
@@ -838,16 +853,19 @@ public:
 
 	void MoveUser(float left, float right)
 	{
-		float sum = right - left;
-		//float sum = 0.1;
-		c_angle -= sum;
-		if (c_angle > 360)
-			c_angle -= 360;
-		if (c_angle < 0)
-			c_angle += 360;
+		if (!stun)
+		{
+			float sum = right - left;
+			//float sum = 0.1;
+			c_angle -= sum;
+			if (c_angle > 360)
+				c_angle -= 360;
+			if (c_angle < 0)
+				c_angle += 360;
 
-		this->x += cosf((c_angle - 90) / 180 * 3.14159) / 1.5;
-		this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 1.5;
+			this->x += cosf((c_angle - 90) / 180 * 3.14159) / 1.5;
+			this->y -= sinf((c_angle - 90) / 180 * 3.14159) / 1.5;
+		}
 	}
 
 	void RotateCannon(double value)
@@ -886,6 +904,7 @@ public:
 		gun->angle = angle;
 		gun->c_angle = c_angle;
 		gun->isUnder = true;
+		gun->stun = stun;
 	}
 
 	void EnemyCollider()
@@ -942,16 +961,19 @@ public:
 
 	void MoveUser(float left, float right)
 	{
-		float sum = right - left;
-		//float sum = 0.1;
-		c_angle -= sum;
-		if (c_angle > 360)
-			c_angle -= 360;
-		if (c_angle < 0)
-			c_angle += 360;
+		if (!stun)
+		{
+			float sum = right - left;
+			//float sum = 0.1;
+			c_angle -= sum;
+			if (c_angle > 360)
+				c_angle -= 360;
+			if (c_angle < 0)
+				c_angle += 360;
 
-		this->x += cosf((c_angle - 270) * 3.14159 / 180) / 1.5;
-		this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 1.5;
+			this->x += cosf((c_angle - 270) * 3.14159 / 180) / 1.5;
+			this->y -= sinf((c_angle - 270) * 3.14159 / 180) / 1.5;
+		}
 	}
 
 	void RotateCannon(double value)
