@@ -266,16 +266,38 @@ bool NEAT::Network::activate()
 					if (!j->time_delay)
 					{
 						double a = j->in_node->get_active_out();
-						add_amount = j->weight * a;
+						add_amount = j->weight * a / 100000; //공식을 넣으면 됨..
 						if ((j->in_node)->active_flag || (j->in_node)->type == SENSOR)
 							i->active_flag = true;
 						i->activesum += add_amount;
 					}
 					else
 					{
-						add_amount = j->weight * (j->in_node)->get_active_out_td();
-						add_amount = add_amount / 1000.0;
+						add_amount = j->weight * (j->in_node)->get_active_out_td() / 100000;
+						add_amount = add_amount;
 						i->activesum += add_amount;
+					}
+				}
+			}
+		}
+
+		for (auto &i : all_nodes)
+		{
+			if (i->type != SENSOR)
+			{
+				i->node_bias = 0;
+				i->node_teron = 0;
+				for (auto &j : i->incoming)
+				{
+					if (!j->time_delay)
+					{
+						i->biasSum += j->weight * (j->in_node)->node_bias / 100000;
+						i->teronSum += j->weight * (j->in_node)->teronSum / 100000;
+					}
+					else
+					{
+						i->biasSum += j->weight * (j->in_node)->node_bias / 100000;
+						i->teronSum += j->weight * (j->in_node)->teronSum / 100000;
 					}
 				}
 			}
@@ -330,10 +352,8 @@ bool NEAT::Network::activate()
 					{
 						if (i->ftype == SIGMOID)
 						{
-							//i->activesum = (int)i->activesum;
-							i->activesum = round(i->activesum * 1000) / 1000;
-							i->activation = fsigmoid(i->activesum / 2000000000, 4.924273, 2.4621365);
-						}					
+							i->activation = fsigmoid(i->activesum, 4.924273, 2.4621365);
+						}
 					}
 					i->activation_count++;
 					//std::cout << i->activation << std::endl;

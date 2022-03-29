@@ -499,6 +499,7 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 					//ABOVE LINE IS FOR:
 					//Make sure no links get added when the system has link adding disabled
 					new_genome->mutate_link_weights(mut_power, 1.0, GAUSSIAN);
+					//여기서..bias를 mutate!
 				else {
 					//Sometimes we add a link to a superchamp
 					net_analogue = new_genome->genesis(generation);

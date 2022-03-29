@@ -339,6 +339,11 @@ int main(int argc, char **argv)
 		{
 			if (GameOver || isFirst)
 			{
+				/*if (isFirst)
+				{
+					Sleep(500);
+					cout << "Start!!!!" << endl;
+				}*/
 				isFirst = false;
 				GameOver = false;
 				Sleep(GAME_TIME);
@@ -347,7 +352,7 @@ int main(int argc, char **argv)
 				for (auto &i : users)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos.push_back(x);
 					initial_pos.push_back(y);
 					i->x = x;
@@ -360,12 +365,14 @@ int main(int argc, char **argv)
 					//user_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos.push_back(x);
 					initial_pos.push_back(y);
 					i->x = x;
@@ -378,7 +385,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver = true;
 				startNextGame = true;
@@ -404,7 +413,7 @@ int main(int argc, char **argv)
 				for (auto &i : users2)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos2.push_back(x);
 					initial_pos2.push_back(y);
 					i->x = x;
@@ -417,12 +426,14 @@ int main(int argc, char **argv)
 					//user_hp_sum2 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies2)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos2.push_back(x);
 					initial_pos2.push_back(y);
 					i->x = x;
@@ -435,7 +446,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum2 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver2 = true;
 				startNextGame2 = true;
@@ -461,7 +474,7 @@ int main(int argc, char **argv)
 				for (auto &i : users3)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos3.push_back(x);
 					initial_pos3.push_back(y);
 					i->x = x;
@@ -474,12 +487,14 @@ int main(int argc, char **argv)
 					//user_hp_sum3 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies3)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos3.push_back(x);
 					initial_pos3.push_back(y);
 					i->x = x;
@@ -492,7 +507,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum3 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver3 = true;
 				startNextGame3 = true;
@@ -518,7 +535,7 @@ int main(int argc, char **argv)
 				for (auto &i : users4)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos4.push_back(x);
 					initial_pos4.push_back(y);
 					i->x = x;
@@ -531,12 +548,14 @@ int main(int argc, char **argv)
 					//user_hp_sum4 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies4)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos4.push_back(x);
 					initial_pos4.push_back(y);
 					i->x = x;
@@ -549,7 +568,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum4 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver4 = true;
 				startNextGame4 = true;
@@ -575,7 +596,7 @@ int main(int argc, char **argv)
 				for (auto &i : users5)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos5.push_back(x);
 					initial_pos5.push_back(y);
 					i->x = x;
@@ -588,12 +609,14 @@ int main(int argc, char **argv)
 					//user_hp_sum5 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies5)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos5.push_back(x);
 					initial_pos5.push_back(y);
 					i->x = x;
@@ -606,7 +629,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum5 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver5 = true;
 				startNextGame5 = true;
@@ -632,7 +657,7 @@ int main(int argc, char **argv)
 				for (auto &i : users6)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos6.push_back(x);
 					initial_pos6.push_back(y);
 					i->x = x;
@@ -645,12 +670,14 @@ int main(int argc, char **argv)
 					//user_hp_sum6 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies6)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos6.push_back(x);
 					initial_pos6.push_back(y);
 					i->x = x;
@@ -663,7 +690,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum6 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver6 = true;
 				startNextGame6 = true;
@@ -689,7 +718,7 @@ int main(int argc, char **argv)
 				for (auto &i : users7)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos7.push_back(x);
 					initial_pos7.push_back(y);
 					i->x = x;
@@ -702,12 +731,14 @@ int main(int argc, char **argv)
 					//user_hp_sum7 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies7)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos7.push_back(x);
 					initial_pos7.push_back(y);
 					i->x = x;
@@ -720,7 +751,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum7 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver7 = true;
 				startNextGame7 = true;
@@ -746,7 +779,7 @@ int main(int argc, char **argv)
 				for (auto &i : users8)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(15, COLUMNS / 2 - 10);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos8.push_back(x);
 					initial_pos8.push_back(y);
 					i->x = x;
@@ -759,12 +792,14 @@ int main(int argc, char **argv)
 					//user_hp_sum8 += i->hp;
 					i->hp = 100;
 					i->angle = 90;
-					i->c_angle = 0.0f;
+					i->c_angle = 90;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				for (auto &i : enemies8)
 				{
 					int x = randbtn(15, COLUMNS - 15);
-					int y = randbtn(60, COLUMNS - 15);
+					int y = randbtn(15, COLUMNS - 15);
 					initial_pos8.push_back(x);
 					initial_pos8.push_back(y);
 					i->x = x;
@@ -777,7 +812,9 @@ int main(int argc, char **argv)
 					//enemy_hp_sum8 += i->hp;
 					i->hp = 100;
 					i->angle = 270;
-					i->c_angle = 0.0f;
+					i->c_angle = 270;
+					i->stun = false;
+					i->gun->RateOfShoot = 100000;
 				}
 				GameOver8 = true;
 				startNextGame8 = true;
@@ -909,9 +946,9 @@ void display_callback()
 			}
 			if (!i->isDie)
 			{
-				//i->drawUser();
+				i->drawUser();
 				i->UpdateGunPos();
-				//i->gun->DrawGun();
+				i->gun->DrawGun();
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				//i->gun->Shoot();
@@ -945,7 +982,7 @@ void display_callback()
 					{
 						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
 						j->MoveBullet();
-						//j->drawBullet();
+						j->drawBullet();
 					}
 					m.unlock();
 				}
@@ -975,9 +1012,9 @@ void display_callback()
 					i->Collision(j);
 				}
 				i->EnemyCollider();
-				//i->drawUser();
+				i->drawUser();
 				i->UpdateGunPos();
-				//i->gun->DrawGun();
+				i->gun->DrawGun();
 				bool shootTrue = false;
 				for (auto &j : users)
 				{
@@ -1012,7 +1049,7 @@ void display_callback()
 					{
 						j->MoveBullet();
 						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						//j->drawBullet();
+						j->drawBullet();
 					}
 					//i->gun->DestoryBullet();
 					m.unlock();
@@ -1035,6 +1072,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum -= 10;
 							j->Stun();
 							enemy_hp_sum -= 2;
 							i->isDestroy = true;
@@ -1052,7 +1091,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum -= 10;
+							//user_fitness_sum -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1070,6 +1109,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum -= 10;
 							user_hp_sum -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -1087,7 +1128,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum -= 10;
+							//enemy_fitness_sum -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1290,6 +1331,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum2 -= 10;
 							j->Stun();
 							enemy_hp_sum2 -= 2;
 							i->isDestroy = true;
@@ -1307,7 +1350,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum2 -= 10;
+							//user_fitness_sum2 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1325,6 +1368,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum2 -= 10;
 							j->Stun();
 							user_hp_sum2 -= 2;
 							i->isDestroy = true;
@@ -1342,7 +1387,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum2 -= 10;
+							//enemy_fitness_sum2 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1543,6 +1588,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum3 -= 10;
 							j->Stun();
 							enemy_hp_sum3 -= 2;
 							i->isDestroy = true;
@@ -1560,7 +1607,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum3 -= 10;
+							//user_fitness_sum3 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1578,6 +1625,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum3 -= 10;
 							j->Stun();
 							user_hp_sum3 -= 2;
 							i->isDestroy = true;
@@ -1595,7 +1644,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum3 -= 10;
+							//enemy_fitness_sum3 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1796,6 +1845,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum4 -= 10;
 							enemy_hp_sum4 -= 2;
 							i->isDestroy = true;
 							j->Stun();
@@ -1813,7 +1864,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum4 -= 10;
+							//user_fitness_sum4 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -1831,6 +1882,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum5 -= 10;
 							user_hp_sum4 -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -1848,7 +1901,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum4 -= 10;
+							//enemy_fitness_sum4 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2049,6 +2102,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum5 -= 10;
 							enemy_hp_sum5 -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -2066,7 +2121,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum5 -= 10;
+							//user_fitness_sum5 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2084,6 +2139,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum5 -= 10;
 							j->Stun();
 							user_hp_sum5 -= 2;
 							i->isDestroy = true;
@@ -2101,7 +2158,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum5 -= 10;
+							//enemy_fitness_sum5 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2302,6 +2359,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum6 -= 10;
 							enemy_hp_sum6 -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -2319,7 +2378,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum6 -= 10;
+							//user_fitness_sum6 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2337,6 +2396,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum6 -= 10;
 							user_hp_sum6 -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -2354,7 +2415,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum6 -= 10;
+							//enemy_fitness_sum6 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2555,6 +2616,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//enemy_hp_sum7 -= 10;
 							enemy_hp_sum7 -= 2;
 							j->Stun();
 							//cout << enemy_hp_sum7 << endl;
@@ -2573,7 +2636,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							user_fitness_sum7 -= 10;
+							//user_fitness_sum7 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2591,6 +2654,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum7 -= 10;
 							user_hp_sum7 -= 2;
 							j->Stun();
 							i->isDestroy = true;
@@ -2608,7 +2673,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum7 -= 10;
+							//enemy_fitness_sum7 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2682,9 +2747,9 @@ void display_callback()
 			}
 			if (!i->isDie)
 			{
-				i->drawUser();
+				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
+				//i->gun->DrawGun();
 				i->UserCollider();
 				//i->gun->bullet_for_threadsafe = i->gun->bullets;
 				bool shootTrue = false;
@@ -2717,7 +2782,7 @@ void display_callback()
 					{
 						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
 						j->MoveBullet();
-						j->drawBullet();
+						//j->drawBullet();
 					}
 					m.unlock();
 				}
@@ -2746,9 +2811,9 @@ void display_callback()
 					i->Collision(j);
 				}
 				i->EnemyCollider();
-				i->drawUser();
+				//i->drawUser();
 				i->UpdateGunPos();
-				i->gun->DrawGun();
+				//i->gun->DrawGun();
 				
 				bool shootTrue = false;
 				for (auto &j : users8)
@@ -2787,7 +2852,7 @@ void display_callback()
 					{
 						j->MoveBullet();
 						j->CheckRemoveBullet(walls[2], walls[3], walls[0], walls[1]);
-						j->drawBullet();
+						//j->drawBullet();
 					}
 					//i->gun->DestoryBullet();
 					m.unlock();
@@ -2810,6 +2875,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;f
+							if (j->stun)
+								//enemy_hp_sum8 -= 10;
 							enemy_hp_sum8 -= 2;
 							i->isDestroy = true;
 							j->Stun();
@@ -2827,7 +2894,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy =  true;
-							user_fitness_sum8 -= 10;
+							//user_fitness_sum8 -= 10;
 						}
 					}
 				} //자기팀 맞은거
@@ -2845,6 +2912,8 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							//j->hp -= 2;
+							if (j->stun)
+								//user_hp_sum8 -= 10;
 							j->Stun();
 							user_hp_sum8 -= 2;
 							i->isDestroy = true;
@@ -2862,7 +2931,7 @@ void display_callback()
 						if (i->x - 1 + 2 >= j->x - 2 && i->x - 1 <= j->x - 2 + 4 && 2 + i->y - 1 >= j->y - 2 && i->y - 1 <= j->y - 2 + 4)
 						{
 							i->isDestroy = true;
-							enemy_fitness_sum8 -= 10;
+							//enemy_fitness_sum8 -= 10;
 						}
 					}
 				} //자기팀 맞은거

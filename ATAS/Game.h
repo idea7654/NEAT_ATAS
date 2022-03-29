@@ -202,7 +202,7 @@ public:
 	void Shoot(int roomNum)
 	{
 		m.lock();
-		if (!stun)
+		//if (!stun)
 		{
 			Bullet *newBullet = new Bullet();
 			newBullet->x = x + 0.125;
@@ -747,22 +747,22 @@ public:
 		if (x < 7)
 		{
 			x = 93;
-			ReduceFitness();
+			//ReduceFitness();
 		}
 		if (x > 93)
 		{
 			x = 7;
-			ReduceFitness();
+			//ReduceFitness();
 		}
 		if (y > 93)
 		{
 			y = 7;
-			ReduceFitness();
+			//ReduceFitness();
 		}
 		if (y < 7)
 		{
 			y = 93;
-			ReduceFitness();
+			//ReduceFitness();
 		}
 	}
 };
@@ -780,8 +780,10 @@ public:
 
 		//double num_seconds = duration_in_seconds.count();
 		gun->last_shoot = chrono::system_clock::now();
-		angle = 90;
-		c_angle = 90;
+		angle = 0;
+		c_angle = 0;
+		isUnder = true;
+		gun->RateOfShoot = 1000000;
 	}
 
 	~User()
@@ -796,6 +798,7 @@ public:
 		gun->angle = angle;
 		gun->c_angle = c_angle;
 		gun->stun = stun;
+		gun->isUnder = true;
 	}
 
 	void UserCollider()
@@ -853,7 +856,7 @@ public:
 
 	void MoveUser(float left, float right)
 	{
-		if (!stun)
+		//if (!stun)
 		{
 			float sum = right - left;
 			//float sum = 0.1;
@@ -883,8 +886,12 @@ public:
 		y = py;
 		gun = new Gun();
 		gun->last_shoot = chrono::system_clock::now();
-		angle = 270;
-		c_angle = 270;
+		angle = 0;
+		c_angle = 0;
+		gun->isUnder = false;
+		gun->RateOfShoot = 1000000;
+		//angle -> 
+		//c_angle -> 
 	}
 
 	Enemy()
@@ -903,7 +910,7 @@ public:
 		gun->y = y + 0.5;
 		gun->angle = angle;
 		gun->c_angle = c_angle;
-		gun->isUnder = true;
+		gun->isUnder = false;
 		gun->stun = stun;
 	}
 
@@ -961,7 +968,7 @@ public:
 
 	void MoveUser(float left, float right)
 	{
-		if (!stun)
+		//if (!stun)
 		{
 			float sum = right - left;
 			//float sum = 0.1;

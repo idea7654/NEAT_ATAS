@@ -14,6 +14,8 @@ namespace NEAT {
 		double mutation_num;  //Used to see how much mutation has changed the link
 		bool enable;  //When this is off the Gene is disabled
 		bool frozen;  //When frozen, the linkweight cannot be mutated
+		double node_bias;
+		double node_teron;
 
 		//Construct a gene with no trait
 		Gene(double w, NNode *inode, NNode *onode, bool recur, double innov, double mnum);

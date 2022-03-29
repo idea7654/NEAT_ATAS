@@ -1001,7 +1001,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 16]->fitness = 3000 - ((300 + enemy_hp_sum) * 10) + user_fitness_sum;
 			pop->organisms[count - 15]->fitness = 3000 - ((300 + user_hp_sum) * 10) + enemy_fitness_sum;
 
-			if (pop->organisms[count - 16]->fitness > 600)
+			/*if (pop->organisms[count - 16]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1010,10 +1010,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room1 enemy_hp, user fitness: " << enemy_hp_sum << ", " << user_fitness_sum << endl;
 			cout << "Room1 user_hp, enemy fitness: " << user_hp_sum << ", " << enemy_fitness_sum << endl;
+
+			user_fitness_sum = 0;
+			enemy_fitness_sum = 0;
+			user_hp_sum = 0;
+			enemy_hp_sum = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1048,7 +1053,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 14]->fitness = 3000 - ((300 + enemy_hp_sum2) * 10) + user_fitness_sum2;
 			pop->organisms[count - 13]->fitness = 3000 - ((300 + user_hp_sum2) * 10) + enemy_fitness_sum2;
 
-			if (pop->organisms[count - 14]->fitness > 600)
+			/*if (pop->organisms[count - 14]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1057,10 +1062,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room2 enemy_hp, user fitness: " << enemy_hp_sum2 << ", " << user_fitness_sum2 << endl;
 			cout << "Room2 user_hp, enemy fitness: " << user_hp_sum2 << ", " << enemy_fitness_sum2 << endl;
+
+			user_fitness_sum2 = 0;
+			enemy_fitness_sum2 = 0;
+			user_hp_sum2 = 0;
+			enemy_hp_sum2 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1095,7 +1105,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 12]->fitness = 3000 - ((300 + enemy_hp_sum3) * 10) + user_fitness_sum3;
 			pop->organisms[count - 11]->fitness = 3000 - ((300 + user_hp_sum3) * 10) + enemy_fitness_sum3;
 
-			if (pop->organisms[count - 12]->fitness > 600)
+			/*if (pop->organisms[count - 12]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1104,10 +1114,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room3 enemy_hp, user fitness: " << enemy_hp_sum3 << ", " << user_fitness_sum3 << endl;
 			cout << "Room3 user_hp, enemy fitness: " << user_hp_sum3 << ", " << enemy_fitness_sum3 << endl;
+
+			user_fitness_sum3 = 0;
+			enemy_fitness_sum3 = 0;
+			user_hp_sum3 = 0;
+			enemy_hp_sum3 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1142,7 +1157,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 10]->fitness = 3000 - ((300 + enemy_hp_sum4) * 10) + user_fitness_sum4;
 			pop->organisms[count - 9]->fitness = 3000 - ((300 + user_hp_sum4) * 10) + enemy_fitness_sum4;
 
-			if (pop->organisms[count - 10]->fitness > 600)
+			/*if (pop->organisms[count - 10]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1151,10 +1166,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room4 enemy_hp, user fitness: " << enemy_hp_sum4 << ", " << user_fitness_sum4 << endl;
 			cout << "Room4 user_hp, enemy fitness: " << user_hp_sum4 << ", " << enemy_fitness_sum4 << endl;
+
+			user_fitness_sum4 = 0;
+			enemy_fitness_sum4 = 0;
+			user_hp_sum4 = 0;
+			enemy_hp_sum4 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1189,7 +1209,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 8]->fitness = 3000 - ((300 + enemy_hp_sum5) * 10) + user_fitness_sum5;
 			pop->organisms[count - 7]->fitness = 3000 - ((300 + user_hp_sum5) * 10) + enemy_fitness_sum5;
 
-			if (pop->organisms[count - 8]->fitness > 600)
+			/*if (pop->organisms[count - 8]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1198,10 +1218,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room5 enemy_hp, user fitness: " << enemy_hp_sum5 << ", " << user_fitness_sum5 << endl;
 			cout << "Room5 user_hp, enemy fitness: " << user_hp_sum5 << ", " << enemy_fitness_sum5 << endl;
+
+			user_fitness_sum5 = 0;
+			enemy_fitness_sum5 = 0;
+			user_hp_sum5 = 0;
+			enemy_hp_sum5 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1236,7 +1261,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 6]->fitness = 3000 - ((300 + enemy_hp_sum6) * 10) + user_fitness_sum6;
 			pop->organisms[count - 5]->fitness = 3000 - ((300 + user_hp_sum6) * 10) + enemy_fitness_sum6;
 
-			if (pop->organisms[count - 6]->fitness > 600)
+			/*if (pop->organisms[count - 6]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1245,10 +1270,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room6 enemy_hp, user fitness: " << enemy_hp_sum6 << ", " << user_fitness_sum6 << endl;
 			cout << "Room6 user_hp, enemy fitness: " << user_hp_sum6 << ", " << enemy_fitness_sum6 << endl;
+
+			user_fitness_sum6 = 0;
+			enemy_fitness_sum6 = 0;
+			user_hp_sum6 = 0;
+			enemy_hp_sum6 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1283,7 +1313,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 4]->fitness = 3000 - ((300 + enemy_hp_sum7) * 10) + user_fitness_sum7;
 			pop->organisms[count - 3]->fitness = 3000 - ((300 + user_hp_sum7) * 10) + enemy_fitness_sum7;
 
-			if (pop->organisms[count - 4]->fitness > 600)
+			/*if (pop->organisms[count - 4]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1292,10 +1322,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room7 enemy_hp, user fitness: " << enemy_hp_sum7 << ", " << user_fitness_sum7 << endl;
 			cout << "Room7 user_hp, enemy fitness: " << user_hp_sum7 << ", " << enemy_fitness_sum7 << endl;
+
+			user_fitness_sum7 = 0;
+			enemy_fitness_sum7 = 0;
+			user_hp_sum7 = 0;
+			enemy_hp_sum7 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1330,7 +1365,7 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			pop->organisms[count - 2]->fitness = 3000 - ((300 + enemy_hp_sum8) * 10) + user_fitness_sum8;
 			pop->organisms[count - 1]->fitness = 3000 - ((300 + user_hp_sum8) * 10) + enemy_fitness_sum8;
 
-			if (pop->organisms[count - 2]->fitness > 600)
+			/*if (pop->organisms[count - 2]->fitness > 600)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
@@ -1339,10 +1374,15 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 			{
 				NEAT::mutate_add_node_prob = 0.0025;
 				NEAT::mutate_add_link_prob = 0.1;
-			}
+			}*/
 
 			cout << "Room8 enemy_hp, user fitness: " << enemy_hp_sum8 << ", " << user_fitness_sum8 << endl;
 			cout << "Room8 user_hp, enemy fitness: " << user_hp_sum8 << ", " << enemy_fitness_sum8 << endl;
+
+			user_fitness_sum8 = 0;
+			enemy_fitness_sum8 = 0;
+			user_hp_sum8 = 0;
+			enemy_hp_sum8 = 0;
 
 			if (fitness_rank.size() < 10)
 			{
@@ -1382,46 +1422,6 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 		//우선..게임 끝났을 때의 상태를 저장하고 해당 정보를 바탕으로
 		//탱크 몇 마리가 데미지를 얼만큼 데미지를 입었는지..
 
-		user_fitness_sum = 0;
-		enemy_fitness_sum = 0;
-		user_hp_sum = 0;
-		enemy_hp_sum = 0;
-
-		user_fitness_sum2 = 0;
-		enemy_fitness_sum2 = 0;
-		user_hp_sum2 = 0;
-		enemy_hp_sum2 = 0;
-
-		user_fitness_sum3 = 0;
-		enemy_fitness_sum3 = 0;
-		user_hp_sum3 = 0;
-		enemy_hp_sum3 = 0;
-
-		user_fitness_sum4 = 0;
-		enemy_fitness_sum4 = 0;
-		user_hp_sum4 = 0;
-		enemy_hp_sum4 = 0;
-
-		user_fitness_sum5 = 0;
-		enemy_fitness_sum5 = 0;
-		user_hp_sum5 = 0;
-		enemy_hp_sum5 = 0;
-
-		user_fitness_sum6 = 0;
-		enemy_fitness_sum6 = 0;
-		user_hp_sum6 = 0;
-		enemy_hp_sum6 = 0;
-
-		user_fitness_sum7 = 0;
-		enemy_fitness_sum7 = 0;
-		user_hp_sum7 = 0;
-		enemy_hp_sum7 = 0;
-
-		user_fitness_sum8 = 0;
-		enemy_fitness_sum8 = 0;
-		user_hp_sum8 = 0;
-		enemy_hp_sum8 = 0;
-
 		thread_pool.clear();
 	}
 
@@ -1440,11 +1440,13 @@ int measure_fitness_tank(Population * pop, int generation, char * filename)
 	}
 
 	sort(fitness_rank.rbegin(), fitness_rank.rend());
-	for (auto &i : pop->organisms)
+	/*for (auto &i : pop->organisms)
 	{
 		if (i->fitness >= fitness_rank[9])
 			i->print_to_file(filename);
-	}
+	}*/
+
+	pop->print_to_file_by_species(filename);
 
 	fitness_rank.clear();
 
@@ -2127,7 +2129,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		double out_isShoot;
 		double out_angle_right;
 		double out_angle_left;
-		double in[12];
+		double in[17] = { 0, };
 
 		//상대좌표 구하고 역행렬회전하면됨!
 		if (num < 3)
@@ -2154,6 +2156,9 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 				in[3] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 				in[4] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)userArr[num + 1]->stun;
+				in[6] = (int)userArr[num + 2]->stun;
 			}
 			else if (num == 1)
 			{
@@ -2165,14 +2170,17 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 				float diffX = userArr[num - 1]->x - userArr[num]->x;
 				float diffY = userArr[num - 1]->y - userArr[num]->y;
 
-				in[1] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
-				in[2] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[1] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 
 				diffX = userArr[num + 1]->x - userArr[num]->x;
 				diffY = userArr[num + 1]->y - userArr[num]->y;
 
-				in[3] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
-				in[4] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[3] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)userArr[num - 1]->stun;
+				in[6] = (int)userArr[num + 1]->stun;
 			}
 			else
 			{
@@ -2184,35 +2192,47 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 				float diffX = userArr[num - 2]->x - userArr[num]->x;
 				float diffY = userArr[num - 2]->y - userArr[num]->y;
 
-				in[1] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
-				in[2] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[1] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[2] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 
 				diffX = userArr[num - 1]->x - userArr[num]->x;
 				diffY = userArr[num - 1]->y - userArr[num]->y;
 
-				in[3] = cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
-				in[4] = -sin((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffX + cos((userArr[num]->c_angle - 90) / 180 * 3.14159) * diffY;
+				in[3] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+				in[4] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)userArr[num - 2]->stun;
+				in[6] = (int)userArr[num - 1]->stun;
 			}
+
+			in[7] = (int)enemyArr[0]->stun;
+			in[8] = (int)enemyArr[1]->stun;
+			in[9] = (int)enemyArr[2]->stun;
 
 			float diffX = enemyArr[0]->x - userArr[num]->x;
 			float diffY = enemyArr[0]->y - userArr[num]->y;
 
-			in[5] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-			in[6] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[10] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[11] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 
 			diffX = enemyArr[1]->x - userArr[num]->x;
 			diffY = enemyArr[1]->y - userArr[num]->y;
 
-			in[7] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-			in[8] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[12] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[13] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 
 			diffX = enemyArr[2]->x - userArr[num]->x;
 			diffY = enemyArr[2]->y - userArr[num]->y;
 
-			in[9] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
-			in[10] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[14] = cos(userArr[num]->c_angle / 180 * 3.14159) * diffX + sin(userArr[num]->c_angle / 180 * 3.14159) * diffY;
+			in[15] = -sin(userArr[num]->c_angle / 180 * 3.14159) * diffX + cos(userArr[num]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((userArr[num]->angle - 90 + (userArr[num]->c_angle * 180)) / 3.14159);
-			in[11] = (userArr[num]->angle - 90) * 3.14159 / 180;
+			in[16] = (userArr[num]->angle - 90) * 3.14159 / 180;
+			//in[12] = userArr[num + 1]->stun;
+			//in[13] = userArr[num + 2]->stun;
+			//in[14] = enemyArr[0]->stun;
+			//in[15] = enemyArr[1]->stun;
+			//in[16] = enemyArr[2]->stun;
 		}
 		else
 		{
@@ -2237,6 +2257,9 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 				in[3] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 				in[4] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)enemyArr[num - 2]->stun;
+				in[6] = (int)enemyArr[num - 1]->stun;
 			}
 			else if (num == 4)
 			{
@@ -2255,6 +2278,9 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 				in[3] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 				in[4] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)enemyArr[num - 4]->stun;
+				in[6] = (int)enemyArr[num - 2]->stun;
 			}
 			else
 			{
@@ -2274,6 +2300,9 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 
 				in[3] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 				in[4] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+
+				in[5] = (int)enemyArr[num - 5]->stun;
+				in[6] = (int)enemyArr[num - 4]->stun;
 			}
 			/*in[7] = users[0]->x;
 			in[8] = users[0]->y;
@@ -2282,25 +2311,30 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			in[11] = users[2]->x;
 			in[12] = users[2]->y;
 			in[13] = (enemies[num - 3]->angle - 90 + enemies[num - 3]->c_angle * 180 / 3.14159);*/
+
+			in[7] = (int)userArr[0]->stun;
+			in[8] = (int)userArr[1]->stun;
+			in[9] = (int)userArr[2]->stun;
+
 			float diffX = userArr[0]->x - enemyArr[num - 3]->x;
 			float diffY = userArr[0]->y - enemyArr[num - 3]->y;
 
-			in[5] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
-			in[6] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[10] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[11] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 
 			diffX = userArr[1]->x - enemyArr[num - 3]->x;
 			diffY = userArr[1]->y - enemyArr[num - 3]->y;
 
-			in[7] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
-			in[8] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[12] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[13] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 
 			diffX = userArr[2]->x - enemyArr[num - 3]->x;
 			diffY = userArr[2]->y - enemyArr[num - 3]->y;
 
-			in[9] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
-			in[10] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[14] = cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
+			in[15] = -sin(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffX + cos(enemyArr[num - 3]->c_angle / 180 * 3.14159) * diffY;
 			//in[11] = ((enemyArr[num - 3]->angle - 90 + (enemyArr[num - 3]->c_angle * 180)) / 3.14159);
-			in[11] = (enemyArr[num - 3]->angle - 270) / 180 * 3.14159;
+			in[16] = (enemyArr[num - 3]->angle + 90) / 180 * 3.14159;
 		}
 
 		net->load_sensors(in);
@@ -2316,14 +2350,14 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		//out_angle = (*out_iter)->activation;
 		out_isShoot = net->outputs[2]->activation;
 
-
+		//뭔지는 모르겟지만 첨돌릴때랑 나중에 할때랑 차이가 남... -> 생각해보자
 		//input값 부호 반대로
 		in[1] = -in[1];
 		in[3] = -in[3];
-		in[5] = -in[5];
-		in[7] = -in[7];
-		in[9] = -in[9];
-		in[11] = -in[11];
+		in[10] = -in[10];
+		in[12] = -in[12];
+		in[14] = -in[14];
+		in[16] = -in[16];
 		net->load_sensors(in);
 
 		if (!(net->activate()))
@@ -2401,12 +2435,12 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		double copyShoot = out_isShoot;
 		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
 
-		if (abs(out_Left - out_Right) > 0.5)
-			fitness--;
+		//if (abs(out_Left - out_Right) < 0.2)
+		//	fitness--;
 
 		if (num < 3)
 		{
-			userArr[num]->MoveUser(out_Right * 200, out_Left * 200);
+			userArr[num]->MoveUser(out_Right, out_Left);
 			userArr[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				userArr[num]->gun->RateOfShoot = out_isShoot / 2;
@@ -2416,7 +2450,7 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		}
 		else
 		{
-			enemyArr[num - 3]->MoveUser(out_Right * 200, out_Left * 200);
+			enemyArr[num - 3]->MoveUser(out_Right, out_Left);
 			enemyArr[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
 				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot / 2;
