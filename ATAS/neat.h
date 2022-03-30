@@ -58,6 +58,7 @@ namespace NEAT {
 	int getUnitCount(const char *string, const char *set);
 
 	double fsigmoid(double activesum, double slope, double constant);
+	double tanh(double activesum);
 	double hebbian(double weight, double maxweight, double active_in, double active_out, double hebb_rate, double pre_rate, double post_rate);
 }
 

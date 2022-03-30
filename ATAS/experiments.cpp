@@ -239,9 +239,9 @@ int go_cart(Network *net, int max_steps, int thresh)
 
 		/*-- decide which way to push via which output unit is greater --*/
 		out_iter = net->outputs.begin();
-		out1 = (*out_iter)->activation;
+		out1 = (*out_iter)->y;
 		++out_iter;
-		out2 = (*out_iter)->activation;
+		out2 = (*out_iter)->y;
 		if (out1 > out2)
 			y = 0;
 		else
@@ -1830,14 +1830,14 @@ int try_tank(Network * net, int max_steps, int thresh, int num, int roomNum)
 			return 1;
 
 		out_iter = net->outputs.begin(); 
-		out_Left = (*out_iter)->activation;
+		out_Left = (*out_iter)->y;
 		++out_iter;
-		out_Right = (*out_iter)->activation;
+		out_Right = (*out_iter)->y;
 		++out_iter;
-		out_isShoot = (*out_iter)->activation;
+		out_isShoot = (*out_iter)->y;
 		++out_iter;
 		//out_angle = (*out_iter)->activation;
-		out_angle = net->outputs[3]->activation;
+		out_angle = net->outputs[3]->y;
 
 		if (out_angle < 0.1)
 			out_angle = 0.1;
@@ -2343,12 +2343,12 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			return 1;
 
 		out_iter = net->outputs.begin();
-		out_Right = (*out_iter)->activation;
+		out_Right = (*out_iter)->y;
 		++out_iter;
-		out_angle_right = (*out_iter)->activation;
+		out_angle_right = (*out_iter)->y;
 		++out_iter;
 		//out_angle = (*out_iter)->activation;
-		out_isShoot = net->outputs[2]->activation;
+		out_isShoot = net->outputs[2]->y;
 
 		//뭔지는 모르겟지만 첨돌릴때랑 나중에 할때랑 차이가 남... -> 생각해보자
 		//input값 부호 반대로
@@ -2364,12 +2364,12 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			return 1;
 
 		out_iter = net->outputs.begin();
-		out_Left = (*out_iter)->activation;
+		out_Left = (*out_iter)->y;
 		++out_iter;
-		out_angle_left = (*out_iter)->activation;
+		out_angle_left = (*out_iter)->y;
 		++out_iter;
 		//out_angle = (*out_iter)->activation;
-		out_isShoot += net->outputs[2]->activation;
+		out_isShoot += net->outputs[2]->y;
 
 		if (num < 3)
 		{

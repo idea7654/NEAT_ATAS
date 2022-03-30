@@ -64,6 +64,11 @@ double NEAT::fsigmoid(double activesum, double slope, double constant)
 	return (1 / (1 + (exp(-(slope*activesum)))));
 }
 
+double NEAT::tanh(double activesum)
+{
+	return (2 / (1 + (exp(-2 * activesum))) - 1);
+}
+
 double NEAT::hebbian(double weight, double maxweight, double active_in, double active_out, double hebb_rate, double pre_rate, double post_rate)
 {
 	bool neg = false;

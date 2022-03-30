@@ -68,12 +68,12 @@ namespace NEAT {
 		nodetype type; // type is either NEURON or SENSOR 
 
 		double activesum;  // The incoming activity before being processed 
-		double activation; // The total activation entering the NNode
+		double y; // The total activation entering the NNode
 		bool active_flag;  // To make sure outputs are active
-		double biasSum;
-		double teronSum;
 		double node_bias;
-		double node_teron;
+		double node_tau;
+		double y_dot;
+		double activation;
 
 		// NOT USED IN NEAT - covered by "activation" above
 		double output;  // Output of the NNode- the value in the NNode 

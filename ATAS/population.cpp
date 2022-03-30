@@ -264,14 +264,16 @@ bool Population::spawn(Genome *g,int size, bool isFinished) {
 		//cout<<"CREATING ORGANISM "<<count<<endl;
 
 		new_genome = g->duplicate(count);
+		//new_organism=new Organism(0.0,new_genome,1);
+
 		if (!isFinished)
 		{
 			//new_genome->mutate_link_weights(1.0,1.0,GAUSSIAN);
 			new_genome->mutate_link_weights(1.0, 1.0, COLDGAUSSIAN);
 			new_genome->randomize_traits();
 		}
-		
-		new_organism=new Organism(0.0,new_genome,1);
+
+		new_organism = new Organism(0.0, new_genome, 1);
 		organisms.push_back(new_organism);
 	}
 
@@ -684,7 +686,7 @@ bool Population::epoch(int generation) {
 			(*curspecies)->expected_offspring+=one_fifth_stolen;
 			stolen_babies-=one_fifth_stolen;
 			//cout<<"Gave "<<one_fifth_stolen<<" babies to Species "<<(*curspecies)->id<<endl;
-			//      cout<<"The best superchamp is "<<(*(((*curspecies)->organisms).begin()))->gnome->genome_id<<endl;
+			//      cout<<"The best superchamp is "<<(*(((*curspecies)->organisms).begin()))->gnome->dme_id<<endl;
 
 			//Print this champ to file "champ" for observation if desired
 			//IMPORTANT:  This causes generational file output 

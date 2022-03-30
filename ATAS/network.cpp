@@ -265,16 +265,16 @@ bool NEAT::Network::activate()
 				{
 					if (!j->time_delay)
 					{
-						double a = j->in_node->get_active_out();
-						add_amount = j->weight * a / 100000; //공식을 넣으면 됨..
+						add_amount = j->weight * NEAT::tanh(j->in_node->y + j->in_node->node_bias);
 						if ((j->in_node)->active_flag || (j->in_node)->type == SENSOR)
 							i->active_flag = true;
 						i->activesum += add_amount;
 					}
 					else
 					{
-						add_amount = j->weight * (j->in_node)->get_active_out_td() / 100000;
-						add_amount = add_amount;
+						//add_amount = j->weight * NEAT::tanh((j->in_node)->get_active_out_td() + j->in_node->node_bias) / 100000;
+						//i->activesum += add_amount;
+						add_amount = j->weight * NEAT::tanh(j->in_node->y + j->in_node->node_bias);
 						i->activesum += add_amount;
 					}
 				}
@@ -282,6 +282,22 @@ bool NEAT::Network::activate()
 		}
 
 		for (auto &i : all_nodes)
+		{
+			if (i->type != SENSOR)
+			{
+				double inputValueSum = 0;
+				for (auto &j : i->incoming)
+				{//W(S+B)
+					double inputValue = j->in_node->type == SENSOR ? j->weight * (j->in_node->y + j->in_node->node_bias) : 0;
+					inputValueSum += inputValue;
+				}
+				//i->activesum += -i->last_activation + inputValueSum;
+				i->y_dot = (i->activesum - i->y + inputValueSum) / i->node_tau;
+			}
+		}
+
+
+		/*for (auto &i : all_nodes)
 		{
 			if (i->type != SENSOR)
 			{
@@ -302,7 +318,7 @@ bool NEAT::Network::activate()
 				}
 			}
 		}
-
+*/
 		// Now activate all the non-sensor nodes off their incoming activation 
 		//for (curnode = all_nodes.begin(); curnode != all_nodes.end(); ++curnode) {
 
@@ -342,7 +358,7 @@ bool NEAT::Network::activate()
 				if (i->active_flag)
 				{
 					i->last_activation2 = i->last_activation;
-					i->last_activation = i->activation;
+					i->last_activation = i->y;
 
 					if (i->overridden())
 					{
@@ -352,7 +368,9 @@ bool NEAT::Network::activate()
 					{
 						if (i->ftype == SIGMOID)
 						{
-							i->activation = fsigmoid(i->activesum, 4.924273, 2.4621365);
+							//i->activation = fsigmoid(i->activesum, 4.924273, 2.4621365);
+							i->activation = NEAT::tanh(i->y + i->node_bias);
+							i->y += /*timestamp*/ i->y_dot;
 						}
 					}
 					i->activation_count++;

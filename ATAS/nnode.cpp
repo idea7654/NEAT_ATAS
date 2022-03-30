@@ -8,7 +8,7 @@ using namespace NEAT;
 NNode::NNode(nodetype ntype, int nodeid) {
 	active_flag = false;
 	activesum = 0;
-	activation = 0;
+	y = 0;
 	output = 0;
 	last_activation = 0;
 	last_activation2 = 0;
@@ -28,7 +28,7 @@ NNode::NNode(nodetype ntype, int nodeid) {
 NNode::NNode(nodetype ntype, int nodeid, nodeplace placement) {
 	active_flag = false;
 	activesum = 0;
-	activation = 0;
+	y = 0;
 	output = 0;
 	last_activation = 0;
 	last_activation2 = 0;
@@ -47,7 +47,7 @@ NNode::NNode(nodetype ntype, int nodeid, nodeplace placement) {
 
 NNode::NNode(NNode *n, Trait *t) {
 	active_flag = false;
-	activation = 0;
+	y = 0;
 	output = 0;
 	last_activation = 0;
 	last_activation2 = 0;
@@ -73,7 +73,7 @@ NNode::NNode(const char *argline, std::vector<Trait*> &traits) {
 	std::vector<Trait*> curtrait;
 
 	activesum = 0;
-	activation = 0;
+	y = 0;
 
 	std::stringstream ss(argline);
 
@@ -136,7 +136,7 @@ NNode::NNode(const NNode& nnode)
 {
 	active_flag = nnode.active_flag;
 	activesum = nnode.activesum;
-	activation = nnode.activation;
+	y = nnode.y;
 	output = nnode.output;
 	last_activation = nnode.last_activation;
 	last_activation2 = nnode.last_activation2;
@@ -183,10 +183,10 @@ bool NNode::sensor_load(double value) {
 
 		//Time delay memory
 		last_activation2 = last_activation;
-		last_activation = activation;
+		last_activation = y;
 
 		activation_count++;  //Puts sensor into next time-step
-		activation = value;
+		y = value;
 		return true;
 	}
 	else return false;
@@ -216,7 +216,7 @@ void NNode::add_incoming(NNode *feednode, double weight) {
 // Return activation currently in node, if it has been activated
 double NNode::get_active_out() {
 	if (activation_count > 0)
-		return activation;
+		return y;
 	else return 0.0;
 }
 
@@ -238,7 +238,7 @@ void NNode::flushback() {
 
 		if (activation_count > 0) {
 			activation_count = 0;
-			activation = 0;
+			y = 0;
 			last_activation = 0;
 			last_activation2 = 0;
 		}
@@ -260,7 +260,7 @@ void NNode::flushback() {
 	else {
 		//Flush the SENSOR
 		activation_count = 0;
-		activation = 0;
+		y = 0;
 		last_activation = 0;
 		last_activation2 = 0;
 	}
@@ -287,8 +287,8 @@ void NNode::flushback_check(std::vector<NNode*> &seenlist) {
 			std::cout << "ALERT: " << this << " has activation count " << activation_count << std::endl;
 		}
 
-		if (activation > 0) {
-			std::cout << "ALERT: " << this << " has activation  " << activation << std::endl;
+		if (y > 0) {
+			std::cout << "ALERT: " << this << " has activation  " << y << std::endl;
 		}
 
 		if (last_activation > 0) {
@@ -318,7 +318,7 @@ void NNode::flushback_check(std::vector<NNode*> &seenlist) {
 	}
 	else {
 		std::cout << "sALERT: " << this << " has activation count " << activation_count << std::endl;
-		std::cout << "sALERT: " << this << " has activation  " << activation << std::endl;
+		std::cout << "sALERT: " << this << " has activation  " << y << std::endl;
 		std::cout << "sALERT: " << this << " has last_activation  " << last_activation << std::endl;
 		std::cout << "sALERT: " << this << " has last_activation2  " << last_activation2 << std::endl;
 
@@ -327,8 +327,8 @@ void NNode::flushback_check(std::vector<NNode*> &seenlist) {
 			std::cout << "ALERT: " << this << " has activation count " << activation_count << std::endl;
 		}
 
-		if (activation > 0) {
-			std::cout << "ALERT: " << this << " has activation  " << activation << std::endl;
+		if (y > 0) {
+			std::cout << "ALERT: " << this << " has activation  " << y << std::endl;
 		}
 
 		if (last_activation > 0) {
@@ -379,7 +379,7 @@ bool NNode::overridden() {
 
 // Set activation to the override value and turn off override
 void NNode::activate_override() {
-	activation = override_value;
+	y = override_value;
 	override = false;
 }
 
