@@ -276,7 +276,7 @@ bool Population::spawn(Genome *g,int size, bool isFinished) {
 		new_organism = new Organism(0.0, new_genome, 1);
 		organisms.push_back(new_organism);
 	}
-
+	
 	//Keep a record of the innovation and node number we are on
 	cur_node_id=new_genome->get_last_node_id();
 	cur_innov_num=new_genome->get_last_gene_innovnum();
@@ -341,7 +341,7 @@ bool Population::speciate() {
 	} //end for
 
 	last_species=counter;  //Keep track of highest species
-
+	
 	return true;
 }
 

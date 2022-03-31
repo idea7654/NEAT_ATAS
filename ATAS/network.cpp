@@ -253,14 +253,12 @@ bool NEAT::Network::activate()
 		//	} //End if (((*curnode)->type)!=SENSOR) 
 
 		//} //End for over all nodes
-
 		for (auto &i : all_nodes)
 		{
 			if (i->type != SENSOR)
 			{
 				i->activesum = 0;
 				i->active_flag = false;
-
 				for (auto &j : i->incoming)
 				{
 					if (!j->time_delay)
@@ -279,20 +277,23 @@ bool NEAT::Network::activate()
 					}
 				}
 			}
+			//std::cout << i->node_bias << std::endl;
 		}
 
 		for (auto &i : all_nodes)
 		{
 			if (i->type != SENSOR)
 			{
-				double inputValueSum = 0;
+				double inputValueSum = 0.0;
 				for (auto &j : i->incoming)
 				{//W(S+B)
-					double inputValue = j->in_node->type == SENSOR ? j->weight * (j->in_node->y + j->in_node->node_bias) : 0;
+					double inputValue = j->in_node->type == SENSOR ? j->weight * (j->in_node->y + j->in_node->node_bias) : 0.0;
 					inputValueSum += inputValue;
 				}
 				//i->activesum += -i->last_activation + inputValueSum;
+				//std::cout << i->activesum - i->y + inputValueSum << std::endl;
 				i->y_dot = (i->activesum - i->y + inputValueSum) / i->node_tau;
+				
 			}
 		}
 
@@ -369,8 +370,9 @@ bool NEAT::Network::activate()
 						if (i->ftype == SIGMOID)
 						{
 							//i->activation = fsigmoid(i->activesum, 4.924273, 2.4621365);
+							//std::cout << i->node_bias << std::endl;
 							i->activation = NEAT::tanh(i->y + i->node_bias);
-							i->y += /*timestamp*/ i->y_dot;
+							i->y += timestamp * i->y_dot;
 						}
 					}
 					i->activation_count++;
@@ -382,33 +384,33 @@ bool NEAT::Network::activate()
 		onetime = true;
 	}
 
-	if (adaptable) {
+	//if (adaptable) {
 
-		//std::cout << "ADAPTING" << std:endl;
+	//	//std::cout << "ADAPTING" << std:endl;
 
-		// ADAPTATION:  Adapt weights based on activations 
-		for (auto &i : all_nodes)
-		{
-			if (i->type != SENSOR)
-			{
-				for (auto j : i->incoming)
-				{
-					if (j->trait_id == 2 || j->trait_id == 3 || j->trait_id == 4)
-					{
-						if (j->is_recurrent)
-						{
-							j->weight = hebbian(j->weight, maxweight, j->in_node->last_activation, j->out_node->get_active_out(), j->params[0], j->params[1], j->params[2]);
-						}
-						else
-						{
-							j->weight = hebbian(j->weight, maxweight, j->in_node->get_active_out(), j->out_node->get_active_out(), j->params[0], j->params[1], j->params[2]);
-						}
-					}
-				}
-			}
-		}
+	//	// ADAPTATION:  Adapt weights based on activations 
+	//	for (auto &i : all_nodes)
+	//	{
+	//		if (i->type != SENSOR)
+	//		{
+	//			for (auto j : i->incoming)
+	//			{
+	//				if (j->trait_id == 2 || j->trait_id == 3 || j->trait_id == 4)
+	//				{
+	//					if (j->is_recurrent)
+	//					{
+	//						j->weight = hebbian(j->weight, maxweight, j->in_node->last_activation, j->out_node->get_active_out(), j->params[0], j->params[1], j->params[2]);
+	//					}
+	//					else
+	//					{
+	//						j->weight = hebbian(j->weight, maxweight, j->in_node->get_active_out(), j->out_node->get_active_out(), j->params[0], j->params[1], j->params[2]);
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 
-	} //end if (adaptable)
+	//} //end if (adaptable)
 
 	return true;
 }

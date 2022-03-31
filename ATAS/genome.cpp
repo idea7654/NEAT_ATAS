@@ -1271,8 +1271,6 @@ void Genome::mutate_link_weights(double power, double rate, mutator mut_type) {
 	}
 
 	*/
-
-
 	//Loop on all genes  (ORIGINAL METHOD)
 	for (curgene = genes.begin(); curgene != genes.end(); curgene++) {
 
@@ -1364,64 +1362,97 @@ void Genome::mutate_link_weights(double power, double rate, mutator mut_type) {
 
 	} //end for loop
 
-	if (phenotype != nullptr)
-	{
-		for (auto &i : this->phenotype->all_nodes)
+}
+
+void NEAT::Genome::mutate_node_bias(double power, double rate, mutator mut_type)
+{
+	std::vector<Gene*>::iterator curgene;
+	double num;  //counts gene placement
+	double gene_total;
+	double powermod; //Modified power by gene number
+	//The power of mutation will rise farther into the genome
+	//on the theory that the older genes are more fit since
+	//they have stood the test of time
+
+	double randnum;
+	double randchoice; //Decide what kind of mutation to do on a gene
+	double endpart; //Signifies the last part of the genome
+	double gausspoint;
+	double coldgausspoint;
+
+	bool severe;  //Once in a while really shake things up
+
+	if (randbtn(0.0, 1.0) > 0.5) severe = true;
+	else severe = false;
+
+	//Go through all the Genes and perturb their link's weights
+	num = 0.0;
+	gene_total = (double)genes.size();
+	endpart = gene_total * 0.8; //여기 바꾸기
+	//powermod=randposneg()*power*randfloat();  //Make power of mutation random
+	//powermod=randfloat();
+	powermod = 1.0;
+
+	for (curgene = genes.begin(); curgene != genes.end(); curgene++) {
+		if (phenotype)
 		{
-			if (i->type != SENSOR)
+			for (auto &i : this->phenotype->all_nodes)
 			{
-				if (severe) {
-					gausspoint = 0.3;
-					coldgausspoint = 0.1;
-				}
-				else if ((gene_total >= 10.0) && (num > endpart)) {
-					gausspoint = 0.5;  //Mutate by modification % of connections
-					coldgausspoint = 0.3; //Mutate the rest by replacement % of the time
-				}
-				else {
-					//Half the time don't do any cold mutations
-					if (randbtn(0.0, 1.0) > 0.5) {
-						gausspoint = 1.0 - rate;
-						coldgausspoint = 1.0 - rate - 0.1;
+				if (i->type != SENSOR)
+				{
+					if (severe) {
+						gausspoint = 0.3;
+						coldgausspoint = 0.1;
+					}
+					else if ((gene_total >= 10.0) && (num > endpart)) {
+						gausspoint = 0.5;  //Mutate by modification % of connections
+						coldgausspoint = 0.3; //Mutate the rest by replacement % of the time
 					}
 					else {
-						gausspoint = 1.0 - rate;
-						coldgausspoint = 1.0 - rate;
+						//Half the time don't do any cold mutations
+						if (randbtn(0.0, 1.0) > 0.5) {
+							gausspoint = 1.0 - rate;
+							coldgausspoint = 1.0 - rate - 0.1;
+						}
+						else {
+							gausspoint = 1.0 - rate;
+							coldgausspoint = 1.0 - rate;
+						}
 					}
-				}
 
-				double randnum2 = isEven() * randbtn(0.0, 1.0) * power * powermod;
-				double randnum3 = isEven() * randbtn(0.0, 1.0) * power * powermod;
+					double randnum2 = isEven() * randbtn(0.0, 1.0) * power * powermod;
+					double randnum3 = isEven() * randbtn(0.0, 1.0) * power * powermod;
 
-				if (mut_type == GAUSSIAN)
-				{
-					randchoice = randbtn(0.0, 1.0);
-					if (randchoice > gausspoint)
+					if (mut_type == GAUSSIAN)
 					{
-						i->node_bias += randnum2;
-						i->node_tau += randnum3;
+						randchoice = randbtn(0.0, 1.0);
+						if (randchoice > gausspoint)
+						{
+							i->node_bias += randnum2;
+							i->node_tau += randnum3;
+						}
+						else if (randchoice > coldgausspoint)
+						{
+							i->node_bias = randnum2;
+							i->node_tau = randnum3;
+						}
 					}
-					else if (randchoice > coldgausspoint)
+					else if (mut_type == COLDGAUSSIAN)
 					{
 						i->node_bias = randnum2;
 						i->node_tau = randnum3;
 					}
-				}
-				else if (mut_type == COLDGAUSSIAN)
-				{
-					i->node_bias = randnum2;
-					i->node_tau = randnum3;
-				}
 
-				if (i->node_bias > 4.0) i->node_bias = 4.0;
-				else if (i->node_bias < -4.0) i->node_bias = -4.0;
+					if (i->node_bias > 4.0) i->node_bias = 4.0;
+					else if (i->node_bias < -4.0) i->node_bias = -4.0;
 
-				if (i->node_tau > 4.0) i->node_tau = 4.0;
-				else if (i->node_tau < -4.0) i->node_tau = -4.0;
+					if (i->node_tau > 4.0) i->node_bias = 4.0;
+					else if (i->node_tau < -4.0) i->node_bias = -4.0;
+					i->node_tau = (i->node_tau / 8 + 0.5) + 0.01; //timestamp
+				}
 			}
 		}
 	}
-	
 }
 
 void Genome::mutate_toggle_enable(int times) {

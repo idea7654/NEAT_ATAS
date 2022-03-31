@@ -35,7 +35,7 @@ namespace NEAT {
 		char *name; // Every Network or subNetwork can have a name
 		std::vector<NNode*> inputs;  // NNodes that input into the network
 		std::vector<NNode*> outputs; // Values output by the network
-
+		double timestamp = 0.01;
 
 
 		int net_id; // Allow for a network id

@@ -34,6 +34,7 @@ Organism::Organism(double fit, Genome *g, int gen, const char* md) {
 	mate_baby = 0;
 
 	modified = true;
+	gnome->mutate_node_bias(1.0, 1.0, COLDGAUSSIAN);
 }
 
 Organism::Organism(const Organism& org)

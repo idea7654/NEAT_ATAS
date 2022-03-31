@@ -2343,12 +2343,12 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			return 1;
 
 		out_iter = net->outputs.begin();
-		out_Right = (*out_iter)->y;
+		out_Right = (*out_iter)->activation;
 		++out_iter;
-		out_angle_right = (*out_iter)->y;
+		out_angle_right = (*out_iter)->activation;
 		++out_iter;
 		//out_angle = (*out_iter)->activation;
-		out_isShoot = net->outputs[2]->y;
+		out_isShoot = net->outputs[2]->activation;
 
 		//뭔지는 모르겟지만 첨돌릴때랑 나중에 할때랑 차이가 남... -> 생각해보자
 		//input값 부호 반대로
@@ -2364,12 +2364,12 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			return 1;
 
 		out_iter = net->outputs.begin();
-		out_Left = (*out_iter)->y;
+		out_Left = (*out_iter)->activation;
 		++out_iter;
-		out_angle_left = (*out_iter)->y;
+		out_angle_left = (*out_iter)->activation;
 		++out_iter;
 		//out_angle = (*out_iter)->activation;
-		out_isShoot += net->outputs[2]->y;
+		out_isShoot += net->outputs[2]->activation;
 
 		if (num < 3)
 		{
@@ -2431,32 +2431,25 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 		}
 
 		double out_angle = out_angle_right - out_angle_left;
-
 		double copyShoot = out_isShoot;
-		out_isShoot = out_isShoot - copyShoot * 0.3 + 0.3;
+		out_isShoot = (out_isShoot - copyShoot) * 0.3 + 0.3;
 
 		//if (abs(out_Left - out_Right) < 0.2)
 		//	fitness--;
 
 		if (num < 3)
 		{
-			userArr[num]->MoveUser(out_Right, out_Left);
+			userArr[num]->MoveUser(out_Right * 10, out_Left * 10);
 			userArr[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				userArr[num]->gun->RateOfShoot = out_isShoot / 2;
-			//users[num]->gun->Shoot();
-			//if (userArr[num]->sameDirCount > 50)
-			//	fitness--;
+				userArr[num]->gun->RateOfShoot = out_isShoot;
 		}
 		else
 		{
-			enemyArr[num - 3]->MoveUser(out_Right, out_Left);
+			enemyArr[num - 3]->MoveUser(out_Right * 10, out_Left * 10);
 			enemyArr[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot / 2;
-			//enemies[num - 3]->gun->Shoot();
-			//if (enemyArr[num - 3]->sameDirCount > 50)
-			//	fitness--;
+				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot;
 		}
 
 		mutex_2.unlock();

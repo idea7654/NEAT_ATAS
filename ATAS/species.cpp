@@ -496,10 +496,13 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 			if ((thechamp->super_champ_offspring) > 1) {
 				if ((randbtn(0.0, 1.0) < 0.8) ||
 					(NEAT::mutate_add_link_prob == 0.0))
+				{
 					//ABOVE LINE IS FOR:
 					//Make sure no links get added when the system has link adding disabled
 					new_genome->mutate_link_weights(mut_power, 1.0, GAUSSIAN);
+					new_genome->mutate_node_bias(mut_power, 1.0, GAUSSIAN);
 					//여기서..bias를 mutate!
+				}
 				else {
 					//Sometimes we add a link to a superchamp
 					net_analogue = new_genome->genesis(generation);
@@ -601,6 +604,7 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 				if (randbtn(0.0, 1.0) < NEAT::mutate_link_weights_prob) {
 					//std::cout<<"mutate_link_weights"<<std::endl;
 					new_genome->mutate_link_weights(mut_power, 1.0, GAUSSIAN);
+					new_genome->mutate_node_bias(mut_power, 1.0, GAUSSIAN);
 				}
 				if (randbtn(0.0, 1.0) < NEAT::mutate_toggle_enable_prob) {
 					//std::cout<<"mutate toggle enable"<<std::endl;
@@ -761,6 +765,7 @@ bool Species::reproduce(int generation, Population *pop, std::vector<Species*> &
 					}
 					if (randbtn(0.0, 1.0) < NEAT::mutate_link_weights_prob) {
 						new_genome->mutate_link_weights(mut_power, 1.0, GAUSSIAN);
+						new_genome->mutate_node_bias(mut_power, 1.0, GAUSSIAN);
 						//std::cout<<"mutate_link_weights: "<<new_genome<<std::endl;
 					}
 					if (randbtn(0.0, 1.0) < NEAT::mutate_toggle_enable_prob) {

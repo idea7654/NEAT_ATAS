@@ -108,6 +108,7 @@ namespace NEAT {
 
 		// Add Gaussian noise to linkweights either GAUSSIAN or COLDGAUSSIAN (from zero)
 		void mutate_link_weights(double power, double rate, mutator mut_type);
+		void mutate_node_bias(double power, double rate, mutator mut_type);
 
 		// toggle genes on or off 
 		void mutate_toggle_enable(int times);
