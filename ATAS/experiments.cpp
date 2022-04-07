@@ -2442,14 +2442,14 @@ int try_tank_mirror(Network * net, int max_steps, int thresh, int num, int roomN
 			userArr[num]->MoveUser(out_Right * 10, out_Left * 10);
 			userArr[num]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				userArr[num]->gun->RateOfShoot = out_isShoot;
+				userArr[num]->gun->RateOfShoot = out_isShoot * 2;
 		}
 		else
 		{
 			enemyArr[num - 3]->MoveUser(out_Right * 10, out_Left * 10);
 			enemyArr[num - 3]->RotateCannon(out_angle);
 			if (out_isShoot > 0)
-				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot;
+				enemyArr[num - 3]->gun->RateOfShoot = out_isShoot * 2;
 		}
 
 		mutex_2.unlock();

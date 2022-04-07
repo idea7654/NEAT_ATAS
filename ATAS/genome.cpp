@@ -1421,7 +1421,6 @@ void NEAT::Genome::mutate_node_bias(double power, double rate, mutator mut_type)
 					}
 
 					double randnum2 = isEven() * randbtn(0.0, 1.0) * power * powermod;
-					double randnum3 = isEven() * randbtn(0.0, 1.0) * power * powermod;
 
 					if (mut_type == GAUSSIAN)
 					{
@@ -1429,25 +1428,102 @@ void NEAT::Genome::mutate_node_bias(double power, double rate, mutator mut_type)
 						if (randchoice > gausspoint)
 						{
 							i->node_bias += randnum2;
-							i->node_tau += randnum3;
 						}
 						else if (randchoice > coldgausspoint)
 						{
 							i->node_bias = randnum2;
-							i->node_tau = randnum3;
 						}
 					}
 					else if (mut_type == COLDGAUSSIAN)
 					{
 						i->node_bias = randnum2;
-						i->node_tau = randnum3;
 					}
 
 					if (i->node_bias > 4.0) i->node_bias = 4.0;
 					else if (i->node_bias < -4.0) i->node_bias = -4.0;
+				}
+			}
+		}
+	}
+}
 
-					if (i->node_tau > 4.0) i->node_bias = 4.0;
-					else if (i->node_tau < -4.0) i->node_bias = -4.0;
+void NEAT::Genome::mutate_node_tau(double power, double rate, mutator mut_type)
+{
+	std::vector<Gene*>::iterator curgene;
+	double num;  //counts gene placement
+	double gene_total;
+	double powermod; //Modified power by gene number
+	//The power of mutation will rise farther into the genome
+	//on the theory that the older genes are more fit since
+	//they have stood the test of time
+
+	double randnum;
+	double randchoice; //Decide what kind of mutation to do on a gene
+	double endpart; //Signifies the last part of the genome
+	double gausspoint;
+	double coldgausspoint;
+
+	bool severe;  //Once in a while really shake things up
+
+	if (randbtn(0.0, 1.0) > 0.5) severe = true;
+	else severe = false;
+
+	//Go through all the Genes and perturb their link's weights
+	num = 0.0;
+	gene_total = (double)genes.size();
+	endpart = gene_total * 0.8; //여기 바꾸기
+	//powermod=randposneg()*power*randfloat();  //Make power of mutation random
+	//powermod=randfloat();
+	powermod = 1.0;
+
+	for (curgene = genes.begin(); curgene != genes.end(); curgene++) {
+		if (phenotype)
+		{
+			for (auto &i : this->phenotype->all_nodes)
+			{
+				if (i->type != SENSOR)
+				{
+					if (severe) {
+						gausspoint = 0.3;
+						coldgausspoint = 0.1;
+					}
+					else if ((gene_total >= 10.0) && (num > endpart)) {
+						gausspoint = 0.5;  //Mutate by modification % of connections
+						coldgausspoint = 0.3; //Mutate the rest by replacement % of the time
+					}
+					else {
+						//Half the time don't do any cold mutations
+						if (randbtn(0.0, 1.0) > 0.5) {
+							gausspoint = 1.0 - rate;
+							coldgausspoint = 1.0 - rate - 0.1;
+						}
+						else {
+							gausspoint = 1.0 - rate;
+							coldgausspoint = 1.0 - rate;
+						}
+					}
+
+					double randnum3 = isEven() * randbtn(0.0, 1.0) * power * powermod;
+
+					if (mut_type == GAUSSIAN)
+					{
+						randchoice = randbtn(0.0, 1.0);
+						if (randchoice > gausspoint)
+						{
+							i->node_tau += randnum3;
+						}
+						else if (randchoice > coldgausspoint)
+						{
+							i->node_tau = randnum3;
+						}
+					}
+					else if (mut_type == COLDGAUSSIAN)
+					{
+						i->node_tau = randnum3;
+					}
+
+					if (i->node_tau > 4.0) i->node_tau = 4.0;
+					else if (i->node_tau < -4.0) i->node_tau = -4.0;
 					i->node_tau = (i->node_tau / 8 + 0.5) + 0.01; //timestamp
 				}
 			}
@@ -1548,10 +1624,7 @@ bool Genome::mutate_add_node(std::vector<Innovation*> &innovs, int &curnode_id, 
 		//Now randomize which node is chosen at this point
 		//We bias the search towards older genes because 
 		//this encourages splitting to distribute evenly
-		while (((thegene != genes.end()) &&
-			(randbtn(0.0, 1.0) < 0.3)) ||
-			((thegene != genes.end())
-				&& (((*thegene)->lnk->in_node)->gen_node_label == BIAS)))
+		while (((thegene != genes.end()) && (randbtn(0.0, 1.0) < 0.3)) || ((thegene != genes.end()) && (((*thegene)->lnk->in_node)->gen_node_label == BIAS)))
 		{
 			++thegene;
 		}
